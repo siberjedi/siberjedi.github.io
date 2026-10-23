@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="SiberJedi">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Planla! — Ücretsiz Ders Programı Hazırlama Programı">
-<meta name="twitter:description" content="Ücretsiz, kurulum gerektirmeyen otomatik ders programı hazırlama aracı. Hemen indir, baslat.vbs ile çalıştır.">
+<meta name="twitter:description" content="Ücretsiz, kurulum gerektirmeyen otomatik ders programı hazırlama aracı. Açık kaynak, index.html dosyasını tarayıcıda açman yeterli.">
 <meta name="twitter:creator" content="@siberjedi">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -44,7 +44,7 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "Planla! ücretsiz mi?", "acceptedAnswer": {"@type": "Answer", "text": "Evet, tamamen ücretsizdir. Kurulum gerektirmez, baslat.vbs dosyasına çift tıklayarak tarayıcınızda çalışır. İnternet gerekmez."}},
+    {"@type": "Question", "name": "Planla! ücretsiz mi?", "acceptedAnswer": {"@type": "Answer", "text": "Evet, tamamen ücretsizdir. Kurulum gerektirmez, index.html dosyasını tarayıcınızda açarak kullanılır. İnternet gerekmez."}},
     {"@type": "Question", "name": "Ders programı nasıl otomatik hazırlanır?", "acceptedAnswer": {"@type": "Answer", "text": "Okul, ders, öğretmen, sınıf ve derslik bilgilerini ekleyip ders tanımları oluşturduktan sonra Dağıt butonuna basın. Planla! 9 tura kadar en iyi yerleşimi arar ve çakışmaları engeller."}},
     {"@type": "Question", "name": "Ücretli programlardan farkı ne?", "acceptedAnswer": {"@type": "Answer", "text": "Planla! ücretsiz olmasına rağmen çoklu okul, öğretmen çakışma kontrolü, teneffüs ve öğle arası kuralları, PDF/Excel çıktısı gibi ücretli programlardaki tüm temel özellikleri sunar ve offline çalışır."}},
     {"@type": "Question", "name": "Verilerim nerede saklanıyor?", "acceptedAnswer": {"@type": "Answer", "text": "Veriler tarayıcınızın hafızasında (localStorage) saklanır. Kaydet ile JSON yedeği alıp başka bilgisayara taşıyabilirsiniz."}},
@@ -142,13 +142,13 @@
     <p class="hero-sub">Kurulum yok · Offline · Tamamen ücretsiz</p>
     <p class="hero-desc">
       Okul ders programı hazırlama artık saatler sürmesin. <strong>Planla!</strong> ile öğretmen, sınıf ve derslik çakışmalarını otomatik çözen, <strong>ders dağıtımını dakikalar içinde</strong> yapan ücretsiz bir <strong>ders programı yapma programı</strong>.
-      Ücretli alternatiflere göre daha hızlı, daha kolay ve internet gerektirmez — <strong>baslat.vbs</strong>'e çift tıklayın, tarayıcınızda açılır.
+      Ücretli alternatiflere göre daha hızlı, daha kolay ve internet gerektirmez — klasördeki <strong>index.html</strong> dosyasını tarayıcınızda açın, hemen çalışır.
     </p>
     <div class="cta">
-      <a href="https://github.com/siberjedi/planla" target="_blank" rel="noopener" class="btn">Hemen İndir — Ücretsiz ↓</a>
+      <a href="https://github.com/siberjedi/planla" target="_blank" rel="noopener" class="btn">GitHub'da Gör — Ücretsiz</a>
     <a href="#nasil" class="btn cyan">Nasıl Çalışır?</a>
   </div>
-    <p style="margin-top:1rem;font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:2px;color:var(--muted)">PLANLA.ZIP · ~600 KB · WINDOWS / MAC / LINUX</p>
+    <p style="margin-top:1rem;font-family:'Share Tech Mono',monospace;font-size:.7rem;letter-spacing:2px;color:var(--muted)">AÇIK KAYNAK · GITHUB · WINDOWS / MAC / LINUX</p>
   </div>
   <div class="hero-ticker-wrap" id="hero-ticker-wrap" aria-hidden="true">
     <div class="hero-ticker" id="hero-ticker"><div class="hero-ticker-empty">Mesajlar yükleniyor...</div></div>
@@ -184,24 +184,12 @@
   <h2 class="section-title">Mesaj Panosu — Geri Bildirim</h2>
   <p style="color:var(--muted);line-height:1.8;max-width:700px;margin:-2rem 0 2rem">Planla! kullananlar mesaj bırakabilir — beğendiklerimi burada yayınlıyorum.</p>
   <div class="feedback-grid">
-    <form id="feedback-form" class="feedback-form" action="https://formsubmit.co/siberjedi@gmail.com" method="POST">
+    <div id="feedback-form" class="feedback-form">
       <h3>Mesaj Bırak</h3>
-      <input type="hidden" name="_subject" value="Yeni pano mesajı — planla.html">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="text" name="_honey" style="display:none">
-      <div>
-        <label for="fb-name">İsim</label>
-        <input id="fb-name" class="feedback-input" type="text" name="name" placeholder="Adınız" required maxlength="40">
-      </div>
-      <div>
-        <label for="fb-msg">Mesaj</label>
-        <textarea id="fb-msg" class="feedback-textarea" name="message" placeholder="Öneriniz, teşekkür veya geri bildiriminiz..." required maxlength="500"></textarea>
-      </div>
-      <button class="feedback-btn" type="submit">Gönder →</button>
-      <p id="fb-status" class="feedback-hint" style="display:none"></p>
-      <p class="feedback-hint">Gönderilenler önce bana email olarak düşer. Onayladıklarım burada yayınlanır.</p>
-    </form>
+      <p class="feedback-hint">Öneri, hata bildirimi veya teşekkür için GitHub'da bir başlık aç ya da e-posta gönder. Beğendiklerimi burada yayınlıyorum.</p>
+      <a class="feedback-btn" href="https://github.com/siberjedi/planla/issues" target="_blank" rel="noopener" style="text-align:center;text-decoration:none">GitHub'da Öneri Aç →</a>
+      <p class="feedback-hint">E-posta: <span style="user-select:all">siberjedi@gmail.com</span></p>
+    </div>
     <div>
       <h3 style="font-family:'Orbitron',monospace;color:#fff;font-size:1rem;margin-bottom:1rem">Yayınlanan Mesajlar</h3>
       <div id="feedback-list" class="feedback-list"><div class="feedback-empty">Yükleniyor...</div></div>
@@ -237,7 +225,7 @@
       <tr><td>Çoklu okul desteği</td><td class="ok">✓</td><td class="ok">✓ / ek ücret</td></tr>
       <tr><td>Öğle arası & teneffüs kuralları</td><td class="ok">✓</td><td class="ok">✓</td></tr>
       <tr><td>PDF / Excel çıktısı</td><td class="ok">✓</td><td class="ok">✓</td></tr>
-      <tr><td>Kurulum gerektirir mi?</td><td class="ok">Hayır — baslat.vbs</td><td class="no">Evet</td></tr>
+      <tr><td>Kurulum gerektirir mi?</td><td class="ok">Hayır — tarayıcıda açılır</td><td class="no">Evet</td></tr>
       <tr><td>İnternet gerekir mi?</td><td class="ok">Hayır</td><td class="no">Genelde evet</td></tr>
       <tr><td>Lisans ücreti</td><td class="ok">0 TL — tamamen ücretsiz</td><td class="no">Yıllık 1000+ TL</td></tr>
     </table>
@@ -270,7 +258,7 @@
 <section class="faq">
   <p class="section-label">// sss</p>
   <h2 class="section-title">Sık Sorulan Sorular — Ders Programı Hazırlama</h2>
-  <details><summary>Planla! ders programı programı ücretsiz mi?</summary><p>Evet, tamamen ücretsizdir ve ömür boyu ücretsiz kalacak. Kurulum gerektirmez, baslat.vbs'e çift tıklayarak çalışır.</p></details>
+  <details><summary>Planla! ders programı programı ücretsiz mi?</summary><p>Evet, tamamen ücretsizdir ve ömür boyu ücretsiz kalacak. Kurulum gerektirmez, index.html dosyasını tarayıcıda açarak çalışır.</p></details>
   <details><summary>Ders programı otomatik nasıl hazırlanır?</summary><p>Okul ayarları, ders/öğretmen/sınıf ekleme ve ders tanımlama adımlarından sonra sol alttaki Dağıt butonuna basın. Ön kontrol hatalarını düzeltip Dağıtımı Başlat deyin.</p></details>
   <details><summary>Ücretli programlardaki gibi çakışma kontrolü var mı?</summary><p>Evet. Sınıf, öğretmen, derslik ve çapraz okul çakışmaları, kapalı saatler, teneffüs ve öğle arası kuralları otomatik denetlenir. Çizelgeyi Doğrula ile hepsini listeleyebilirsiniz.</p></details>
   <details><summary>PDF ve Excel olarak çıktı alabilir miyim?</summary><p>Evet. Yazdır/PDF ve Excel butonları ile tek çizelge, tüm sınıflar, tüm öğretmenler veya tüm okullar için çıktı alabilirsiniz.</p></details>
@@ -321,23 +309,6 @@
       ticker.innerHTML='<div class="hero-ticker-empty">Mesajlar yüklenemedi.</div>';
       ticker.style.animation='none';
     }
-  })();
-  (()=>{
-    const form=document.getElementById('feedback-form'),status=document.getElementById('fb-status'),btn=form.querySelector('button[type="submit"]');
-    form.addEventListener('submit',async(e)=>{
-      e.preventDefault(); if(form._honey.value) return;
-      btn.disabled=true; btn.textContent='Gönderiliyor...'; status.style.display='none';
-      const data={name:document.getElementById('fb-name').value, message:document.getElementById('fb-msg').value, _subject:"Yeni pano mesajı — planla.html", _captcha:"false", _template:"table"};
-      try{
-        const res=await fetch("https://formsubmit.co/ajax/siberjedi@gmail.com",{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
-        const j=await res.json().catch(()=>({}));
-        if(res.ok){status.textContent='✓ Mesajın alındı! Onaylayınca panoda yayınlanacak.';status.style.color='var(--green)';status.style.display='block';form.reset();}
-        else throw new Error(j.message||'fail');
-      }catch(err){
-        status.textContent='Gönderilemedi — tekrar dene veya siberjedi@gmail.com\'a yaz.';
-        status.style.color='var(--pink)';status.style.display='block';
-      } finally{btn.disabled=false;btn.textContent='Gönder →';}
-    });
   })();
 </script>
 </body>
