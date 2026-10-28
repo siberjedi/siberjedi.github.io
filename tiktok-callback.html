@@ -184,7 +184,13 @@
 <script>
   const q = new URLSearchParams(location.search);
   const code = q.get('code'), err = q.get('error');
-  if (code) { document.getElementById('status').textContent = 'Authorization code received'; document.getElementById('code').textContent = code; }
+  if (code) {
+    document.getElementById('status').textContent = 'Authorization code received';
+    document.getElementById('code').textContent = code;
+    fetch('http://127.0.0.1:8765/exchange', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({code})})
+      .then(r => r.json()).then(j => { if (j.ok) { document.getElementById('status').textContent = 'Connected - returning to the console...'; setTimeout(() => location.href = 'publisher.html', 1500); } })
+      .catch(() => {});
+  }
   if (err) { document.getElementById('status').textContent = 'Authorization failed'; document.getElementById('err').textContent = err + ': ' + (q.get('error_description') || ''); }
 </script>
 
