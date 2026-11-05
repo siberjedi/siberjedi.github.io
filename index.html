@@ -1100,19 +1100,81 @@
 
 <!-- CONTACT -->
 <section id="iletisim">
-  <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto;">
+  <div class="reveal" style="text-align:center; max-width: 720px; margin: 0 auto 2rem;">
     <p class="section-label" style="text-align:center">// contact</p>
     <h2 class="section-title" style="text-align:center; margin-bottom:1rem">İletişim</h2>
-    <p style="color:var(--muted); line-height:1.8; margin-bottom:2rem; font-size:1.05rem;">
-      İş birliği, proje fikri veya sadece selamlaşmak için ulaşabilirsin.<br>
-      <span style="color:var(--cyan)">Cevap veririm, gerçekten.</span>
+    <p style="color:var(--muted); line-height:1.8; font-size:1.05rem;">
+      İş birliği, basın, oyun testi veya hata bildirimi için ulaş.<br>
+      <span style="color:var(--cyan)">Genelde 24 saat içinde cevap veririm.</span>
     </p>
-    <a href="mailto:siberjedi@gmail.com" class="btn">İletişime Geç</a>
+  </div>
+
+  <div class="reveal" style="max-width:720px;margin:0 auto 1.5rem;background:var(--dim);border:1px solid var(--border);border-radius:14px;padding:22px;">
+    <p style="font-family:'Share Tech Mono',monospace;font-size:.72rem;letter-spacing:2px;color:var(--muted);margin-bottom:10px;">E-POSTA</p>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between;">
+      <a href="mailto:siberjedi@gmail.com" id="eposta-adres" style="font-family:'Orbitron',sans-serif;font-size:clamp(.95rem,3vw,1.35rem);color:var(--cyan);text-decoration:none;word-break:break-all;">siberjedi@gmail.com</a>
+      <div style="display:flex;gap:8px;">
+        <button id="kopyala-btn" style="font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:.5px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);padding:9px 16px;border-radius:8px;cursor:pointer;">Kopyala</button>
+        <a href="mailto:siberjedi@gmail.com?subject=SiberJedi%20—%20İletişim" style="font-family:'Orbitron',sans-serif;font-weight:700;font-size:.82rem;background:linear-gradient(135deg,var(--cyan),var(--pink));color:#02060c;padding:10px 18px;border-radius:8px;text-decoration:none;">E-posta Gönder</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal" style="max-width:720px;margin:0 auto 2rem;">
+    <p style="font-family:'Share Tech Mono',monospace;font-size:.72rem;letter-spacing:2px;color:var(--muted);margin-bottom:12px;text-align:center;">NE İÇİN YAZABİLİRSİN</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+      <span style="border:1px solid var(--border);border-radius:999px;padding:7px 14px;font-size:.9rem;color:var(--text);">İş birliği</span>
+      <span style="border:1px solid var(--border);border-radius:999px;padding:7px 14px;font-size:.9rem;color:var(--text);">Basın / röportaj</span>
+      <span style="border:1px solid var(--border);border-radius:999px;padding:7px 14px;font-size:.9rem;color:var(--text);">Oyun testi</span>
+      <span style="border:1px solid var(--border);border-radius:999px;padding:7px 14px;font-size:.9rem;color:var(--text);">Hata bildirimi</span>
+      <span style="border:1px solid var(--border);border-radius:999px;padding:7px 14px;font-size:.9rem;color:var(--text);">Öneri / fikir</span>
+    </div>
+  </div>
+
+  <div class="social-grid reveal" style="max-width:720px;margin:0 auto;">
+    <a href="https://www.instagram.com/siberjedi" target="_blank" rel="noopener" class="social-card">
+      <span class="social-icon">📸</span>
+      <span class="social-name">Instagram</span>
+      <span class="social-handle">@siberjedi</span>
+    </a>
+    <a href="https://www.youtube.com/@siberjedi" target="_blank" rel="noopener" class="social-card">
+      <span class="social-icon">▶️</span>
+      <span class="social-name">YouTube</span>
+      <span class="social-handle">@siberjedi</span>
+    </a>
+    <a href="https://siberjedi.itch.io" target="_blank" rel="noopener" class="social-card">
+      <span class="social-icon">🎮</span>
+      <span class="social-name">Itch.io</span>
+      <span class="social-handle">siberjedi.itch.io</span>
+    </a>
+    <a href="https://play.google.com/store/apps/dev?id=AlpiGames" target="_blank" rel="noopener" class="social-card">
+      <span class="social-icon">🤖</span>
+      <span class="social-name">Google Play</span>
+      <span class="social-handle">Tüm oyunlar</span>
+    </a>
   </div>
 </section>
 
+<script>
+(function(){
+  var b = document.getElementById('kopyala-btn');
+  if(!b) return;
+  b.addEventListener('click', function(){
+    var t = 'siberjedi@gmail.com';
+    var ok = function(){ b.textContent='Kopyalandı ✓'; setTimeout(function(){ b.textContent='Kopyala'; }, 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(ok).catch(function(){ b.textContent=t; });
+    } else {
+      var ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); ok(); } catch(e) { b.textContent=t; }
+      document.body.removeChild(ta);
+    }
+  });
+})();
+</script>
+
 <footer>
-  <p>© 2025 <span>SiberJedi</span> · Tüm hakları saklı · <a href="privacy-policy.html" style="color:var(--muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a></p>
+  <p>© 2026 <span>SiberJedi</span> · Tüm hakları saklı · <a href="privacy-policy.html" style="color:var(--muted);text-decoration:none;transition:color 0.2s" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--muted)'">Privacy Policy</a></p>
 </footer>
 
 <script>
