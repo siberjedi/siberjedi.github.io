@@ -9,17 +9,18 @@
 <meta name="author" content="SiberJedi">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://siberjedi.github.io/soul-of-hero.html">
+<link rel="icon" type="image/png" href="img/icon-soul-of-hero.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://siberjedi.github.io/soul-of-hero.html">
 <meta property="og:title" content="Soul of Hero — Action / Platform | SiberJedi">
 <meta property="og:description" content="Orman donuyor. 5 dev boss. Tek kahraman.">
-<meta property="og:image" content="https://siberjedi.github.io/img/soh-1.jpg">
+<meta property="og:image" content="https://siberjedi.github.io/img/shot-soul-of-hero-1.jpg">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="SiberJedi">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Soul of Hero | SiberJedi">
 <meta name="twitter:description" content="Orman donuyor. 5 dev boss. Tek kahraman.">
-<meta name="twitter:image" content="https://siberjedi.github.io/img/soh-1.jpg">
+<meta name="twitter:image" content="https://siberjedi.github.io/img/shot-soul-of-hero-1.jpg">
 <meta name="theme-color" content="#020408">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,84 +49,65 @@
   },
   "downloadUrl": "https://play.google.com/store/apps/details?id=com.AlpiGames.SoulOfHero",
   "image": [
-    "https://siberjedi.github.io/img/soh-1.jpg",
-    "https://siberjedi.github.io/img/soh-2.jpg",
-    "https://siberjedi.github.io/img/soh-3.jpg"
+    "https://siberjedi.github.io/img/icon-soul-of-hero.png",
+    "https://siberjedi.github.io/img/shot-soul-of-hero-1.jpg"
   ]
 }
 </script>
 <style>
 :root{--bg:#020408;--bg2:#050d15;--cyan:#00f5ff;--pink:#ff0080;--yellow:#ffee00;--green:#00ff88;--dim:#0a1a2a;--border:rgba(0,245,255,.15);--text:#c8e8f0;--muted:#4a7a8a}
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Rajdhani',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;line-height:1.6;overflow-x:hidden;padding-top:78px}
 a{color:var(--cyan);text-decoration:none}
-nav{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-nav a{font-weight:600;letter-spacing:.5px;font-size:.95rem}
-nav .mark{font-family:'Oxanium','Rajdhani',sans-serif;font-weight:900;color:var(--cyan);text-shadow:0 0 18px rgba(0,245,255,.6)}
-.hero{padding:56px 24px 40px;max-width:1100px;margin:0 auto}
-.badge{display:inline-block;font-family:'Share Tech Mono','Oxanium',monospace;font-size:.72rem;letter-spacing:2px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:4px 12px;margin-bottom:16px}
-h1{font-family:'Oxanium','Rajdhani',sans-serif;font-size:clamp(1.9rem,5vw,3.2rem);line-height:1.1;margin-bottom:14px}
-h1 span{color:var(--a1)}
-.lede{font-size:clamp(1rem,2.2vw,1.25rem);color:var(--text);max-width:720px;margin-bottom:26px}
-.btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--a1),var(--a2));color:#02060c;font-weight:700;font-family:'Oxanium','Rajdhani',sans-serif;letter-spacing:.5px;padding:14px 26px;border-radius:10px;box-shadow:0 0 26px rgba(0,245,255,.28);transition:transform .15s}
-.btn:hover{transform:translateY(-2px)}
-.meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;font-size:.9rem;color:var(--muted);font-family:'Share Tech Mono','Oxanium',monospace}
-.meta b{color:var(--text);font-family:'Rajdhani',sans-serif}
-section{max-width:1100px;margin:0 auto;padding:38px 24px}
-h2{font-family:'Oxanium','Rajdhani',sans-serif;font-size:1.35rem;letter-spacing:1px;margin-bottom:18px;color:var(--a1)}
-.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.shots img{width:100%;border-radius:12px;border:1px solid var(--border);display:block}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px}
-.card h3{font-family:'Oxanium','Rajdhani',sans-serif;font-size:.95rem;color:var(--a1);margin-bottom:8px}
-ol.steps{counter-reset:s;list-style:none;display:grid;gap:12px}
-ol.steps li{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px 14px 54px;position:relative}
-ol.steps li:before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:50%;background:var(--a1);color:#02060c;font-family:'Oxanium','Rajdhani',sans-serif;font-weight:900;display:grid;place-items:center;font-size:.85rem}
-.others{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.other{display:block;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;transition:border-color .15s}
-.other:hover{border-color:var(--a1)}
-.other b{display:block;font-family:'Oxanium','Rajdhani',sans-serif;font-size:.9rem;color:var(--text);margin-bottom:4px}
-.other span{font-size:.85rem;color:var(--muted)}
-footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:var(--muted);font-size:.85rem}
-footer a{margin:0 8px}
-
-.hero,.btn{--a1:#00ff88;--a2:#ff0080}
-h1 span{color:#00ff88} h2{color:#00ff88} .card h3{color:#00ff88}
-ol.steps li:before{background:#00ff88} .other:hover{border-color:#00ff88}
-.btn{--a1:#00ff88;--a2:#ff0080}
-nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 500;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 3rem;
-    background: rgba(2,4,8,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-/* ---- ana sayfa ile ayni top bar ---- */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem;background:rgba(2,4,8,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .nav-logo{font-family:'Oxanium','Rajdhani',sans-serif;font-size:1.1rem;font-weight:900;color:var(--cyan);text-shadow:0 0 20px var(--cyan);letter-spacing:2px;text-decoration:none}
 .nav-logo span{color:var(--pink);text-shadow:0 0 20px var(--pink)}
 .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;margin:0;padding:0}
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:3px;text-transform:uppercase;font-family:'Share Tech Mono','Oxanium',monospace;transition:color .2s,text-shadow .2s}
 .nav-links a:hover{color:var(--cyan);text-shadow:0 0 10px var(--cyan)}
-.nav-planla{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .8rem;border:1px solid var(--green);background:rgba(0,255,136,.08);color:var(--green)!important;box-shadow:0 0 12px rgba(0,255,136,.25),0 0 30px rgba(0,255,136,.08);animation:planlaPulse 2.2s ease-in-out infinite;border-radius:2px;letter-spacing:2px}
+.nav-planla{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .8rem;border:1px solid var(--green);background:rgba(0,255,136,.08);color:var(--green)!important;box-shadow:0 0 12px rgba(0,255,136,.25);border-radius:2px;letter-spacing:2px}
 .nav-badge{font-size:.55rem;letter-spacing:2px;background:var(--green);color:#020408;padding:.15rem .35rem;border-radius:2px;font-weight:700}
-@keyframes planlaPulse{0%,100%{box-shadow:0 0 12px rgba(0,255,136,.25),0 0 30px rgba(0,255,136,.08)}50%{box-shadow:0 0 20px rgba(0,255,136,.45),0 0 50px rgba(0,255,136,.15)}}
 .nav-toggle{display:none;background:transparent;border:1px solid var(--border);color:var(--cyan);font-size:1.4rem;padding:.3rem .6rem;cursor:pointer}
-@media (max-width:900px){
-  nav{padding:1rem 1.5rem;flex-wrap:wrap}
-  .nav-toggle{display:block}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(2,4,8,.96);border-top:1px solid var(--border);padding:1rem 1.5rem;gap:1rem;z-index:600}
-  .nav-links.open{display:flex}
-  .nav-planla{justify-content:center}
-}
-/* fixed nav icin govde boslugu */
-body{padding-top:78px}
+@media (max-width:900px){nav{padding:1rem 1.5rem;flex-wrap:wrap}.nav-toggle{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(2,4,8,.96);border-top:1px solid var(--border);padding:1rem 1.5rem;gap:1rem;z-index:600}.nav-links.open{display:flex}.nav-planla{justify-content:center}}
+.hero{padding:48px 24px 32px;max-width:1100px;margin:0 auto}
+.hero-ikon{width:110px;height:110px;border-radius:24px;border:2px solid var(--a1);box-shadow:0 0 30px var(--a1),0 0 60px rgba(0,245,255,.12);margin-bottom:18px;display:block}
+.badge{display:inline-block;font-family:'Share Tech Mono','Oxanium',monospace;font-size:.72rem;letter-spacing:2px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:4px 12px;margin-bottom:16px}
+h1{font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;font-size:clamp(1.9rem,5vw,3.1rem);line-height:1.1;margin-bottom:14px}
+h1 span{color:var(--a1)}
+.lede{font-size:clamp(1rem,2.2vw,1.2rem);max-width:760px;margin-bottom:24px;color:var(--text)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--a1),var(--a2));color:#02060c;font-weight:700;font-family:'Oxanium','Rajdhani',sans-serif;letter-spacing:.5px;padding:14px 26px;border-radius:10px;box-shadow:0 0 26px rgba(0,245,255,.25);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px;font-size:.85rem;color:var(--muted);font-family:'Share Tech Mono','Oxanium',monospace}
+.meta b{color:var(--text);font-family:'Rajdhani',sans-serif}
+section{max-width:1100px;margin:0 auto;padding:34px 24px}
+h2{font-family:'Oxanium','Rajdhani',sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:1px;margin-bottom:18px;color:var(--a1)}
+/* KAYDIRMALI GALERI */
+.galeri{position:relative}
+.serit{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;scrollbar-width:thin;scrollbar-color:var(--a1) transparent}
+.serit::-webkit-scrollbar{height:8px}
+.serit::-webkit-scrollbar-thumb{background:var(--a1);border-radius:4px}
+.serit::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:4px}
+.serit img{height:min(62vh,520px);width:auto;border-radius:12px;border:1px solid var(--border);scroll-snap-align:center;flex:0 0 auto;background:#050d15}
+.oklar{display:flex;gap:8px;justify-content:flex-end;margin-top:10px}
+.ok{background:rgba(10,26,42,.9);border:1px solid var(--a1);color:var(--a1);width:42px;height:42px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:grid;place-items:center;transition:background .15s}
+.ok:hover{background:var(--a1);color:#02060c}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.kart{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px}
+.kart p{font-size:.95rem;color:var(--text)}
+ol.adimlar{counter-reset:s;list-style:none;display:grid;gap:12px}
+ol.adimlar li{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px 14px 56px;position:relative}
+ol.adimlar li:before{counter-increment:s;content:counter(s);position:absolute;left:14px;top:12px;width:28px;height:28px;border-radius:50%;background:var(--a1);color:#02060c;font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;display:grid;place-items:center;font-size:.9rem}
+.digerleri{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.diger{display:flex;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px;transition:border-color .15s}
+.diger:hover{border-color:var(--a1)}
+.diger img{width:44px;height:44px;border-radius:10px}
+.diger b{display:block;font-family:'Oxanium','Rajdhani',sans-serif;font-size:.9rem;color:var(--text)}
+.diger span{font-size:.78rem;color:var(--muted)}
+footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:var(--muted);font-size:.85rem;margin-top:30px}
+footer a{margin:0 8px}
 
+.hero,.btn,h1 span,h2{--a1:#00ff88;--a2:#ff0080}
+body{--a1:#00ff88;--a2:#ff0080}
 </style>
 </head>
 <body>
@@ -144,7 +126,8 @@ body{padding-top:78px}
 </nav>
 
 <header class="hero">
-  <div class="badge">ACTION / PLATFORM · Android · ÜCRETSIZ</div>
+  <img class="hero-ikon" src="img/icon-soul-of-hero.svg" alt="Soul of Hero ikonu" width="110" height="110">
+  <div class="badge">ACTION / PLATFORM · ANDROID · ÜCRETSİZ</div>
   <h1>Soul of Hero<br><span>Buzdan Kahramanın Destanı</span></h1>
   <p class="lede">Orman donuyor. 5 dev boss. Tek kahraman.</p>
   <a class="btn" href="https://play.google.com/store/apps/details?id=com.AlpiGames.SoulOfHero" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
@@ -156,31 +139,38 @@ body{padding-top:78px}
   </div>
 </header>
 
-<section>
+<section class="galeri">
   <h2>EKRAN GÖRÜNTÜLERİ</h2>
-  <div class="shots">
-      <img src="img/soh-1.jpg" alt="Soul of Hero ekran görüntüsü 1" loading="lazy" width="900" height="506">
-      <img src="img/soh-2.jpg" alt="Soul of Hero ekran görüntüsü 2" loading="lazy" width="900" height="506">
-      <img src="img/soh-3.jpg" alt="Soul of Hero ekran görüntüsü 3" loading="lazy" width="900" height="506">
+  <div class="serit" id="serit">
+        <img src="img/shot-soul-of-hero-1.jpg" alt="Soul of Hero ekran görüntüsü 0" loading="lazy">
+        <img src="img/shot-soul-of-hero-2.jpg" alt="Soul of Hero ekran görüntüsü 1" loading="lazy">
+        <img src="img/shot-soul-of-hero-3.jpg" alt="Soul of Hero ekran görüntüsü 2" loading="lazy">
+        <img src="img/shot-soul-of-hero-4.jpg" alt="Soul of Hero ekran görüntüsü 3" loading="lazy">
+        <img src="img/shot-soul-of-hero-5.jpg" alt="Soul of Hero ekran görüntüsü 4" loading="lazy">
+        <img src="img/shot-soul-of-hero-6.jpg" alt="Soul of Hero ekran görüntüsü 5" loading="lazy">
+  </div>
+  <div class="oklar">
+    <button class="ok" id="geri" aria-label="Önceki">‹</button>
+    <button class="ok" id="ileri" aria-label="Sonraki">›</button>
   </div>
 </section>
 
 <section>
   <h2>NASIL OYNANIR</h2>
-  <ol class="steps">
-        <li>Dondur, tekmele, zincirle</li>
-        <li>Boss&#x27;un zayıf noktasını bul</li>
-        <li>Yeni yetenekler aç</li>
+  <ol class="adimlar">
+          <li>Dondur, tekmele, zincirle</li>
+          <li>Boss&#x27;un zayıf noktasını bul</li>
+          <li>Yeni yetenekler aç</li>
   </ol>
 </section>
 
 <section>
   <h2>ÖZELLİKLER</h2>
   <div class="grid">
-        <div class="card"><h3>5 dev boss savaşı</h3><p>5 dev boss savaşı</p></div>
-        <div class="card"><h3>Donmuş orman dünyası</h3><p>Donmuş orman dünyası</p></div>
-        <div class="card"><h3>Soul tabanlı yükseltme sistemi</h3><p>Soul tabanlı yükseltme sistemi</p></div>
-        <div class="card"><h3>Hızlı refleks gerektiren platform bölümleri</h3><p>Hızlı refleks gerektiren platform bölümleri</p></div>
+          <div class="kart"><p>5 dev boss savaşı</p></div>
+          <div class="kart"><p>Donmuş orman dünyası</p></div>
+          <div class="kart"><p>Soul tabanlı yükseltme sistemi</p></div>
+          <div class="kart"><p>Hızlı refleks gerektiren platform bölümleri</p></div>
   </div>
 </section>
 
@@ -191,24 +181,33 @@ body{padding-top:78px}
 
 <section>
   <h2>DİĞER OYUNLAR</h2>
-  <div class="others">
-        <a class="other" href="chainquake.html"><b>Chainquake</b><span>Buz topuna dönüştür, it, zincirle. 4 element dünyası ve dev …</span></a>
-        <a class="other" href="keycap-kingdom.html"><b>Keycap Kingdom</b><span>Tuşa bas, coin kazan, klavyeni kur. Merge ve arcade mini oyu…</span></a>
-        <a class="other" href="daki-in-space.html"><b>Daki In Space</b><span>Güneş&#x27;ten Neptün&#x27;e 10 durak. 6 gemi, asteroid kuşağı, coin a…</span></a>
-        <a class="other" href="/"><b>Tüm Oyunlar</b><span>SiberJedi ana sayfa</span></a>
+  <div class="digerleri">
+        <a class="diger" href="chainquake.html"><img src="img/icon-chainquake.svg" alt="Chainquake ikonu" width="44" height="44"><div><b>Chainquake</b><span>Arcade / Platform</span></div></a>
+        <a class="diger" href="keycap-kingdom.html"><img src="img/icon-keycap-kingdom.svg" alt="Keycap Kingdom ikonu" width="44" height="44"><div><b>Keycap Kingdom</b><span>Idle / Tapper</span></div></a>
+        <a class="diger" href="daki-in-space.html"><img src="img/icon-daki-in-space.svg" alt="Daki In Space ikonu" width="44" height="44"><div><b>Daki In Space</b><span>Arcade / Space</span></div></a>
+        <a class="diger" href="coredrop.html"><img src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="44" height="44"><div><b>CoreDrop</b><span>Çok Yakında</span></div></a>
   </div>
 </section>
 
 <footer>
   © 2026 SiberJedi ·
-  <a href="/">Ana Sayfa</a>
-  <a href="planla.html">Planla!</a>
-  <a href="privacy-policy.html">Gizlilik</a>
-  <a href="terms-of-service.html">Şartlar</a>
+  <a href="/">Ana Sayfa</a> ·
+  <a href="chainquake.html">Chainquake</a> ·
+  <a href="keycap-kingdom.html">Keycap</a> ·
+  <a href="soul-of-hero.html">SOH</a> ·
+  <a href="daki-in-space.html">Daki</a> ·
+  <a href="coredrop.html">CoreDrop</a>
 </footer>
+
 <script>
-(function(){var t=document.getElementById('nav-toggle'),l=document.getElementById('nav-links');
-if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
+(function(){
+  var t=document.getElementById('nav-toggle'),l=document.getElementById('nav-links');
+  if(t&&l) t.addEventListener('click',function(){l.classList.toggle('open');});
+  var s=document.getElementById('serit');
+  var adim=function(){var i=s.querySelector('img'); return i? i.getBoundingClientRect().width+14 : 400;};
+  document.getElementById('geri').addEventListener('click',function(){s.scrollBy({left:-adim()*2,behavior:'smooth'});});
+  document.getElementById('ileri').addEventListener('click',function(){s.scrollBy({left:adim()*2,behavior:'smooth'});});
+})();
 </script>
 </body>
 </html>

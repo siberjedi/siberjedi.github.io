@@ -839,6 +839,7 @@
   }
   .download-btn:hover::before { transform: scaleX(1); }
   .download-btn:hover { color: var(--bg); }
+.game-icon-img{width:64px;height:64px;border-radius:14px;display:block;margin-bottom:.8rem;filter:drop-shadow(0 0 12px rgba(0,245,255,.35))}
 </style>
 </head>
 <body>
@@ -878,7 +879,37 @@
 <div class="glow-sep"></div>
 
 <!-- ABOUT -->
-<section id="hakkinda">
+<section 
+<div id="promo-slider" style="max-width:1100px;margin:1.5rem auto 0;padding:0 24px;">
+  <a id="promo-link" href="coredrop.html" style="display:block;position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--border);text-decoration:none;">
+    <img id="promo-img" src="img/shot-coredrop-1.jpg" alt="CoreDrop — çok yakında" style="width:100%;height:min(38vh,340px);object-fit:cover;display:block;opacity:.92">
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,4,8,.92) 0%,rgba(2,4,8,.45) 55%,rgba(2,4,8,.15) 100%);display:flex;flex-direction:column;justify-content:center;padding:0 clamp(16px,4vw,48px);">
+      <span id="promo-etiket" style="font-family:'Share Tech Mono','Oxanium',monospace;font-size:.7rem;letter-spacing:3px;color:#ff0080;margin-bottom:8px;">ÇOK YAKINDA</span>
+      <span id="promo-baslik" style="font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;font-size:clamp(1.3rem,3.4vw,2.2rem);color:#fff;line-height:1.15;">CoreDrop</span>
+      <span id="promo-alt" style="font-family:'Rajdhani',sans-serif;color:#c8e8f0;font-size:clamp(.85rem,2vw,1.05rem);margin-top:6px;">Renkleri düşür, zinciri patlat — 8 bölge, 100+ seviye</span>
+      <span style="margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-family:'Oxanium','Rajdhani',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:1px;color:#02060c;background:linear-gradient(135deg,#00f5ff,#ff0080);padding:9px 18px;border-radius:8px;width:max-content;">ÖN İZLEME →</span>
+    </div>
+  </a>
+</div>
+<script>
+(function(){
+  var slaytlar = [
+    {img:'img/shot-coredrop-1.jpg', etiket:'ÇOK YAKINDA', baslik:'CoreDrop', alt:'Renkleri düşür, zinciri patlat — 8 bölge, 100+ seviye', link:'coredrop.html'},
+    {img:'img/shot-chainquake-1.jpg', etiket:'ÖNE ÇIKAN', baslik:'Chainquake', alt:'Buz topu ile zincir kur — 4 element, 50 bölüm', link:'chainquake.html'},
+    {img:'img/shot-keycap-kingdom-1.jpg', etiket:'OYNA', baslik:'Keycap Kingdom', alt:'Tuşa bas, coin kazan, klavyeni kur', link:'keycap-kingdom.html'},
+    {img:'img/shot-soul-of-hero-1.jpg', etiket:'OYNA', baslik:'Soul of Hero', alt:'Donmuş ormanda 5 dev boss', link:'soul-of-hero.html'},
+    {img:'img/shot-daki-in-space-1.jpg', etiket:'OYNA', baslik:'Daki In Space', alt:"Güneş'ten Neptün'e 10 durak", link:'daki-in-space.html'}
+  ];
+  var i=0, img=document.getElementById('promo-img'), et=document.getElementById('promo-etiket'),
+      ba=document.getElementById('promo-baslik'), al=document.getElementById('promo-alt'), li=document.getElementById('promo-link');
+  if(!img) return;
+  function gec(){ i=(i+1)%slaytlar.length; var s=slaytlar[i];
+    img.src=s.img; et.textContent=s.etiket; ba.textContent=s.baslik; al.textContent=s.alt; li.href=s.link; }
+  setInterval(gec, 5000);
+})();
+</script>
+
+id="hakkinda">
   <div class="reveal">
     <p class="section-label">// whoami</p>
     <h2 class="section-title">Hakkında</h2>
@@ -921,16 +952,24 @@
   </div>
   <div class="games-grid reveal">
     <div class="game-card">
-      <span class="game-icon">⌨️</span>
+      <img class="game-icon-img" src="img/icon-keycap-kingdom.svg" alt="keycap-kingdom ikonu" width="64" height="64" loading="lazy">
       <div class="game-tag">Android · SiberJedi</div>
       <h3 class="game-title">Keycap Kingdom</h3>
       <p class="game-desc">Keycap Kingdom, her dokunuşun para kazandırdığı ve her paketin yeni tuş kapakları açtığı, klavye temalı bir boş zaman tıklama ve koleksiyon oyunudur.</p>
       <span class="game-platform">🎮 Google Play · Android</span>
       <a href="https://play.google.com/store/apps/details?id=com.SiberJedi.KeycapKingdom" target="_blank" class="game-btn">Play Store'da Gör →</a>
       <a href="keycap-kingdom.html" class="game-btn" style="margin-top:8px;background:transparent;border:1px solid var(--cyan);color:var(--cyan)">Detay Sayfası →</a>
+        <div class="game-card" style="border-color:rgba(255,0,128,.4)">
+      <img class="game-icon-img" src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="64" height="64" loading="lazy">
+      <div class="game-tag" style="color:#ff0080">ANDROID · ÇOK YAKINDA</div>
+      <h3 class="game-title">CoreDrop</h3>
+      <p class="game-desc">Renk eşleştirme ve zincir tepkime fiziği. 8 bölge, 100+ seviye, çığ gibi reaksiyonlar. Google Play'de çok yakında.</p>
+      <span class="game-platform">🎮 Google Play · Yakında</span>
+      <a href="coredrop.html" class="game-btn" style="background:transparent;border:1px solid #ff0080;color:#ff0080">ÖN İZLEME →</a>
     </div>
+</div>
     <div class="game-card">
-      <span class="game-icon">⚔️</span>
+      <img class="game-icon-img" src="img/icon-soul-of-hero.svg" alt="soul-of-hero ikonu" width="64" height="64" loading="lazy">
       <div class="game-tag">Android · SiberJedi</div>
       <h3 class="game-title">Soul of Hero</h3>
       <p class="game-desc">Karanlık bir dünyada kahramanını yönet. Aksiyon dolu savaşlar, karmaşık düşman AI ve derin bir lore seni bekliyor. SiberJedi'nin ilk büyük projesi.</p>
@@ -939,7 +978,7 @@
       <a href="soul-of-hero.html" class="game-btn" style="margin-top:8px;background:transparent;border:1px solid var(--cyan);color:var(--cyan)">Detay Sayfası →</a>
     </div>
     <div class="game-card">
-      <span class="game-icon">🚀</span>
+      <img class="game-icon-img" src="img/icon-daki-in-space.svg" alt="daki-in-space ikonu" width="64" height="64" loading="lazy">
       <div class="game-tag">Android · SiberJedi</div>
       <h3 class="game-title">Daki In Space</h3>
       <p class="game-desc">Uzayın derinliklerinde bir macera. Daki ile galaksileri gezip hayatta kalmaya çalış. Hypercasual mekaniği ile maksimum eğlence.</p>
@@ -948,7 +987,7 @@
       <a href="daki-in-space.html" class="game-btn" style="margin-top:8px;background:transparent;border:1px solid var(--cyan);color:var(--cyan)">Detay Sayfası →</a>
     </div>
     <div class="game-card">
-      <span class="game-icon">❄️</span>
+      <img class="game-icon-img" src="img/icon-chainquake.svg" alt="chainquake ikonu" width="64" height="64" loading="lazy">
       <div class="game-tag">Android · Yeni</div>
       <h3 class="game-title">Chainquake</h3>
       <p class="game-desc">Canavarları dondur, kartopuna çevir, tekmele ve zincirle ez! Dört element, beş dünya, 50 el yapımı bölüm ve destansı boss savaşlarıyla klasik arcade platform oyunu.</p>
