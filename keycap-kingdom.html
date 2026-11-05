@@ -94,18 +94,53 @@ footer a{margin:0 8px}
 h1 span{color:#ffb000} h2{color:#ffb000} .card h3{color:#ffb000}
 ol.steps li:before{background:#ffb000} .other:hover{border-color:#ffb000}
 .btn{--a1:#ffb000;--a2:#00f5ff}
+nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(2,4,8,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+/* ---- ana sayfa ile ayni top bar ---- */
+.nav-logo{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:900;color:var(--cyan);text-shadow:0 0 20px var(--cyan);letter-spacing:2px;text-decoration:none}
+.nav-logo span{color:var(--pink);text-shadow:0 0 20px var(--pink)}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;margin:0;padding:0}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;letter-spacing:3px;text-transform:uppercase;font-family:'Share Tech Mono',monospace;transition:color .2s,text-shadow .2s}
+.nav-links a:hover{color:var(--cyan);text-shadow:0 0 10px var(--cyan)}
+.nav-planla{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .8rem;border:1px solid var(--green);background:rgba(0,255,136,.08);color:var(--green)!important;box-shadow:0 0 12px rgba(0,255,136,.25),0 0 30px rgba(0,255,136,.08);animation:planlaPulse 2.2s ease-in-out infinite;border-radius:2px;letter-spacing:2px}
+.nav-badge{font-size:.55rem;letter-spacing:2px;background:var(--green);color:#020408;padding:.15rem .35rem;border-radius:2px;font-weight:700}
+@keyframes planlaPulse{0%,100%{box-shadow:0 0 12px rgba(0,255,136,.25),0 0 30px rgba(0,255,136,.08)}50%{box-shadow:0 0 20px rgba(0,255,136,.45),0 0 50px rgba(0,255,136,.15)}}
+.nav-toggle{display:none;background:transparent;border:1px solid var(--border);color:var(--cyan);font-size:1.4rem;padding:.3rem .6rem;cursor:pointer}
+@media (max-width:900px){
+  nav{padding:1rem 1.5rem;flex-wrap:wrap}
+  .nav-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:rgba(2,4,8,.96);border-top:1px solid var(--border);padding:1rem 1.5rem;gap:1rem;z-index:600}
+  .nav-links.open{display:flex}
+  .nav-planla{justify-content:center}
+}
+/* fixed nav icin govde boslugu */
+body{padding-top:78px}
+
 </style>
 </head>
 <body>
 <nav>
-  <a class="mark" href="/">SIBERJEDI</a>
-  <a href="/#hakkinda">Hakkında</a>
-  <a href="/#oyunlar">Oyunlar</a>
-  <a href="/#indirmeler">İndirmeler</a>
-  <a href="/#projeler">Projeler</a>
-  <a href="planla.html">Planla!</a>
-  <a href="/#sosyal">Sosyal</a>
-  <a href="/#iletisim">İletişim</a>
+  <a class="nav-logo" href="/">SIBER<span>JEDI</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="/#hakkinda">Hakkında</a></li>
+    <li><a href="/#oyunlar">Oyunlar</a></li>
+    <li><a href="/#indirmeler">İndirmeler</a></li>
+    <li><a href="/#projeler">Projeler</a></li>
+    <li><a href="planla.html" class="nav-planla">Planla! <span class="nav-badge">YENİ</span></a></li>
+    <li><a href="/#sosyal">Sosyal</a></li>
+    <li><a href="/#iletisim">İletişim</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Menü">☰</button>
 </nav>
 
 <header class="hero">
@@ -171,5 +206,9 @@ ol.steps li:before{background:#ffb000} .other:hover{border-color:#ffb000}
   <a href="privacy-policy.html">Gizlilik</a>
   <a href="terms-of-service.html">Şartlar</a>
 </footer>
+<script>
+(function(){var t=document.getElementById('nav-toggle'),l=document.getElementById('nav-links');
+if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}})();
+</script>
 </body>
 </html>
