@@ -282,33 +282,48 @@
   const cursor=document.getElementById('cursor'),trail=document.getElementById('cursor-trail');
   document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';setTimeout(()=>{trail.style.left=e.clientX+'px';trail.style.top=e.clientY+'px'},80)});
   document.querySelectorAll('a,button,.card,.feedback-card,.feedback-btn').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2)';cursor.style.borderColor='var(--pink)'});el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';cursor.style.borderColor='var(--cyan)'})});
-  // feedback board + hero ticker
+  // feedback board + hero ticker — SADECE GERCEK VERI (GitHub issues)
   (async()=>{
     const list=document.getElementById('feedback-list');
     const ticker=document.getElementById('hero-ticker');
     const safe=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const bosGoster=(mesaj)=>{
+      list.innerHTML='<div class="feedback-empty">'+mesaj+'</div>';
+      ticker.innerHTML='<div class="hero-ticker-empty">'+mesaj+'</div>';
+      if(ticker) ticker.style.animation='none';
+    };
+    let kayitlar=[];
+    // a) elle onaylanmis gercek geri bildirimler (feedback.json — su an bos)
     try{
-      const res=await fetch('feedback.json',{cache:'no-store'});
-      const data=await res.json();
-      if(!Array.isArray(data)||data.length===0){
-        list.innerHTML='<div class="feedback-empty">Henüz yayınlanan mesaj yok — ilk sen bırak!</div>';
-        ticker.innerHTML='<div class="hero-ticker-empty">Henüz yorum yok — ilk geri bildirimi sen bırak!</div>';
-        ticker.style.animation='none';
-        return;
+      const r1=await fetch('feedback.json',{cache:'no-store'});
+      const d1=await r1.json();
+      if(Array.isArray(d1)) kayitlar=kayitlar.concat(d1.map(m=>({name:m.name,date:m.date,message:m.message})));
+    }catch(e){}
+    // b) GitHub issue'lari (gercek kullanicilar)
+    try{
+      const r2=await fetch('https://api.github.com/repos/siberjedi/planla/issues?state=all&per_page=20',{cache:'no-store'});
+      if(r2.ok){
+        const d2=await r2.json();
+        if(Array.isArray(d2)){
+          d2.filter(i=>!i.pull_request).forEach(i=>{
+            const govde=(i.body||'').replace(/\s+/g,' ').trim().slice(0,160);
+            kayitlar.push({
+              name:(i.user && i.user.login) || 'GitHub',
+              date:(i.created_at||'').slice(0,10),
+              message:(i.title||'') + (govde? ' — '+govde : '')
+            });
+          });
+        }
       }
-      list.innerHTML=data.slice().reverse().map(m=>`<div class="feedback-card"><div class="feedback-name">${safe(m.name)}</div><div class="feedback-date">${safe(m.date)}</div><div class="feedback-msg">${safe(m.message)}</div></div>`).join('');
-      // hero ticker: duplicate for seamless loop, bottom->top
-      let items=data.slice().reverse();
-      // ensure enough items for smooth scroll
-      while(items.length<4) items=items.concat(data.slice().reverse());
-      const doubled=[...items,...items];
-      ticker.innerHTML=doubled.map(m=>`<div class="hero-ticker-item"><div class="hero-ticker-name">${safe(m.name)}</div><div class="hero-ticker-msg">${safe(m.message)}</div><div class="hero-ticker-date">${safe(m.date)}</div></div>`).join('');
-      ticker.style.animationDuration=(doubled.length*2.2)+'s';
-    }catch(e){
-      list.innerHTML='<div class="feedback-empty">Mesajlar yüklenemedi.</div>';
-      ticker.innerHTML='<div class="hero-ticker-empty">Mesajlar yüklenemedi.</div>';
-      ticker.style.animation='none';
-    }
+    }catch(e){}
+    if(kayitlar.length===0){ bosGoster('Henüz gerçek bir yorum yok — ilk geri bildirimi sen bırak!'); return; }
+    kayitlar.sort((a,b)=> (a.date||'') < (b.date||'') ? 1 : -1);
+    list.innerHTML=kayitlar.map(m=>`<div class="feedback-card"><div class="feedback-name">${safe(m.name)}</div><div class="feedback-date">${safe(m.date)}</div><div class="feedback-msg">${safe(m.message)}</div></div>`).join('');
+    let items=kayitlar.slice();
+    while(items.length<4) items=items.concat(kayitlar.slice());
+    const doubled=[...items,...items];
+    ticker.innerHTML=doubled.map(m=>`<div class="hero-ticker-item"><div class="hero-ticker-name">${safe(m.name)}</div><div class="hero-ticker-msg">${safe(m.message)}</div><div class="hero-ticker-date">${safe(m.date)}</div></div>`).join('');
+    ticker.style.animationDuration=(doubled.length*2.2)+'s';
   })();
 </script>
 </body>
