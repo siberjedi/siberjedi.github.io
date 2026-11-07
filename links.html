@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SiberJedi — Bağlantılar</title>
+<meta name="description" content="SiberJedi oyunları, Google Play bağlantıları ve sosyal medya hesapları — tek sayfa.">
+<style>
+  :root{
+    --bg:#080b18; --card:#111629; --card2:#161d33; --line:#26304d;
+    --txt:#e8ecf8; --dim:#95a0bf; --neon:#28d6ff; --neon2:#4d7cff; --pink:#ff2d86;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; font-family:'Oxanium','Segoe UI',system-ui,sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%, #16224a 0%, var(--bg) 55%);
+    color:var(--txt); display:flex; justify-content:center; padding:28px 16px 60px;
+  }
+  .wrap{width:100%; max-width:520px}
+  .head{text-align:center; margin-bottom:26px}
+  .head img{width:96px; height:96px; border-radius:50%; border:2px solid var(--neon);
+    box-shadow:0 0 24px rgba(40,214,255,.35); background:#0b1020}
+  h1{font-size:26px; margin:14px 0 4px; letter-spacing:2px}
+  .alt{color:var(--dim); font-size:14px; margin:0 0 14px}
+  .btn{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    text-decoration:none; color:var(--txt); background:linear-gradient(180deg,var(--card2),var(--card));
+    border:1px solid var(--line); border-radius:14px; padding:14px 16px; margin:10px 0;
+    transition:.15s ease; font-weight:600; font-size:15px;
+  }
+  .btn:hover{border-color:var(--neon); transform:translateY(-1px); box-shadow:0 6px 22px rgba(40,214,255,.15)}
+  .btn small{display:block; color:var(--dim); font-weight:400; font-size:12px; margin-top:3px}
+  .play{border-color:rgba(255,45,134,.55)}
+  .play:hover{border-color:var(--pink); box-shadow:0 6px 22px rgba(255,45,134,.2)}
+  .tag{font-size:11px; padding:3px 9px; border-radius:999px; border:1px solid var(--line); color:var(--dim); white-space:nowrap}
+  .soon{opacity:.85}
+  .foot{text-align:center; color:var(--dim); font-size:12px; margin-top:26px; line-height:1.7}
+  .foot a{color:var(--neon); text-decoration:none}
+  h2{font-size:13px; letter-spacing:2px; color:var(--dim); text-transform:uppercase; margin:26px 0 8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <img src="img/icon-siberjedi.png" alt="SiberJedi" onerror="this.style.display='none'">
+    <h1>SİBERJEDİ</h1>
+    <p class="alt">Bağımsız Android oyun stüdyosu · Tüm bağlantılar</p>
+  </div>
+
+  <h2>Oyunlar</h2>
+  <a class="btn play" href="https://play.google.com/store/apps/details?id=com.AlpiGames.SoulOfHero">
+    <span>Soul Of Hero<small>Aksiyon RPG · Ücretsiz</small></span><span class="tag">PLAY</span>
+  </a>
+  <a class="btn play" href="https://play.google.com/store/apps/details?id=com.siberjedi.chainquake">
+    <span>Chainquake<small>Arcade platform · Ücretsiz</small></span><span class="tag">PLAY</span>
+  </a>
+  <a class="btn play" href="https://play.google.com/store/apps/details?id=com.AlpiGames.DakiUzayda">
+    <span>Daki In Space<small>Uzay macerası · Ücretsiz</small></span><span class="tag">PLAY</span>
+  </a>
+  <a class="btn play" href="https://play.google.com/store/apps/details?id=com.SiberJedi.KeycapKingdom">
+    <span>Keycap Kingdom<small>Merge &amp; idle · Ücretsiz</small></span><span class="tag">PLAY</span>
+  </a>
+  <a class="btn soon" href="coredrop.html">
+    <span>CoreDrop<small>Yeni oyun · Çok yakında</small></span><span class="tag">YAKINDA</span>
+  </a>
+
+  <h2>Sosyal</h2>
+  <a class="btn" href="https://www.youtube.com/@siberjedigames">
+    <span>YouTube<small>Fragmanlar ve oynanış</small></span><span class="tag">@siberjedigames</span>
+  </a>
+  <a class="btn" href="https://www.instagram.com/siberjedigames">
+    <span>Instagram<small>Günlük oyun içi paylaşımlar</small></span><span class="tag">@siberjedigames</span>
+  </a>
+  <a class="btn" href="https://www.tiktok.com/@siberjedi">
+    <span>TikTok<small>Kısa videolar</small></span><span class="tag">@siberjedi</span>
+  </a>
+  <a class="btn" href="https://www.linkedin.com/company/siberjedi">
+    <span>LinkedIn<small>Stüdyo günlüğü</small></span><span class="tag">siberjedi</span>
+  </a>
+
+  <h2>Diğer</h2>
+  <a class="btn" href="index.html">
+    <span>Web Sitesi<small>Tüm oyunlar ve haberler</small></span><span class="tag">siberjedi.github.io</span>
+  </a>
+  <a class="btn" href="https://play.google.com/store/apps/dev?id=8984070833066275659">
+    <span>Google Play Geliştirici<small>Tüm oyunlar tek listede</small></span><span class="tag">PLAY</span>
+  </a>
+
+  <div class="foot">
+    © 2026 SiberJedi · <a href="privacy-policy.html">Gizlilik</a> · <a href="terms-of-service.html">Şartlar</a>
+  </div>
+</div>
+</body>
+</html>
