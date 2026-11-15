@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SiberJedi Arena — Think fast. Type faster. Win.</title>
+<meta name="description" content="The live chat arena: one question, hundreds of minds, one winner. Play from Twitch or YouTube chat — no sign-up. Live leaderboard.">
+<meta property="og:title" content="SiberJedi Arena — Think fast. Type faster. Win.">
+<meta property="og:description" content="One question. Hundreds of minds. Only the sharpest takes the points. Play live from Twitch or YouTube chat.">
+<meta property="og:image" content="https://siberjedi.github.io/img/icon-siberjedi.png">
+<meta name="theme-color" content="#070914">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070914; --card:#0f1326; --card2:#141a33; --line:#252d4d;
+    --txt:#eef1fb; --dim:#93a0c4; --cyan:#22d3ee; --violet:#8b5cf6; --pink:#ff2d86;
+    --gold:#ffd166; --silver:#cbd5e1; --bronze:#f59e5b; --green:#34e3a4;
+    --yt:#ff0033; --tw:#9146ff;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; min-height:100vh; color:var(--txt);
+    font-family:Inter,'Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
+    background:
+      radial-gradient(900px 520px at 85% -10%, rgba(139,92,246,.28), transparent 60%),
+      radial-gradient(800px 480px at 5% 0%, rgba(34,211,238,.18), transparent 60%),
+      var(--bg);
+    overflow-x:hidden;
+  }
+  body::before{ /* noktali izgara */
+    content:""; position:fixed; inset:0; pointer-events:none; opacity:.35;
+    background-image:radial-gradient(rgba(147,160,196,.18) 1px, transparent 1px);
+    background-size:22px 22px;
+    mask-image:linear-gradient(180deg,#000 0%,transparent 70%);
+  }
+  .wrap{position:relative; width:100%; max-width:960px; margin:0 auto; padding:18px 16px 56px}
+
+  /* ust bar */
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:34px}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--txt);
+    font-family:'JetBrains Mono',monospace; font-weight:800; letter-spacing:2px; font-size:15px}
+  .brand img{width:34px; height:34px; border-radius:50%; border:1.5px solid var(--cyan); background:#0b1020}
+  .brand span b{background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  .lang{appearance:none; background:var(--card); color:var(--txt); border:1px solid var(--line);
+    border-radius:10px; padding:8px 30px 8px 12px; font:600 13px Inter,sans-serif; cursor:pointer;
+    background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),linear-gradient(135deg,var(--dim) 50%,transparent 50%);
+    background-position:calc(100% - 15px) 50%, calc(100% - 10px) 50%; background-size:5px 5px; background-repeat:no-repeat}
+  [dir=rtl] .lang{padding:8px 12px 8px 30px; background-position:15px 50%, 20px 50%}
+
+  /* hero */
+  .hero{text-align:center; padding:8px 0 30px}
+  .onair{display:inline-flex; align-items:center; gap:8px; font:800 12px 'JetBrains Mono',monospace;
+    letter-spacing:2px; padding:7px 14px; border-radius:999px; border:1px solid rgba(255,45,134,.5);
+    background:rgba(255,45,134,.08); color:#ffd0e2}
+  .onair.off{border-color:var(--line); background:rgba(147,160,196,.06); color:var(--dim)}
+  .onair .d{width:9px; height:9px; border-radius:50%; background:var(--pink); box-shadow:0 0 12px var(--pink); animation:pulse 1.4s infinite}
+  .onair.off .d{background:var(--dim); box-shadow:none; animation:none}
+  @keyframes pulse{0%,100%{opacity:1; transform:scale(1)}50%{opacity:.35; transform:scale(.8)}}
+  h1{font-size:clamp(36px,7.4vw,74px); line-height:1.02; font-weight:900; letter-spacing:-1.5px; margin:20px 0 16px}
+  h1 .g{background:linear-gradient(90deg,var(--cyan),var(--violet) 55%,var(--pink));
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  .sub{max-width:640px; margin:0 auto; color:var(--dim); font-size:clamp(15px,2.1vw,18px); line-height:1.6}
+  .ctas{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:28px 0 10px}
+  .cta{display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#fff; font-weight:800;
+    font-size:16px; padding:14px 22px; border-radius:14px; transition:transform .15s ease, box-shadow .15s ease;
+    min-width:230px; justify-content:center}
+  .cta svg{width:22px; height:22px; flex:none}
+  .cta small{display:block; font-weight:600; font-size:11px; opacity:.85; letter-spacing:.5px}
+  .cta.tw{background:linear-gradient(135deg,#9146ff,#6d28d9); box-shadow:0 10px 30px rgba(145,70,255,.35)}
+  .cta.yt{background:linear-gradient(135deg,#ff2b4a,#c4001f); box-shadow:0 10px 30px rgba(255,0,51,.28)}
+  .cta:hover{transform:translateY(-2px)}
+  .nosign{color:var(--dim); font-size:13px; margin-top:8px}
+
+  /* istatistik */
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:26px 0 34px}
+  @media(max-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:linear-gradient(180deg,var(--card2),var(--card)); border:1px solid var(--line);
+    border-radius:16px; padding:16px 12px; text-align:center}
+  .stat b{display:block; font:800 clamp(24px,4vw,32px) 'JetBrains Mono',monospace; color:#fff}
+  .stat span{font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:1.6px; font-weight:600}
+
+  h2{font-size:clamp(22px,3.6vw,30px); font-weight:900; letter-spacing:-.5px; margin:0 0 16px; text-align:center}
+  section{margin-bottom:40px}
+
+  /* modlar */
+  .modes{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+  @media(max-width:760px){.modes{grid-template-columns:1fr}}
+  .mode{position:relative; overflow:hidden; background:linear-gradient(180deg,var(--card2),var(--card));
+    border:1px solid var(--line); border-radius:18px; padding:20px 18px}
+  .mode::after{content:""; position:absolute; inset:0 0 auto 0; height:3px; background:var(--c,var(--cyan))}
+  .mode .ic{font-size:28px; line-height:1}
+  .mode h3{margin:12px 0 6px; font-size:18px; font-weight:800}
+  .mode p{margin:0; color:var(--dim); font-size:14px; line-height:1.55}
+
+  /* adimlar */
+  .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; counter-reset:s}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}}
+  .step{display:flex; gap:14px; align-items:flex-start; padding:16px; border-radius:16px; border:1px dashed var(--line)}
+  .step::before{counter-increment:s; content:counter(s); flex:none; width:34px; height:34px; border-radius:10px;
+    display:grid; place-items:center; font:800 16px 'JetBrains Mono',monospace; color:#070914;
+    background:linear-gradient(135deg,var(--cyan),var(--violet))}
+  .step b{display:block; margin-bottom:4px}
+  .step span{color:var(--dim); font-size:14px; line-height:1.5}
+
+  /* siralama */
+  .panel{background:linear-gradient(180deg,var(--card2),var(--card)); border:1px solid var(--line);
+    border-radius:20px; padding:16px 16px 8px}
+  .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px}
+  .tab{flex:1 1 auto; min-width:100px; cursor:pointer; text-align:center; font:700 13px Inter,sans-serif;
+    color:var(--dim); border:1px solid var(--line); border-radius:11px; padding:10px; background:#0b1022; transition:.15s}
+  .tab.active{color:#070914; background:linear-gradient(135deg,var(--cyan),var(--violet)); border-color:transparent}
+  .tbl{width:100%; overflow-x:auto}
+  table{width:100%; border-collapse:collapse; font-size:14px}
+  th{font-size:10px; letter-spacing:1.5px; color:var(--dim); text-transform:uppercase; text-align:start;
+    padding:6px 8px; border-bottom:1px solid var(--line); font-weight:700}
+  th.r,td.r{text-align:end}
+  td{padding:10px 8px; border-bottom:1px solid rgba(37,45,77,.55)}
+  tr:last-child td{border-bottom:0}
+  .rank{width:40px}
+  .medal{display:inline-grid; place-items:center; width:26px; height:26px; border-radius:8px;
+    font:800 13px 'JetBrains Mono',monospace; color:var(--dim); background:#0b1022; border:1px solid var(--line)}
+  tr.p1 .medal{color:#2a1d00; background:var(--gold); border-color:transparent; box-shadow:0 0 14px rgba(255,209,102,.45)}
+  tr.p2 .medal{color:#111; background:var(--silver); border-color:transparent}
+  tr.p3 .medal{color:#2a1200; background:var(--bronze); border-color:transparent}
+  .user{font-weight:700; word-break:break-all}
+  .plat{display:inline-block; width:16px; height:16px; vertical-align:-3px; margin-inline-end:7px}
+  .pts{color:var(--cyan); font:800 15px 'JetBrains Mono',monospace}
+  .num{color:var(--dim); font-family:'JetBrains Mono',monospace}
+  .empty{padding:22px 8px; color:var(--dim); text-align:center}
+  .meta{display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; font-size:13px; color:var(--dim); padding:10px 2px}
+  .meta b{color:#fff}
+  .warn{display:none; margin:6px 2px; font-size:12px; color:#ffb4c8}
+
+  /* oduller */
+  .awards{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px}
+  @media(max-width:760px){.awards{grid-template-columns:repeat(2,1fr)}}
+  .aw{position:relative; background:#0b1022; border:1px solid var(--line); border-radius:14px; padding:12px 12px 11px; min-width:0}
+  .aw.on{border-color:rgba(255,209,102,.45); box-shadow:inset 0 0 0 1px rgba(255,209,102,.08), 0 6px 20px rgba(255,209,102,.07)}
+  .aw .ai{font-size:22px; line-height:1}
+  .aw .al{font-size:10px; letter-spacing:1.3px; text-transform:uppercase; color:var(--dim); font-weight:700; margin:7px 0 5px; line-height:1.3}
+  .aw .au{font-weight:800; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .aw .av{font:800 13px 'JetBrains Mono',monospace; color:var(--gold); margin-top:3px}
+  .aw:not(.on) .au{color:var(--dim); font-weight:600}
+  .foot{text-align:center; color:var(--dim); font-size:12px; line-height:1.9; margin-top:10px}
+  .foot a{color:var(--cyan); text-decoration:none}
+  @media(max-width:420px){ .cta{min-width:0; width:100%} .top{margin-bottom:22px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="index.html"><img src="img/icon-siberjedi.png" alt="" onerror="this.style.display='none'"><span>SIBERJEDI <b>ARENA</b></span></a>
+    <select class="lang" id="lang" aria-label="Language"></select>
+  </div>
+
+  <header class="hero">
+    <span class="onair off" id="onair"><span class="d"></span><span id="onair-t">…</span></span>
+    <h1><span data-i="h1a"></span><br><span class="g" data-i="h1b"></span></h1>
+    <p class="sub" data-i="sub"></p>
+    <div class="ctas">
+      <a class="cta tw" href="https://www.twitch.tv/siberjediarena" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M4.3 2 3 5.4v13.7h4.7V22h2.6l2.6-2.9h3.8l5.2-5.2V2H4.3Zm15.6 11L17 15.9h-4.7l-2.6 2.6v-2.6H5.6V3.9h14.3V13Zm-2.9-6v5.2h-1.9V7H17Zm-5.2 0v5.2H9.9V7h1.9Z"/></svg>
+        <span><span data-i="ctaTw"></span><small data-i="ctaSmall"></small></span>
+      </a>
+      <a class="cta yt" href="https://www.youtube.com/@siberjedigames/live" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg>
+        <span><span data-i="ctaYt"></span><small data-i="ctaSmall"></small></span>
+      </a>
+    </div>
+    <div class="nosign" data-i="nosign"></div>
+  </header>
+
+  <div class="grid">
+    <div class="stat"><b id="t-rounds">–</b><span data-i="stRounds"></span></div>
+    <div class="stat"><b id="t-players">–</b><span data-i="stPlayers"></span></div>
+    <div class="stat"><b id="t-guesses">–</b><span data-i="stGuesses"></span></div>
+    <div class="stat"><b id="t-points">–</b><span data-i="stPoints"></span></div>
+  </div>
+
+  <section>
+    <h2 data-i="boardT"></h2>
+    <div class="panel">
+      <div class="tabs" id="tabs">
+        <div class="tab active" data-p="daily" data-i="tDay"></div>
+        <div class="tab" data-p="weekly" data-i="tWeek"></div>
+        <div class="tab" data-p="monthly" data-i="tMonth"></div>
+        <div class="tab" data-p="all" data-i="tAll"></div>
+      </div>
+      <div class="tbl"><table>
+        <thead><tr><th class="rank">#</th><th data-i="thPlayer"></th><th class="r" data-i="thPoints"></th><th class="r" data-i="thWins"></th><th class="r" data-i="thExact"></th></tr></thead>
+        <tbody id="tbody"><tr><td colspan="5" class="empty" data-i="loading"></td></tr></tbody>
+      </table></div>
+      <div class="warn" id="warn" data-i="stale"></div>
+      <div class="meta"><span id="last"></span><span id="upd"></span></div>
+    </div>
+    <h2 style="margin-top:30px" data-i="awT"></h2>
+    <div class="awards" id="awards"></div>
+  </section>
+
+  <section>
+    <h2 data-i="modesT"></h2>
+    <div class="modes">
+      <div class="mode" style="--c:var(--cyan)"><div class="ic">🎯</div><h3 data-i="m1t"></h3><p data-i="m1d"></p></div>
+      <div class="mode" style="--c:var(--violet)"><div class="ic">🔤</div><h3 data-i="m2t"></h3><p data-i="m2d"></p></div>
+      <div class="mode" style="--c:var(--pink)"><div class="ic">🧠</div><h3 data-i="m3t"></h3><p data-i="m3d"></p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-i="howT"></h2>
+    <div class="steps">
+      <div class="step"><div><b data-i="s1t"></b><span data-i="s1d"></span></div></div>
+      <div class="step"><div><b data-i="s2t"></b><span data-i="s2d"></span></div></div>
+      <div class="step"><div><b data-i="s3t"></b><span data-i="s3d"></span></div></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    © 2026 SiberJedi · <a href="links.html" data-i="fLinks"></a> · <a href="index.html" data-i="fSite"></a> · <a href="privacy-policy.html" data-i="fPrivacy"></a><br>
+    <span data-i="fNote"></span>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ---------- diller ---------- */
+  var L = {
+    en:{_n:'English', title:'SiberJedi Arena — Think fast. Type faster. Win.',
+      live:'LIVE NOW', off:'BACK SOON · 24/7 ARENA', h1a:'Think fast.', h1b:'Type faster. Win.',
+      sub:'One question. Hundreds of minds. Only the sharpest one takes the points. Jump into the chat and prove you are the quickest brain on the internet.',
+      ctaTw:'Play on Twitch', ctaYt:'Play on YouTube', ctaSmall:'Your chat message is your answer',
+      nosign:'No sign-up. No download. Just you, the chat and the clock.',
+      stRounds:'Rounds', stPlayers:'Players', stGuesses:'Guesses', stPoints:'Points won',
+      boardT:'Hall of Fame', tDay:'Today', tWeek:'This week', tMonth:'This month', tAll:'All time',
+      thPlayer:'Player', thPoints:'Points', thWins:'Wins', thExact:'Bullseye',
+      loading:'Loading…', empty:'The throne is empty. Type in chat and claim it.',
+      err:'Could not load live data — refresh the page.', stale:'Live data unavailable — showing the last known table.',
+      upd:'updated', last:'Last round', nowin:'nobody cracked it', pts:'pts',
+      modesT:'Three ways to dominate', m1t:'Number Hunt', m1d:'A secret number, a ticking clock. Closest guess wins — a perfect hit earns a bonus.',
+      m2t:'Word Breaker', m2d:'Letters drop one by one. Crack the word early and take the maximum score.',
+      m3t:'Data Duel', m3d:'Real-world facts: distances, years, records. Closest answer wins.',
+      howT:'How it works', s1t:'Open the stream', s1d:'A new challenge drops every round.',
+      s2t:'Type in chat', s2d:'Your message is your answer. Speed matters.',
+      s3t:'Climb the ranks', s3d:'Points stack up daily, weekly and forever.',
+      fLinks:'All links', fSite:'Website', fPrivacy:'Privacy', fNote:'Leaderboard refreshes about every minute.'},
+    tr:{_n:'Türkçe', title:'SiberJedi Arena — Hızlı düşün. Daha hızlı yaz. Kazan.',
+      live:'ŞU AN CANLI', off:'YAKINDA · 7/24 ARENA', h1a:'Hızlı düşün.', h1b:'Daha hızlı yaz. Kazan.',
+      sub:'Tek soru. Yüzlerce zihin. Puanı yalnızca en keskin olan alır. Sohbete gir ve internetin en hızlı beyni olduğunu kanıtla.',
+      ctaTw:'Twitch’te oyna', ctaYt:'YouTube’da oyna', ctaSmall:'Sohbete yazdığın mesaj cevabındır',
+      nosign:'Kayıt yok. İndirme yok. Sadece sen, sohbet ve saat.',
+      stRounds:'Tur', stPlayers:'Oyuncu', stGuesses:'Tahmin', stPoints:'Kazanılan puan',
+      boardT:'Şeref Kürsüsü', tDay:'Bugün', tWeek:'Bu hafta', tMonth:'Bu ay', tAll:'Tüm zamanlar',
+      thPlayer:'Oyuncu', thPoints:'Puan', thWins:'Galibiyet', thExact:'Tam isabet',
+      loading:'Yükleniyor…', empty:'Taht boş. Sohbete yaz, tahtı kap.',
+      err:'Canlı veri alınamadı — sayfayı yenile.', stale:'Canlı veri yok — son bilinen tablo gösteriliyor.',
+      upd:'güncellendi', last:'Son tur', nowin:'kimse bilemedi', pts:'puan',
+      modesT:'Zirveye çıkmanın üç yolu', m1t:'Sayı Avı', m1d:'Gizli bir sayı, akan bir saat. En yakın tahmin kazanır — tam isabete bonus.',
+      m2t:'Kelime Kırıcı', m2d:'Harfler tek tek açılır. Kelimeyi erken çöz, en yüksek puanı al.',
+      m3t:'Bilgi Düellosu', m3d:'Gerçek dünyadan bilgiler: mesafeler, yıllar, rekorlar. En yakın cevap kazanır.',
+      howT:'Nasıl oynanır', s1t:'Yayını aç', s1d:'Her turda yeni bir meydan okuma düşer.',
+      s2t:'Sohbete yaz', s2d:'Mesajın cevabındır. Hız her şeydir.',
+      s3t:'Zirveye tırman', s3d:'Puanlar günlük, haftalık ve sonsuza dek birikir.',
+      fLinks:'Tüm linkler', fSite:'Site', fPrivacy:'Gizlilik', fNote:'Sıralama yaklaşık dakikada bir yenilenir.'},
+    es:{_n:'Español', title:'SiberJedi Arena — Piensa rápido. Escribe más rápido. Gana.',
+      live:'EN VIVO', off:'VUELVE PRONTO · ARENA 24/7', h1a:'Piensa rápido.', h1b:'Escribe más rápido. Gana.',
+      sub:'Una pregunta. Cientos de mentes. Solo la más afilada se lleva los puntos. Entra al chat y demuestra que eres el cerebro más rápido de internet.',
+      ctaTw:'Juega en Twitch', ctaYt:'Juega en YouTube', ctaSmall:'Tu mensaje en el chat es tu respuesta',
+      nosign:'Sin registro. Sin descargas. Solo tú, el chat y el reloj.',
+      stRounds:'Rondas', stPlayers:'Jugadores', stGuesses:'Intentos', stPoints:'Puntos ganados',
+      boardT:'Salón de la Fama', tDay:'Hoy', tWeek:'Esta semana', tMonth:'Este mes', tAll:'Histórico',
+      thPlayer:'Jugador', thPoints:'Puntos', thWins:'Victorias', thExact:'Exactos',
+      loading:'Cargando…', empty:'El trono está vacío. Escribe en el chat y conquístalo.',
+      err:'No se pudieron cargar los datos — recarga la página.', stale:'Datos en vivo no disponibles — mostrando la última tabla.',
+      upd:'actualizado', last:'Última ronda', nowin:'nadie lo logró', pts:'pts',
+      modesT:'Tres formas de dominar', m1t:'Caza de Números', m1d:'Un número secreto y un reloj en marcha. Gana el más cercano; acertar exacto da bonus.',
+      m2t:'Rompepalabras', m2d:'Las letras aparecen una a una. Descifra la palabra pronto y llévate el máximo.',
+      m3t:'Duelo de Datos', m3d:'Datos reales: distancias, años, récords. Gana la respuesta más cercana.',
+      howT:'Cómo funciona', s1t:'Abre el directo', s1d:'Cada ronda trae un nuevo desafío.',
+      s2t:'Escribe en el chat', s2d:'Tu mensaje es tu respuesta. La velocidad cuenta.',
+      s3t:'Sube en el ranking', s3d:'Los puntos se acumulan por día, semana y para siempre.',
+      fLinks:'Todos los enlaces', fSite:'Web', fPrivacy:'Privacidad', fNote:'La clasificación se actualiza cada minuto aprox.'},
+    pt:{_n:'Português', title:'SiberJedi Arena — Pense rápido. Digite mais rápido. Vença.',
+      live:'AO VIVO', off:'VOLTA LOGO · ARENA 24/7', h1a:'Pense rápido.', h1b:'Digite mais rápido. Vença.',
+      sub:'Uma pergunta. Centenas de mentes. Só a mais afiada leva os pontos. Entre no chat e prove que você é o cérebro mais rápido da internet.',
+      ctaTw:'Jogue na Twitch', ctaYt:'Jogue no YouTube', ctaSmall:'Sua mensagem no chat é sua resposta',
+      nosign:'Sem cadastro. Sem download. Só você, o chat e o relógio.',
+      stRounds:'Rodadas', stPlayers:'Jogadores', stGuesses:'Palpites', stPoints:'Pontos ganhos',
+      boardT:'Hall da Fama', tDay:'Hoje', tWeek:'Esta semana', tMonth:'Este mês', tAll:'Geral',
+      thPlayer:'Jogador', thPoints:'Pontos', thWins:'Vitórias', thExact:'Na mosca',
+      loading:'Carregando…', empty:'O trono está vazio. Digite no chat e conquiste.',
+      err:'Não foi possível carregar os dados — atualize a página.', stale:'Dados ao vivo indisponíveis — mostrando a última tabela.',
+      upd:'atualizado', last:'Última rodada', nowin:'ninguém acertou', pts:'pts',
+      modesT:'Três jeitos de dominar', m1t:'Caça ao Número', m1d:'Um número secreto e o relógio correndo. Vence o mais próximo; acerto exato dá bônus.',
+      m2t:'Quebra-Palavras', m2d:'As letras surgem uma a uma. Descubra cedo e leve a pontuação máxima.',
+      m3t:'Duelo de Dados', m3d:'Fatos reais: distâncias, anos, recordes. Vence a resposta mais próxima.',
+      howT:'Como funciona', s1t:'Abra a live', s1d:'Cada rodada traz um novo desafio.',
+      s2t:'Digite no chat', s2d:'Sua mensagem é sua resposta. Velocidade conta.',
+      s3t:'Suba no ranking', s3d:'Os pontos somam por dia, semana e para sempre.',
+      fLinks:'Todos os links', fSite:'Site', fPrivacy:'Privacidade', fNote:'O ranking atualiza mais ou menos a cada minuto.'},
+    de:{_n:'Deutsch', title:'SiberJedi Arena — Schnell denken. Schneller tippen. Gewinnen.',
+      live:'JETZT LIVE', off:'GLEICH ZURÜCK · 24/7 ARENA', h1a:'Schnell denken.', h1b:'Schneller tippen. Gewinnen.',
+      sub:'Eine Frage. Hunderte Köpfe. Nur der schärfste holt die Punkte. Spring in den Chat und beweise, dass du das schnellste Hirn im Netz bist.',
+      ctaTw:'Auf Twitch spielen', ctaYt:'Auf YouTube spielen', ctaSmall:'Deine Chatnachricht ist deine Antwort',
+      nosign:'Keine Anmeldung. Kein Download. Nur du, der Chat und die Uhr.',
+      stRounds:'Runden', stPlayers:'Spieler', stGuesses:'Tipps', stPoints:'Gewonnene Punkte',
+      boardT:'Ruhmeshalle', tDay:'Heute', tWeek:'Diese Woche', tMonth:'Dieser Monat', tAll:'Allzeit',
+      thPlayer:'Spieler', thPoints:'Punkte', thWins:'Siege', thExact:'Volltreffer',
+      loading:'Lädt…', empty:'Der Thron ist leer. Schreib in den Chat und hol ihn dir.',
+      err:'Live-Daten nicht ladbar — Seite neu laden.', stale:'Keine Live-Daten — letzte bekannte Tabelle.',
+      upd:'aktualisiert', last:'Letzte Runde', nowin:'keiner hat’s geknackt', pts:'Pkt',
+      modesT:'Drei Wege an die Spitze', m1t:'Zahlenjagd', m1d:'Eine geheime Zahl, die Uhr läuft. Der nächste Tipp gewinnt – ein Volltreffer gibt Bonus.',
+      m2t:'Wortknacker', m2d:'Buchstaben fallen einzeln. Knack das Wort früh und hol die Höchstpunktzahl.',
+      m3t:'Fakten-Duell', m3d:'Echte Fakten: Entfernungen, Jahre, Rekorde. Die nächste Antwort gewinnt.',
+      howT:'So funktioniert’s', s1t:'Stream öffnen', s1d:'Jede Runde bringt eine neue Herausforderung.',
+      s2t:'In den Chat tippen', s2d:'Deine Nachricht ist deine Antwort. Tempo zählt.',
+      s3t:'Aufsteigen', s3d:'Punkte sammeln sich täglich, wöchentlich und für immer.',
+      fLinks:'Alle Links', fSite:'Website', fPrivacy:'Datenschutz', fNote:'Rangliste aktualisiert sich etwa jede Minute.'},
+    fr:{_n:'Français', title:'SiberJedi Arena — Pense vite. Tape plus vite. Gagne.',
+      live:'EN DIRECT', off:'BIENTÔT DE RETOUR · ARÈNE 24/7', h1a:'Pense vite.', h1b:'Tape plus vite. Gagne.',
+      sub:'Une question. Des centaines d’esprits. Seul le plus affûté rafle les points. Entre dans le chat et prouve que tu es le cerveau le plus rapide du web.',
+      ctaTw:'Jouer sur Twitch', ctaYt:'Jouer sur YouTube', ctaSmall:'Ton message dans le chat est ta réponse',
+      nosign:'Sans inscription. Sans téléchargement. Juste toi, le chat et le chrono.',
+      stRounds:'Manches', stPlayers:'Joueurs', stGuesses:'Essais', stPoints:'Points gagnés',
+      boardT:'Panthéon', tDay:'Aujourd’hui', tWeek:'Cette semaine', tMonth:'Ce mois', tAll:'Depuis toujours',
+      thPlayer:'Joueur', thPoints:'Points', thWins:'Victoires', thExact:'Dans le mille',
+      loading:'Chargement…', empty:'Le trône est vide. Écris dans le chat et prends-le.',
+      err:'Impossible de charger les données — actualise la page.', stale:'Données en direct indisponibles — dernier tableau connu.',
+      upd:'mis à jour', last:'Dernière manche', nowin:'personne n’a trouvé', pts:'pts',
+      modesT:'Trois façons de dominer', m1t:'Chasse au Nombre', m1d:'Un nombre secret, un chrono qui tourne. Le plus proche gagne ; le pile-poil rapporte un bonus.',
+      m2t:'Casse-Mots', m2d:'Les lettres tombent une à une. Trouve le mot tôt pour le score maximal.',
+      m3t:'Duel de Faits', m3d:'Des faits réels : distances, années, records. La réponse la plus proche gagne.',
+      howT:'Comment ça marche', s1t:'Ouvre le live', s1d:'Chaque manche apporte un nouveau défi.',
+      s2t:'Écris dans le chat', s2d:'Ton message est ta réponse. La vitesse compte.',
+      s3t:'Grimpe au classement', s3d:'Les points s’accumulent par jour, semaine et pour toujours.',
+      fLinks:'Tous les liens', fSite:'Site', fPrivacy:'Confidentialité', fNote:'Le classement se met à jour environ chaque minute.'},
+    it:{_n:'Italiano', title:'SiberJedi Arena — Pensa veloce. Scrivi più veloce. Vinci.',
+      live:'IN DIRETTA', off:'TORNIAMO PRESTO · ARENA 24/7', h1a:'Pensa veloce.', h1b:'Scrivi più veloce. Vinci.',
+      sub:'Una domanda. Centinaia di menti. Solo la più affilata prende i punti. Entra in chat e dimostra di essere il cervello più veloce del web.',
+      ctaTw:'Gioca su Twitch', ctaYt:'Gioca su YouTube', ctaSmall:'Il tuo messaggio in chat è la tua risposta',
+      nosign:'Nessuna registrazione. Nessun download. Solo tu, la chat e il cronometro.',
+      stRounds:'Round', stPlayers:'Giocatori', stGuesses:'Tentativi', stPoints:'Punti vinti',
+      boardT:'Hall of Fame', tDay:'Oggi', tWeek:'Questa settimana', tMonth:'Questo mese', tAll:'Di sempre',
+      thPlayer:'Giocatore', thPoints:'Punti', thWins:'Vittorie', thExact:'Centro',
+      loading:'Caricamento…', empty:'Il trono è vuoto. Scrivi in chat e prenditelo.',
+      err:'Impossibile caricare i dati — ricarica la pagina.', stale:'Dati live non disponibili — ultima classifica nota.',
+      upd:'aggiornato', last:'Ultimo round', nowin:'nessuno ci è riuscito', pts:'pt',
+      modesT:'Tre modi per dominare', m1t:'Caccia al Numero', m1d:'Un numero segreto, il tempo che scorre. Vince il più vicino; il centro perfetto dà un bonus.',
+      m2t:'Spaccaparole', m2d:'Le lettere appaiono una alla volta. Indovina presto e prendi il massimo.',
+      m3t:'Duello di Dati', m3d:'Fatti reali: distanze, anni, record. Vince la risposta più vicina.',
+      howT:'Come funziona', s1t:'Apri la live', s1d:'Ogni round porta una nuova sfida.',
+      s2t:'Scrivi in chat', s2d:'Il tuo messaggio è la tua risposta. Conta la velocità.',
+      s3t:'Scala la classifica', s3d:'I punti si sommano ogni giorno, settimana e per sempre.',
+      fLinks:'Tutti i link', fSite:'Sito', fPrivacy:'Privacy', fNote:'La classifica si aggiorna circa ogni minuto.'},
+    ru:{_n:'Русский', title:'SiberJedi Arena — Думай быстро. Пиши быстрее. Побеждай.',
+      live:'В ЭФИРЕ', off:'СКОРО ВЕРНЁМСЯ · АРЕНА 24/7', h1a:'Думай быстро.', h1b:'Пиши быстрее. Побеждай.',
+      sub:'Один вопрос. Сотни умов. Очки забирает только самый острый. Заходи в чат и докажи, что ты самый быстрый мозг в интернете.',
+      ctaTw:'Играть на Twitch', ctaYt:'Играть на YouTube', ctaSmall:'Твоё сообщение в чате — это ответ',
+      nosign:'Без регистрации. Без загрузок. Только ты, чат и таймер.',
+      stRounds:'Раунды', stPlayers:'Игроки', stGuesses:'Попытки', stPoints:'Очков выиграно',
+      boardT:'Зал славы', tDay:'Сегодня', tWeek:'Эта неделя', tMonth:'Этот месяц', tAll:'За всё время',
+      thPlayer:'Игрок', thPoints:'Очки', thWins:'Победы', thExact:'В яблочко',
+      loading:'Загрузка…', empty:'Трон пуст. Напиши в чат и займи его.',
+      err:'Не удалось загрузить данные — обнови страницу.', stale:'Живые данные недоступны — показана последняя таблица.',
+      upd:'обновлено', last:'Последний раунд', nowin:'никто не угадал', pts:'очк.',
+      modesT:'Три пути к вершине', m1t:'Охота на число', m1d:'Секретное число и тикающий таймер. Побеждает ближайший ответ, точное попадание — бонус.',
+      m2t:'Взлом слова', m2d:'Буквы открываются по одной. Разгадай слово раньше — получи максимум.',
+      m3t:'Дуэль фактов', m3d:'Реальные факты: расстояния, годы, рекорды. Побеждает ближайший ответ.',
+      howT:'Как играть', s1t:'Открой стрим', s1d:'Каждый раунд — новый вызов.',
+      s2t:'Пиши в чат', s2d:'Твоё сообщение — твой ответ. Скорость решает.',
+      s3t:'Поднимайся в рейтинге', s3d:'Очки копятся за день, неделю и навсегда.',
+      fLinks:'Все ссылки', fSite:'Сайт', fPrivacy:'Конфиденциальность', fNote:'Рейтинг обновляется примерно раз в минуту.'},
+    ar:{_n:'العربية', _rtl:1, title:'SiberJedi Arena — فكّر بسرعة. اكتب أسرع. اربح.',
+      live:'مباشر الآن', off:'نعود قريبًا · ساحة 24/7', h1a:'فكّر بسرعة.', h1b:'اكتب أسرع. اربح.',
+      sub:'سؤال واحد. مئات العقول. وحده الأذكى يحصد النقاط. ادخل الدردشة وأثبت أنك أسرع عقل على الإنترنت.',
+      ctaTw:'العب على Twitch', ctaYt:'العب على YouTube', ctaSmall:'رسالتك في الدردشة هي إجابتك',
+      nosign:'بلا تسجيل. بلا تنزيل. أنت والدردشة والساعة فقط.',
+      stRounds:'الجولات', stPlayers:'اللاعبون', stGuesses:'التخمينات', stPoints:'النقاط المكتسبة',
+      boardT:'قاعة المشاهير', tDay:'اليوم', tWeek:'هذا الأسبوع', tMonth:'هذا الشهر', tAll:'كل الأوقات',
+      thPlayer:'اللاعب', thPoints:'النقاط', thWins:'الانتصارات', thExact:'إصابة دقيقة',
+      loading:'جارٍ التحميل…', empty:'العرش فارغ. اكتب في الدردشة واستولِ عليه.',
+      err:'تعذّر تحميل البيانات — حدّث الصفحة.', stale:'البيانات المباشرة غير متاحة — آخر جدول معروف.',
+      upd:'تم التحديث', last:'آخر جولة', nowin:'لم يحلّها أحد', pts:'نقطة',
+      modesT:'ثلاث طرق للهيمنة', m1t:'صيد الرقم', m1d:'رقم سري ووقت يمضي. الأقرب يفوز، والإصابة الدقيقة تمنح مكافأة.',
+      m2t:'كاسر الكلمات', m2d:'تظهر الحروف واحدًا تلو الآخر. اكشف الكلمة مبكرًا لأعلى نتيجة.',
+      m3t:'مبارزة المعلومات', m3d:'حقائق حقيقية: مسافات وسنوات وأرقام قياسية. الإجابة الأقرب تفوز.',
+      howT:'كيف تلعب', s1t:'افتح البث', s1d:'كل جولة تحمل تحديًا جديدًا.',
+      s2t:'اكتب في الدردشة', s2d:'رسالتك هي إجابتك. السرعة مهمة.',
+      s3t:'اصعد في الترتيب', s3d:'تتراكم النقاط يوميًا وأسبوعيًا وإلى الأبد.',
+      fLinks:'كل الروابط', fSite:'الموقع', fPrivacy:'الخصوصية', fNote:'يتحدّث الترتيب كل دقيقة تقريبًا.'},
+    hi:{_n:'हिन्दी', title:'SiberJedi Arena — तेज़ सोचो। और तेज़ लिखो। जीतो।',
+      live:'अभी लाइव', off:'जल्द लौटेंगे · 24/7 एरीना', h1a:'तेज़ सोचो।', h1b:'और तेज़ लिखो। जीतो।',
+      sub:'एक सवाल। सैकड़ों दिमाग़। अंक सिर्फ़ सबसे तेज़ दिमाग़ को मिलते हैं। चैट में आओ और साबित करो कि इंटरनेट का सबसे तेज़ दिमाग़ तुम हो।',
+      ctaTw:'Twitch पर खेलें', ctaYt:'YouTube पर खेलें', ctaSmall:'चैट में तुम्हारा मैसेज ही जवाब है',
+      nosign:'कोई साइन-अप नहीं। कोई डाउनलोड नहीं। बस तुम, चैट और घड़ी।',
+      stRounds:'राउंड', stPlayers:'खिलाड़ी', stGuesses:'अनुमान', stPoints:'जीते अंक',
+      boardT:'हॉल ऑफ़ फ़ेम', tDay:'आज', tWeek:'इस हफ़्ते', tMonth:'इस महीने', tAll:'अब तक',
+      thPlayer:'खिलाड़ी', thPoints:'अंक', thWins:'जीत', thExact:'सटीक',
+      loading:'लोड हो रहा है…', empty:'सिंहासन खाली है। चैट में लिखो और उस पर कब्ज़ा करो।',
+      err:'लाइव डेटा लोड नहीं हुआ — पेज रीफ़्रेश करें।', stale:'लाइव डेटा उपलब्ध नहीं — आख़िरी तालिका दिख रही है।',
+      upd:'अपडेट', last:'पिछला राउंड', nowin:'कोई नहीं बता पाया', pts:'अंक',
+      modesT:'छा जाने के तीन तरीके', m1t:'नंबर शिकार', m1d:'एक गुप्त संख्या, चलती घड़ी। सबसे नज़दीकी जीतता है — सटीक जवाब पर बोनस।',
+      m2t:'वर्ड ब्रेकर', m2d:'अक्षर एक-एक कर खुलते हैं। जल्दी पहचानो, ज़्यादा अंक पाओ।',
+      m3t:'डेटा द्वंद्व', m3d:'असली तथ्य: दूरियाँ, साल, रिकॉर्ड। सबसे नज़दीकी जवाब जीतता है।',
+      howT:'कैसे खेलें', s1t:'स्ट्रीम खोलें', s1d:'हर राउंड में नई चुनौती।',
+      s2t:'चैट में लिखें', s2d:'तुम्हारा मैसेज ही जवाब है। रफ़्तार मायने रखती है।',
+      s3t:'रैंक में चढ़ो', s3d:'अंक रोज़, हफ़्ते और हमेशा के लिए जुड़ते हैं।',
+      fLinks:'सभी लिंक', fSite:'वेबसाइट', fPrivacy:'गोपनीयता', fNote:'रैंकिंग लगभग हर मिनट अपडेट होती है।'},
+    id:{_n:'Bahasa Indonesia', title:'SiberJedi Arena — Pikir cepat. Ketik lebih cepat. Menang.',
+      live:'LIVE SEKARANG', off:'SEGERA KEMBALI · ARENA 24/7', h1a:'Pikir cepat.', h1b:'Ketik lebih cepat. Menang.',
+      sub:'Satu pertanyaan. Ratusan pikiran. Hanya yang paling tajam yang dapat poin. Masuk ke chat dan buktikan kamu otak tercepat di internet.',
+      ctaTw:'Main di Twitch', ctaYt:'Main di YouTube', ctaSmall:'Pesan chat-mu adalah jawabanmu',
+      nosign:'Tanpa daftar. Tanpa unduh. Hanya kamu, chat, dan waktu.',
+      stRounds:'Ronde', stPlayers:'Pemain', stGuesses:'Tebakan', stPoints:'Poin dimenangkan',
+      boardT:'Hall of Fame', tDay:'Hari ini', tWeek:'Minggu ini', tMonth:'Bulan ini', tAll:'Sepanjang masa',
+      thPlayer:'Pemain', thPoints:'Poin', thWins:'Menang', thExact:'Tepat',
+      loading:'Memuat…', empty:'Takhta masih kosong. Ketik di chat dan rebut.',
+      err:'Gagal memuat data — muat ulang halaman.', stale:'Data live tidak tersedia — menampilkan tabel terakhir.',
+      upd:'diperbarui', last:'Ronde terakhir', nowin:'tak ada yang berhasil', pts:'poin',
+      modesT:'Tiga cara mendominasi', m1t:'Buru Angka', m1d:'Angka rahasia, waktu berjalan. Tebakan terdekat menang — tepat sasaran dapat bonus.',
+      m2t:'Pemecah Kata', m2d:'Huruf muncul satu per satu. Tebak lebih awal untuk skor maksimal.',
+      m3t:'Duel Data', m3d:'Fakta nyata: jarak, tahun, rekor. Jawaban terdekat menang.',
+      howT:'Cara main', s1t:'Buka siaran', s1d:'Setiap ronde ada tantangan baru.',
+      s2t:'Ketik di chat', s2d:'Pesanmu adalah jawabanmu. Kecepatan itu penting.',
+      s3t:'Naik peringkat', s3d:'Poin terkumpul harian, mingguan, dan selamanya.',
+      fLinks:'Semua tautan', fSite:'Situs', fPrivacy:'Privasi', fNote:'Peringkat diperbarui sekitar tiap menit.'},
+    ja:{_n:'日本語', title:'SiberJedi Arena — 速く考えろ。もっと速く打て。勝て。',
+      live:'ライブ配信中', off:'まもなく再開 · 24時間アリーナ', h1a:'速く考えろ。', h1b:'もっと速く打て。勝て。',
+      sub:'問題はひとつ。挑むのは何百もの頭脳。ポイントを取るのは最も鋭い一人だけ。チャットに飛び込み、ネット最速の頭脳を証明しよう。',
+      ctaTw:'Twitchでプレイ', ctaYt:'YouTubeでプレイ', ctaSmall:'チャットのメッセージがそのまま回答',
+      nosign:'登録不要。ダウンロード不要。あなたとチャットと時計だけ。',
+      stRounds:'ラウンド', stPlayers:'プレイヤー', stGuesses:'回答数', stPoints:'獲得ポイント',
+      boardT:'殿堂', tDay:'今日', tWeek:'今週', tMonth:'今月', tAll:'歴代',
+      thPlayer:'プレイヤー', thPoints:'ポイント', thWins:'勝利', thExact:'ドンピシャ',
+      loading:'読み込み中…', empty:'王座は空いている。チャットに書き込んで奪い取れ。',
+      err:'データを読み込めません — ページを更新してください。', stale:'ライブデータなし — 最後の表を表示中。',
+      upd:'更新', last:'前回ラウンド', nowin:'正解者なし', pts:'pt',
+      modesT:'頂点への3つの道', m1t:'ナンバーハント', m1d:'秘密の数字と迫る制限時間。最も近い回答が勝ち、ぴったりならボーナス。',
+      m2t:'ワードブレイカー', m2d:'文字が一つずつ現れる。早く解くほど高得点。',
+      m3t:'データ対決', m3d:'距離、年、記録など現実のデータ。最も近い回答が勝ち。',
+      howT:'遊び方', s1t:'配信を開く', s1d:'毎ラウンド新しいお題が登場。',
+      s2t:'チャットに書く', s2d:'メッセージが回答。スピードが命。',
+      s3t:'ランキングを駆け上がれ', s3d:'ポイントは日・週・歴代で積み上がる。',
+      fLinks:'すべてのリンク', fSite:'サイト', fPrivacy:'プライバシー', fNote:'ランキングは約1分ごとに更新されます。'},
+    ko:{_n:'한국어', title:'SiberJedi Arena — 빨리 생각하고, 더 빨리 쳐라. 이겨라.',
+      live:'지금 라이브', off:'곧 돌아옵니다 · 24/7 아레나', h1a:'빨리 생각하라.', h1b:'더 빨리 쳐라. 이겨라.',
+      sub:'질문은 하나. 도전자는 수백 명. 점수는 가장 날카로운 단 한 명의 것. 채팅에 뛰어들어 인터넷에서 가장 빠른 두뇌임을 증명하라.',
+      ctaTw:'Twitch에서 플레이', ctaYt:'YouTube에서 플레이', ctaSmall:'채팅 메시지가 곧 정답',
+      nosign:'가입 없음. 다운로드 없음. 당신과 채팅, 그리고 시계뿐.',
+      stRounds:'라운드', stPlayers:'플레이어', stGuesses:'추측', stPoints:'획득 점수',
+      boardT:'명예의 전당', tDay:'오늘', tWeek:'이번 주', tMonth:'이번 달', tAll:'역대',
+      thPlayer:'플레이어', thPoints:'점수', thWins:'승리', thExact:'정확히 적중',
+      loading:'불러오는 중…', empty:'왕좌가 비어 있다. 채팅에 입력하고 차지하라.',
+      err:'데이터를 불러올 수 없습니다 — 새로고침하세요.', stale:'실시간 데이터 없음 — 마지막 표를 표시합니다.',
+      upd:'업데이트', last:'지난 라운드', nowin:'아무도 못 맞힘', pts:'점',
+      modesT:'정상에 오르는 세 가지 방법', m1t:'숫자 사냥', m1d:'비밀 숫자와 흐르는 시간. 가장 가까운 답이 승리, 정확히 맞히면 보너스.',
+      m2t:'워드 브레이커', m2d:'글자가 하나씩 공개된다. 빨리 맞힐수록 최고 점수.',
+      m3t:'데이터 결투', m3d:'거리, 연도, 기록 등 실제 데이터. 가장 가까운 답이 승리.',
+      howT:'플레이 방법', s1t:'방송 열기', s1d:'매 라운드 새로운 도전.',
+      s2t:'채팅에 입력', s2d:'메시지가 곧 정답. 속도가 생명.',
+      s3t:'랭킹 정복', s3d:'점수는 일·주·역대로 쌓인다.',
+      fLinks:'모든 링크', fSite:'웹사이트', fPrivacy:'개인정보', fNote:'랭킹은 약 1분마다 갱신됩니다.'},
+    zh:{_n:'中文', title:'SiberJedi Arena — 想得快，打得更快，赢！',
+      live:'正在直播', off:'即将回归 · 全天候竞技场', h1a:'想得快。', h1b:'打得更快。赢！',
+      sub:'一道题。成百上千个大脑。只有最敏锐的那个拿走分数。冲进聊天，证明你是全网最快的大脑。',
+      ctaTw:'在 Twitch 玩', ctaYt:'在 YouTube 玩', ctaSmall:'你的聊天消息就是答案',
+      nosign:'无需注册，无需下载。只有你、聊天和倒计时。',
+      stRounds:'回合', stPlayers:'玩家', stGuesses:'猜测', stPoints:'赢得积分',
+      boardT:'名人堂', tDay:'今日', tWeek:'本周', tMonth:'本月', tAll:'历史',
+      thPlayer:'玩家', thPoints:'积分', thWins:'胜场', thExact:'正中靶心',
+      loading:'加载中…', empty:'王座空着。在聊天里输入，夺下它。',
+      err:'无法加载数据 — 请刷新页面。', stale:'暂无实时数据 — 显示最后的排行。',
+      upd:'更新于', last:'上一回合', nowin:'无人猜中', pts:'分',
+      modesT:'三种称霸方式', m1t:'数字猎手', m1d:'一个秘密数字，倒计时进行中。最接近者获胜，完全命中有奖励。',
+      m2t:'破词者', m2d:'字母逐个揭晓。越早猜中，得分越高。',
+      m3t:'数据对决', m3d:'真实数据：距离、年份、纪录。最接近的答案获胜。',
+      howT:'玩法', s1t:'打开直播', s1d:'每回合都有新挑战。',
+      s2t:'在聊天中输入', s2d:'你的消息就是答案。速度决定一切。',
+      s3t:'冲上排行榜', s3d:'积分按日、周和历史累计。',
+      fLinks:'全部链接', fSite:'网站', fPrivacy:'隐私', fNote:'排行榜约每分钟更新一次。'}
+  };
+  var AW = {
+    en:{awT:'Legends of the arena', aWins:'Win Machine', aBull:'Sniper', aGuess:'Guess King', aBest:'Biggest Round', aFast:'Lightning Hand', aChamp:'Champion', uWins:'wins', uBull:'bullseyes', uGuess:'guesses', uSec:'s', free:'Up for grabs'},
+    tr:{awT:'Arenanın efsaneleri', aWins:'Galibiyet Makinesi', aBull:'Keskin Nişancı', aGuess:'Tahmin Kralı', aBest:'En Büyük Tur', aFast:'Şimşek El', aChamp:'Şampiyonu', uWins:'galibiyet', uBull:'tam isabet', uGuess:'tahmin', uSec:'sn', free:'Sahipsiz — kap!'},
+    es:{awT:'Leyendas de la arena', aWins:'Máquina de ganar', aBull:'Francotirador', aGuess:'Rey de los intentos', aBest:'Mayor ronda', aFast:'Mano relámpago', aChamp:'Campeón', uWins:'victorias', uBull:'exactos', uGuess:'intentos', uSec:'s', free:'Libre — ¡tómalo!'},
+    pt:{awT:'Lendas da arena', aWins:'Máquina de vitórias', aBull:'Atirador de elite', aGuess:'Rei dos palpites', aBest:'Maior rodada', aFast:'Mão relâmpago', aChamp:'Campeão', uWins:'vitórias', uBull:'na mosca', uGuess:'palpites', uSec:'s', free:'Vago — pegue!'},
+    de:{awT:'Legenden der Arena', aWins:'Siegmaschine', aBull:'Scharfschütze', aGuess:'Tippkönig', aBest:'Größte Runde', aFast:'Blitzhand', aChamp:'Champion', uWins:'Siege', uBull:'Volltreffer', uGuess:'Tipps', uSec:'s', free:'Noch frei!'},
+    fr:{awT:'Légendes de l\u2019arène', aWins:'Machine à gagner', aBull:'Sniper', aGuess:'Roi des essais', aBest:'Plus grosse manche', aFast:'Main éclair', aChamp:'Champion', uWins:'victoires', uBull:'dans le mille', uGuess:'essais', uSec:'s', free:'Libre — prends-le !'},
+    it:{awT:'Leggende dell\u2019arena', aWins:'Macchina da vittorie', aBull:'Cecchino', aGuess:'Re dei tentativi', aBest:'Round più grande', aFast:'Mano fulminea', aChamp:'Campione', uWins:'vittorie', uBull:'centri', uGuess:'tentativi', uSec:'s', free:'Libero — prendilo!'},
+    ru:{awT:'Легенды арены', aWins:'Машина побед', aBull:'Снайпер', aGuess:'Король догадок', aBest:'Лучший раунд', aFast:'Молниеносная рука', aChamp:'Чемпион', uWins:'побед', uBull:'в яблочко', uGuess:'попыток', uSec:'с', free:'Свободно — забирай!'},
+    ar:{awT:'أساطير الساحة', aWins:'آلة الفوز', aBull:'القنّاص', aGuess:'ملك التخمين', aBest:'أكبر جولة', aFast:'اليد البرق', aChamp:'البطل', uWins:'انتصارات', uBull:'إصابات دقيقة', uGuess:'تخمينات', uSec:'ث', free:'شاغر — انتزعه!'},
+    hi:{awT:'एरीना के दिग्गज', aWins:'जीत मशीन', aBull:'निशानेबाज़', aGuess:'अनुमान सम्राट', aBest:'सबसे बड़ा राउंड', aFast:'बिजली हाथ', aChamp:'चैंपियन', uWins:'जीत', uBull:'सटीक', uGuess:'अनुमान', uSec:'से.', free:'ख़ाली — झपट लो!'},
+    id:{awT:'Legenda arena', aWins:'Mesin Menang', aBull:'Penembak Jitu', aGuess:'Raja Tebakan', aBest:'Ronde Terbesar', aFast:'Tangan Kilat', aChamp:'Juara', uWins:'menang', uBull:'tepat', uGuess:'tebakan', uSec:'dtk', free:'Kosong — rebut!'},
+    ja:{awT:'アリーナの伝説', aWins:'勝利マシン', aBull:'スナイパー', aGuess:'回答王', aBest:'最高ラウンド', aFast:'電光石火', aChamp:'チャンピオン', uWins:'勝', uBull:'ドンピシャ', uGuess:'回答', uSec:'秒', free:'空席 — 奪い取れ！'},
+    ko:{awT:'아레나의 전설', aWins:'승리 머신', aBull:'스나이퍼', aGuess:'추측왕', aBest:'최고의 라운드', aFast:'번개 손', aChamp:'챔피언', uWins:'승', uBull:'정확히 적중', uGuess:'추측', uSec:'초', free:'공석 — 차지하라!'},
+    zh:{awT:'竞技场传奇', aWins:'胜利机器', aBull:'神枪手', aGuess:'猜测之王', aBest:'最高单局', aFast:'闪电手', aChamp:'冠军', uWins:'胜', uBull:'命中', uGuess:'次猜测', uSec:'秒', free:'空缺 — 来抢！'}
+  };
+  for(var k in AW){ for(var kk in AW[k]) L[k][kk] = AW[k][kk]; }
+  var ORDER = ['en','tr','es','pt','de','fr','it','ru','ar','hi','id','ja','ko','zh'];
+  var NUMLOC = {en:'en-US',tr:'tr-TR',es:'es-ES',pt:'pt-BR',de:'de-DE',fr:'fr-FR',it:'it-IT',ru:'ru-RU',ar:'ar',hi:'hi-IN',id:'id-ID',ja:'ja-JP',ko:'ko-KR',zh:'zh-CN'};
+
+  function secDil(){
+    var q = (location.search.match(/[?&]lang=([a-z]{2})/) || [])[1];
+    if(q && L[q]) return q;
+    try { var k = localStorage.getItem('arenaLang'); if(k && L[k]) return k; } catch(e){}
+    var ls = navigator.languages || [navigator.language || 'en'];
+    for(var i=0;i<ls.length;i++){ var c = String(ls[i]).slice(0,2).toLowerCase(); if(L[c]) return c; }
+    return 'en';
+  }
+  var lang = secDil(), T = L[lang];
+
+  var sel = document.getElementById('lang');
+  sel.innerHTML = ORDER.map(function(k){ return '<option value="'+k+'">'+L[k]._n+'</option>'; }).join('');
+
+  function uygula(){
+    T = L[lang];
+    document.documentElement.lang = lang;
+    document.documentElement.dir = T._rtl ? 'rtl' : 'ltr';
+    document.title = T.title;
+    sel.value = lang;
+    [].forEach.call(document.querySelectorAll('[data-i]'), function(el){
+      var v = T[el.getAttribute('data-i')] || L.en[el.getAttribute('data-i')];
+      if(v != null) el.textContent = v;
+    });
+    ciz();
+  }
+  sel.addEventListener('change', function(){
+    lang = sel.value;
+    try { localStorage.setItem('arenaLang', lang); } catch(e){}
+    uygula();
+  });
+
+  /* ---------- canli veri ---------- */
+  var API = 'https://api.github.com/repos/siberjedi/siberjedi.github.io/contents/stats.json?ref=stats';
+  var RAW = 'https://raw.githubusercontent.com/siberjedi/siberjedi.github.io/stats/stats.json';
+  var etag = null, data = null, period = 'daily', hata = false;
+  var $ = function(id){ return document.getElementById(id); };
+  var YT = '<svg class="plat" viewBox="0 0 24 24"><path fill="#ff0033" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8Z"/><path fill="#fff" d="M9.6 15.6V8.4l6.2 3.6z"/></svg>';
+  var TW = '<svg class="plat" viewBox="0 0 24 24"><path fill="#9146ff" d="M4.3 2 3 5.4v13.7h4.7V22h2.6l2.6-2.9h3.8l5.2-5.2V2H4.3Zm15.6 11L17 15.9h-4.7l-2.6 2.6v-2.6H5.6V3.9h14.3V13Zm-2.9-6v5.2h-1.9V7H17Zm-5.2 0v5.2H9.9V7h1.9Z"/></svg>';
+
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function fmt(n){ try { return Number(n||0).toLocaleString(NUMLOC[lang]); } catch(e){ return String(n||0); } }
+  function saat(iso){ try { return new Date(iso).toLocaleTimeString(NUMLOC[lang],{hour:'2-digit',minute:'2-digit'}); } catch(e){ return '–'; } }
+  function oyuncu(u){ u = String(u||''); var yt = u.charAt(0) === '@'; return (yt ? YT : TW) + esc(yt ? u.slice(1) : u); }
+
+  function ciz(){
+    var canli = data && data.updated_ts && (Date.now()/1000 - data.updated_ts) < 240;
+    $('onair').className = 'onair' + (canli ? '' : ' off');
+    $('onair-t').textContent = canli ? T.live : T.off;
+    if(!data){
+      odulCiz();
+      $('tbody').innerHTML = '<tr><td colspan="5" class="empty">' + esc(hata ? T.err : T.loading) + '</td></tr>';
+      return;
+    }
+    var t = data.totals || {};
+    $('t-rounds').textContent = fmt(t.rounds);
+    $('t-players').textContent = fmt(t.players);
+    $('t-guesses').textContent = fmt(t.guesses);
+    $('t-points').textContent = fmt(t.points);
+    $('upd').textContent = T.upd + ' ' + saat(data.updated_at);
+    var liste = (data.periods && data.periods[period]) || [];
+    $('tbody').innerHTML = !liste.length
+      ? '<tr><td colspan="5" class="empty">' + esc(T.empty) + '</td></tr>'
+      : liste.map(function(r,i){
+          return '<tr class="p' + (i+1) + '"><td class="rank"><span class="medal">' + (i+1) + '</span></td>' +
+            '<td class="user">' + oyuncu(r.user) + '</td>' +
+            '<td class="r pts">' + fmt(r.points) + '</td>' +
+            '<td class="r num">' + fmt(r.wins) + '</td>' +
+            '<td class="r num">' + fmt(r.exacts) + '</td></tr>';
+        }).join('');
+    var lr = data.last_round;
+    $('last').innerHTML = lr ? esc(T.last) + ' <b>#' + fmt(lr.round_no) + '</b> · ' +
+      (lr.winner ? '🏆 ' + oyuncu(lr.winner) + ' +' + fmt(lr.points) + ' ' + esc(T.pts) : esc(T.nowin)) : '';
+    $('warn').style.display = hata ? 'block' : 'none';
+    odulCiz();
+  }
+  /* oduller: [anahtar, ikon, baslik anahtari, birim anahtari] */
+  var AWK = [['wins','🏆','aWins','uWins'],['bullseye','🎯','aBull','uBull'],['guesses','💬','aGuess','uGuess'],
+    ['best_round','💥','aBest','pts'],['fastest','⚡','aFast','uSec'],
+    ['champ_number','🔢','m1t','pts'],['champ_word','🔤','m2t','pts'],['champ_fact','🧠','m3t','pts']];
+  function odulCiz(){
+    var a = (data && data.awards && data.awards[period]) || {};
+    $('awards').innerHTML = AWK.map(function(w){
+      var v = a[w[0]];
+      var baslik = esc(T[w[2]]) + (w[0].indexOf('champ_') === 0 ? ' · ' + esc(T.aChamp) : '');
+      var deger = v ? fmt(v.value) + ' ' + esc(T[w[3]]) : '';
+      return '<div class="aw' + (v ? ' on' : '') + '"><div class="ai">' + w[1] + '</div><div class="al">' + baslik + '</div>' +
+        '<div class="au">' + (v ? oyuncu(v.user) : esc(T.free)) + '</div>' + (v ? '<div class="av">' + deger + '</div>' : '') + '</div>';
+    }).join('');
+  }
+
+  function al(url, h){
+    return fetch(url, {headers:h||{}, cache:'no-store'}).then(function(r){
+      if(r.status === 304) return null;
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      var e = r.headers.get('ETag'); if(e && h) etag = e;
+      return r.text();
+    });
+  }
+  function yukle(){
+    var h = {'Accept':'application/vnd.github.raw'}; if(etag) h['If-None-Match'] = etag;
+    return al(API, h)
+      .catch(function(){ return al(RAW + '?t=' + Date.now()); })   /* API sinirina takilirsa */
+      .then(function(txt){ if(txt){ data = JSON.parse(txt); } hata = false; ciz(); })
+      .catch(function(){ hata = true; ciz(); });
+  }
+  $('tabs').addEventListener('click', function(ev){
+    var el = ev.target.closest('.tab'); if(!el) return;
+    [].forEach.call($('tabs').querySelectorAll('.tab'), function(x){ x.classList.remove('active'); });
+    el.classList.add('active'); period = el.getAttribute('data-p'); ciz();
+  });
+
+  uygula();
+  yukle();
+  setInterval(yukle, 60000);
+})();
+</script>
+</body>
+</html>
