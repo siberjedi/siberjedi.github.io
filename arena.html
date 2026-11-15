@@ -125,6 +125,12 @@
   .aw .au{font-weight:900; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
   .aw .av{font:800 13px 'JetBrains Mono',monospace; color:var(--acc); margin-top:3px}
   .aw:not(.on) .au{color:var(--dim); font-weight:600}
+  .awl{list-style:none; margin:10px 0 0; padding:8px 0 0; border-top:1px dashed var(--line); font-size:12px}
+  .awl li{display:flex; align-items:center; gap:6px; padding:2px 0; min-width:0}
+  .awl .n{flex:none; width:16px; color:var(--dim); font:800 11px 'JetBrains Mono',monospace}
+  .awl .u{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:700; color:#cfcdd6}
+  .awl .u .plat{width:13px; height:13px; vertical-align:-2px; margin-inline-end:5px}
+  .awl .v{flex:none; color:var(--acc); font:800 11px 'JetBrains Mono',monospace}
 
   /* ulkeler */
   .hint{color:var(--dim); font-size:13px; margin:-4px 0 12px}
@@ -622,7 +628,10 @@
       var baslik = esc(T[w[2]]) + (w[0].indexOf('champ_') === 0 ? ' · ' + esc(T.aChamp) : '');
       var deger = v ? fmt(v.value) + ' ' + esc(T[w[3]]) : '';
       return '<div class="aw' + (v ? ' on' : '') + '"><div class="ai">' + w[1] + '</div><div class="al">' + baslik + '</div>' +
-        '<div class="au">' + (v ? oyuncu(v.user) : esc(T.free)) + '</div>' + (v ? '<div class="av">' + deger + '</div>' : '') + '</div>';
+        '<div class="au">' + (v ? oyuncu(v.user) : esc(T.free)) + '</div>' + (v ? '<div class="av">' + deger + '</div>' : '') +
+        (v && v.top && v.top.length > 1 ? '<ol class="awl">' + v.top.slice(1, 5).map(function(r, i){
+          return '<li><span class="n">' + (i + 2) + '</span><span class="u">' + oyuncu(r.user) + '</span><span class="v">' + fmt(r.value) + '</span></li>';
+        }).join('') + '</ol>' : '') + '</div>';
     }).join('');
   }
 
