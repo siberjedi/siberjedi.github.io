@@ -3,151 +3,132 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SiberJedi Arena — Think fast. Type faster. Win.</title>
-<meta name="description" content="The live chat arena: one question, hundreds of minds, one winner. Play from Twitch or YouTube chat — no sign-up. Live leaderboard.">
-<meta property="og:title" content="SiberJedi Arena — Think fast. Type faster. Win.">
-<meta property="og:description" content="One question. Hundreds of minds. Only the sharpest takes the points. Play live from Twitch or YouTube chat.">
+<title>SiberJedi Arena · Smartest in chat? Prove it.</title>
+<meta name="description" content="Live quiz you play from Twitch or YouTube chat. New question every round, no sign-up. Daily, weekly and monthly leaderboard.">
+<meta property="og:title" content="SiberJedi Arena · Smartest in chat? Prove it.">
+<meta property="og:description" content="New question every round. Type your answer in chat, fastest or closest wins. Play live on Twitch or YouTube.">
 <meta property="og:image" content="https://siberjedi.github.io/img/icon-siberjedi.png">
-<meta name="theme-color" content="#070914">
+<meta name="theme-color" content="#101014">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Archivo+Black&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#070914; --card:#0f1326; --card2:#141a33; --line:#252d4d;
-    --txt:#eef1fb; --dim:#93a0c4; --cyan:#22d3ee; --violet:#8b5cf6; --pink:#ff2d86;
-    --gold:#ffd166; --silver:#cbd5e1; --bronze:#f59e5b; --green:#34e3a4;
-    --yt:#ff0033; --tw:#9146ff;
+    --bg:#101014; --card:#18181f; --line:#2c2c38; --ink:#000;
+    --txt:#f2f0ea; --dim:#9a98a6; --acc:#ffd400; --acc2:#ff4d2e;
+    --gold:#ffd400; --silver:#d6d3cc; --bronze:#e08a4f; --yt:#ff0033; --tw:#9146ff;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0; min-height:100vh; color:var(--txt);
-    font-family:Inter,'Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif;
-    background:
-      radial-gradient(900px 520px at 85% -10%, rgba(139,92,246,.28), transparent 60%),
-      radial-gradient(800px 480px at 5% 0%, rgba(34,211,238,.18), transparent 60%),
-      var(--bg);
-    overflow-x:hidden;
-  }
-  body::before{ /* noktali izgara */
-    content:""; position:fixed; inset:0; pointer-events:none; opacity:.35;
-    background-image:radial-gradient(rgba(147,160,196,.18) 1px, transparent 1px);
-    background-size:22px 22px;
-    mask-image:linear-gradient(180deg,#000 0%,transparent 70%);
-  }
-  .wrap{position:relative; width:100%; max-width:960px; margin:0 auto; padding:18px 16px 56px}
+  body{margin:0; min-height:100vh; color:var(--txt); background:var(--bg);
+    font-family:Archivo,'Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif; overflow-x:hidden}
+  .wrap{width:100%; max-width:940px; margin:0 auto; padding:18px 16px 56px}
 
-  /* ust bar */
-  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:34px}
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:30px;
+    padding-bottom:14px; border-bottom:2px solid var(--line)}
   .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--txt);
-    font-family:'JetBrains Mono',monospace; font-weight:800; letter-spacing:2px; font-size:15px}
-  .brand img{width:34px; height:34px; border-radius:50%; border:1.5px solid var(--cyan); background:#0b1020}
-  .brand span b{background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));
-    -webkit-background-clip:text; background-clip:text; color:transparent}
-  .lang{appearance:none; background:var(--card); color:var(--txt); border:1px solid var(--line);
-    border-radius:10px; padding:8px 30px 8px 12px; font:600 13px Inter,sans-serif; cursor:pointer;
+    font-family:'Archivo Black',Archivo,sans-serif; font-size:17px; letter-spacing:.5px}
+  .brand img{width:34px; height:34px; border-radius:8px; border:2px solid var(--txt); background:#000}
+  .brand span b{color:var(--acc); font-weight:400}
+  .lang{appearance:none; background:var(--card); color:var(--txt); border:2px solid var(--line);
+    border-radius:8px; padding:8px 30px 8px 12px; font:700 13px Archivo,sans-serif; cursor:pointer;
     background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),linear-gradient(135deg,var(--dim) 50%,transparent 50%);
     background-position:calc(100% - 15px) 50%, calc(100% - 10px) 50%; background-size:5px 5px; background-repeat:no-repeat}
   [dir=rtl] .lang{padding:8px 12px 8px 30px; background-position:15px 50%, 20px 50%}
 
-  /* hero */
-  .hero{text-align:center; padding:8px 0 30px}
+  .hero{padding:6px 0 28px}
   .onair{display:inline-flex; align-items:center; gap:8px; font:800 12px 'JetBrains Mono',monospace;
-    letter-spacing:2px; padding:7px 14px; border-radius:999px; border:1px solid rgba(255,45,134,.5);
-    background:rgba(255,45,134,.08); color:#ffd0e2}
-  .onair.off{border-color:var(--line); background:rgba(147,160,196,.06); color:var(--dim)}
-  .onair .d{width:9px; height:9px; border-radius:50%; background:var(--pink); box-shadow:0 0 12px var(--pink); animation:pulse 1.4s infinite}
-  .onair.off .d{background:var(--dim); box-shadow:none; animation:none}
-  @keyframes pulse{0%,100%{opacity:1; transform:scale(1)}50%{opacity:.35; transform:scale(.8)}}
-  h1{font-size:clamp(36px,7.4vw,74px); line-height:1.02; font-weight:900; letter-spacing:-1.5px; margin:20px 0 16px}
-  h1 .g{background:linear-gradient(90deg,var(--cyan),var(--violet) 55%,var(--pink));
-    -webkit-background-clip:text; background-clip:text; color:transparent}
-  .sub{max-width:640px; margin:0 auto; color:var(--dim); font-size:clamp(15px,2.1vw,18px); line-height:1.6}
-  .ctas{display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin:28px 0 10px}
-  .cta{display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#fff; font-weight:800;
-    font-size:16px; padding:14px 22px; border-radius:14px; transition:transform .15s ease, box-shadow .15s ease;
-    min-width:230px; justify-content:center}
+    letter-spacing:1.5px; padding:6px 10px; border-radius:6px; background:var(--acc2); color:#fff}
+  .onair.off{background:var(--card); color:var(--dim); border:2px solid var(--line)}
+  .onair .d{width:8px; height:8px; border-radius:50%; background:#fff; animation:blink 1s steps(2,start) infinite}
+  .onair.off .d{background:var(--dim); animation:none}
+  @keyframes blink{to{visibility:hidden}}
+  h1{font-family:'Archivo Black',Archivo,sans-serif; font-weight:400; font-size:clamp(40px,8.4vw,86px);
+    line-height:.98; letter-spacing:-1px; margin:18px 0 18px; text-transform:uppercase}
+  h1 .g{color:var(--acc); display:inline-block; text-shadow:4px 4px 0 var(--ink); -webkit-text-stroke:0}
+  .sub{max-width:600px; margin:0; color:#cfcdd6; font-size:clamp(15px,2vw,18px); line-height:1.6}
+  .ctas{display:flex; gap:12px; flex-wrap:wrap; margin:26px 0 10px}
+  .cta{display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#fff; font-weight:900;
+    font-size:16px; padding:13px 20px; border-radius:10px; border:2px solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink); transition:transform .08s, box-shadow .08s; min-width:220px}
   .cta svg{width:22px; height:22px; flex:none}
-  .cta small{display:block; font-weight:600; font-size:11px; opacity:.85; letter-spacing:.5px}
-  .cta.tw{background:linear-gradient(135deg,#9146ff,#6d28d9); box-shadow:0 10px 30px rgba(145,70,255,.35)}
-  .cta.yt{background:linear-gradient(135deg,#ff2b4a,#c4001f); box-shadow:0 10px 30px rgba(255,0,51,.28)}
-  .cta:hover{transform:translateY(-2px)}
-  .nosign{color:var(--dim); font-size:13px; margin-top:8px}
+  .cta small{display:block; font-weight:600; font-size:11px; opacity:.9}
+  .cta.tw{background:var(--tw)} .cta.yt{background:var(--yt)}
+  .cta:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink)}
+  .cta:active{transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ink)}
+  .nosign{color:var(--dim); font-size:13px; margin-top:6px}
 
-  /* istatistik */
-  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:26px 0 34px}
+  .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin:24px 0 36px;
+    border:2px solid var(--line); border-radius:12px; overflow:hidden}
   @media(max-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}
-  .stat{background:linear-gradient(180deg,var(--card2),var(--card)); border:1px solid var(--line);
-    border-radius:16px; padding:16px 12px; text-align:center}
-  .stat b{display:block; font:800 clamp(24px,4vw,32px) 'JetBrains Mono',monospace; color:#fff}
-  .stat span{font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:1.6px; font-weight:600}
+  .stat{background:var(--card); padding:16px 12px; text-align:center; border-inline-end:2px solid var(--line)}
+  .stat:last-child{border-inline-end:0}
+  @media(max-width:680px){.stat:nth-child(2){border-inline-end:0} .stat:nth-child(-n+2){border-bottom:2px solid var(--line)}}
+  .stat b{display:block; font:800 clamp(26px,4vw,34px) 'JetBrains Mono',monospace; color:var(--acc)}
+  .stat span{font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:1.4px; font-weight:700}
 
-  h2{font-size:clamp(22px,3.6vw,30px); font-weight:900; letter-spacing:-.5px; margin:0 0 16px; text-align:center}
+  h2{font-family:'Archivo Black',Archivo,sans-serif; font-weight:400; font-size:clamp(22px,3.4vw,30px);
+    text-transform:uppercase; margin:0 0 14px; display:flex; align-items:center; gap:12px}
+  h2::after{content:""; flex:1; height:2px; background:var(--line)}
   section{margin-bottom:40px}
 
-  /* modlar */
   .modes{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
   @media(max-width:760px){.modes{grid-template-columns:1fr}}
-  .mode{position:relative; overflow:hidden; background:linear-gradient(180deg,var(--card2),var(--card));
-    border:1px solid var(--line); border-radius:18px; padding:20px 18px}
-  .mode::after{content:""; position:absolute; inset:0 0 auto 0; height:3px; background:var(--c,var(--cyan))}
-  .mode .ic{font-size:28px; line-height:1}
-  .mode h3{margin:12px 0 6px; font-size:18px; font-weight:800}
+  .mode{background:var(--card); border:2px solid var(--line); border-radius:12px; padding:18px}
+  .mode .ic{display:inline-block; font:800 15px 'JetBrains Mono',monospace; color:var(--ink);
+    background:var(--c,var(--acc)); padding:4px 9px; border-radius:6px}
+  .mode h3{margin:12px 0 6px; font-size:18px; font-weight:900}
   .mode p{margin:0; color:var(--dim); font-size:14px; line-height:1.55}
 
-  /* adimlar */
   .steps{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; counter-reset:s}
   @media(max-width:760px){.steps{grid-template-columns:1fr}}
-  .step{display:flex; gap:14px; align-items:flex-start; padding:16px; border-radius:16px; border:1px dashed var(--line)}
-  .step::before{counter-increment:s; content:counter(s); flex:none; width:34px; height:34px; border-radius:10px;
-    display:grid; place-items:center; font:800 16px 'JetBrains Mono',monospace; color:#070914;
-    background:linear-gradient(135deg,var(--cyan),var(--violet))}
-  .step b{display:block; margin-bottom:4px}
+  .step{display:flex; gap:14px; align-items:flex-start; padding:4px 0}
+  .step::before{counter-increment:s; content:counter(s); flex:none; width:36px; height:36px; border-radius:8px;
+    display:grid; place-items:center; font:800 17px 'JetBrains Mono',monospace; color:var(--ink);
+    background:var(--acc); border:2px solid var(--ink); box-shadow:3px 3px 0 var(--ink)}
+  .step b{display:block; margin-bottom:3px; font-weight:900}
   .step span{color:var(--dim); font-size:14px; line-height:1.5}
 
-  /* siralama */
-  .panel{background:linear-gradient(180deg,var(--card2),var(--card)); border:1px solid var(--line);
-    border-radius:20px; padding:16px 16px 8px}
-  .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px}
-  .tab{flex:1 1 auto; min-width:100px; cursor:pointer; text-align:center; font:700 13px Inter,sans-serif;
-    color:var(--dim); border:1px solid var(--line); border-radius:11px; padding:10px; background:#0b1022; transition:.15s}
-  .tab.active{color:#070914; background:linear-gradient(135deg,var(--cyan),var(--violet)); border-color:transparent}
+  .panel{background:var(--card); border:2px solid var(--line); border-radius:12px; padding:14px 14px 6px}
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px}
+  .tab{flex:1 1 auto; min-width:96px; cursor:pointer; text-align:center; font:800 13px Archivo,sans-serif;
+    color:var(--dim); border:2px solid var(--line); border-radius:8px; padding:9px; background:var(--bg)}
+  .tab:hover{color:var(--txt)}
+  .tab.active{color:var(--ink); background:var(--acc); border-color:var(--ink)}
   .tbl{width:100%; overflow-x:auto}
   table{width:100%; border-collapse:collapse; font-size:14px}
-  th{font-size:10px; letter-spacing:1.5px; color:var(--dim); text-transform:uppercase; text-align:start;
-    padding:6px 8px; border-bottom:1px solid var(--line); font-weight:700}
+  th{font-size:10px; letter-spacing:1.4px; color:var(--dim); text-transform:uppercase; text-align:start;
+    padding:6px 8px; border-bottom:2px solid var(--line); font-weight:800}
   th.r,td.r{text-align:end}
-  td{padding:10px 8px; border-bottom:1px solid rgba(37,45,77,.55)}
+  td{padding:10px 8px; border-bottom:1px solid var(--line)}
   tr:last-child td{border-bottom:0}
   .rank{width:40px}
-  .medal{display:inline-grid; place-items:center; width:26px; height:26px; border-radius:8px;
-    font:800 13px 'JetBrains Mono',monospace; color:var(--dim); background:#0b1022; border:1px solid var(--line)}
-  tr.p1 .medal{color:#2a1d00; background:var(--gold); border-color:transparent; box-shadow:0 0 14px rgba(255,209,102,.45)}
-  tr.p2 .medal{color:#111; background:var(--silver); border-color:transparent}
-  tr.p3 .medal{color:#2a1200; background:var(--bronze); border-color:transparent}
-  .user{font-weight:700; word-break:break-all}
+  .medal{display:inline-grid; place-items:center; width:26px; height:26px; border-radius:6px;
+    font:800 13px 'JetBrains Mono',monospace; color:var(--dim); background:var(--bg); border:2px solid var(--line)}
+  tr.p1 .medal{color:var(--ink); background:var(--gold); border-color:var(--ink)}
+  tr.p2 .medal{color:var(--ink); background:var(--silver); border-color:var(--ink)}
+  tr.p3 .medal{color:var(--ink); background:var(--bronze); border-color:var(--ink)}
+  .user{font-weight:800; word-break:break-all}
   .plat{display:inline-block; width:16px; height:16px; vertical-align:-3px; margin-inline-end:7px}
-  .pts{color:var(--cyan); font:800 15px 'JetBrains Mono',monospace}
+  .pts{color:var(--acc); font:800 15px 'JetBrains Mono',monospace}
   .num{color:var(--dim); font-family:'JetBrains Mono',monospace}
   .empty{padding:22px 8px; color:var(--dim); text-align:center}
   .meta{display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between; font-size:13px; color:var(--dim); padding:10px 2px}
-  .meta b{color:#fff}
-  .warn{display:none; margin:6px 2px; font-size:12px; color:#ffb4c8}
+  .meta b{color:var(--txt)}
+  .warn{display:none; margin:6px 2px; font-size:12px; color:#ff9b8a}
 
-  /* oduller */
-  .awards{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px}
+  .awards{display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
   @media(max-width:760px){.awards{grid-template-columns:repeat(2,1fr)}}
-  .aw{position:relative; background:#0b1022; border:1px solid var(--line); border-radius:14px; padding:12px 12px 11px; min-width:0}
-  .aw.on{border-color:rgba(255,209,102,.45); box-shadow:inset 0 0 0 1px rgba(255,209,102,.08), 0 6px 20px rgba(255,209,102,.07)}
-  .aw .ai{font-size:22px; line-height:1}
-  .aw .al{font-size:10px; letter-spacing:1.3px; text-transform:uppercase; color:var(--dim); font-weight:700; margin:7px 0 5px; line-height:1.3}
-  .aw .au{font-weight:800; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  .aw .av{font:800 13px 'JetBrains Mono',monospace; color:var(--gold); margin-top:3px}
+  .aw{background:var(--card); border:2px solid var(--line); border-radius:10px; padding:12px; min-width:0}
+  .aw.on{border-color:var(--acc)}
+  .aw .ai{font-size:20px; line-height:1}
+  .aw .al{font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--dim); font-weight:800; margin:8px 0 5px; line-height:1.3}
+  .aw .au{font-weight:900; font-size:14px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .aw .av{font:800 13px 'JetBrains Mono',monospace; color:var(--acc); margin-top:3px}
   .aw:not(.on) .au{color:var(--dim); font-weight:600}
-  .foot{text-align:center; color:var(--dim); font-size:12px; line-height:1.9; margin-top:10px}
-  .foot a{color:var(--cyan); text-decoration:none}
-  @media(max-width:420px){ .cta{min-width:0; width:100%} .top{margin-bottom:22px} }
+
+  .foot{color:var(--dim); font-size:12px; line-height:1.9; margin-top:10px; padding-top:14px; border-top:2px solid var(--line)}
+  .foot a{color:var(--txt); text-decoration:underline; text-underline-offset:3px}
+  @media(max-width:420px){ .cta{min-width:0; width:100%} }
 </style>
 </head>
 <body>
@@ -204,9 +185,9 @@
   <section>
     <h2 data-i="modesT"></h2>
     <div class="modes">
-      <div class="mode" style="--c:var(--cyan)"><div class="ic">🎯</div><h3 data-i="m1t"></h3><p data-i="m1d"></p></div>
-      <div class="mode" style="--c:var(--violet)"><div class="ic">🔤</div><h3 data-i="m2t"></h3><p data-i="m2d"></p></div>
-      <div class="mode" style="--c:var(--pink)"><div class="ic">🧠</div><h3 data-i="m3t"></h3><p data-i="m3d"></p></div>
+      <div class="mode" style="--c:#ffd400"><div class="ic">0–999</div><h3 data-i="m1t"></h3><p data-i="m1d"></p></div>
+      <div class="mode" style="--c:#7cf0b0"><div class="ic">A _ C _</div><h3 data-i="m2t"></h3><p data-i="m2d"></p></div>
+      <div class="mode" style="--c:#8fc8ff"><div class="ic">≈ ?</div><h3 data-i="m3t"></h3><p data-i="m3d"></p></div>
     </div>
   </section>
 
@@ -230,8 +211,8 @@
   /* ---------- diller ---------- */
   var L = {
     en:{_n:'English', title:'SiberJedi Arena — Think fast. Type faster. Win.',
-      live:'LIVE NOW', off:'BACK SOON · 24/7 ARENA', h1a:'Think fast.', h1b:'Type faster. Win.',
-      sub:'One question. Hundreds of minds. Only the sharpest one takes the points. Jump into the chat and prove you are the quickest brain on the internet.',
+      live:'LIVE NOW', off:'BACK SOON · 24/7 ARENA', h1a:'Smartest in chat?', h1b:'Prove it.',
+      sub:'New question every round. Type your answer in chat; the fastest or closest takes the points. The leaderboard resets every day, week and month.',
       ctaTw:'Play on Twitch', ctaYt:'Play on YouTube', ctaSmall:'Your chat message is your answer',
       nosign:'No sign-up. No download. Just you, the chat and the clock.',
       stRounds:'Rounds', stPlayers:'Players', stGuesses:'Guesses', stPoints:'Points won',
@@ -248,8 +229,8 @@
       s3t:'Climb the ranks', s3d:'Points stack up daily, weekly and forever.',
       fLinks:'All links', fSite:'Website', fPrivacy:'Privacy', fNote:'Leaderboard refreshes about every minute.'},
     tr:{_n:'Türkçe', title:'SiberJedi Arena — Hızlı düşün. Daha hızlı yaz. Kazan.',
-      live:'ŞU AN CANLI', off:'YAKINDA · 7/24 ARENA', h1a:'Hızlı düşün.', h1b:'Daha hızlı yaz. Kazan.',
-      sub:'Tek soru. Yüzlerce zihin. Puanı yalnızca en keskin olan alır. Sohbete gir ve internetin en hızlı beyni olduğunu kanıtla.',
+      live:'ŞU AN CANLI', off:'YAKINDA · 7/24 ARENA', h1a:'Sohbetin en zekisi misin?', h1b:'Kanıtla.',
+      sub:'Her turda yeni soru. Cevabını sohbete yaz; en hızlı ya da en yakın olan puanı kapar. Sıralama her gün, hafta ve ay yeniden başlar.',
       ctaTw:'Twitch’te oyna', ctaYt:'YouTube’da oyna', ctaSmall:'Sohbete yazdığın mesaj cevabındır',
       nosign:'Kayıt yok. İndirme yok. Sadece sen, sohbet ve saat.',
       stRounds:'Tur', stPlayers:'Oyuncu', stGuesses:'Tahmin', stPoints:'Kazanılan puan',
@@ -266,8 +247,8 @@
       s3t:'Zirveye tırman', s3d:'Puanlar günlük, haftalık ve sonsuza dek birikir.',
       fLinks:'Tüm linkler', fSite:'Site', fPrivacy:'Gizlilik', fNote:'Sıralama yaklaşık dakikada bir yenilenir.'},
     es:{_n:'Español', title:'SiberJedi Arena — Piensa rápido. Escribe más rápido. Gana.',
-      live:'EN VIVO', off:'VUELVE PRONTO · ARENA 24/7', h1a:'Piensa rápido.', h1b:'Escribe más rápido. Gana.',
-      sub:'Una pregunta. Cientos de mentes. Solo la más afilada se lleva los puntos. Entra al chat y demuestra que eres el cerebro más rápido de internet.',
+      live:'EN VIVO', off:'VUELVE PRONTO · ARENA 24/7', h1a:'¿El más listo del chat?', h1b:'Demuéstralo.',
+      sub:'Cada ronda, una pregunta nueva. Escribe tu respuesta en el chat; el más rápido o el más cercano se lleva los puntos. El ranking se reinicia cada día, semana y mes.',
       ctaTw:'Juega en Twitch', ctaYt:'Juega en YouTube', ctaSmall:'Tu mensaje en el chat es tu respuesta',
       nosign:'Sin registro. Sin descargas. Solo tú, el chat y el reloj.',
       stRounds:'Rondas', stPlayers:'Jugadores', stGuesses:'Intentos', stPoints:'Puntos ganados',
@@ -284,8 +265,8 @@
       s3t:'Sube en el ranking', s3d:'Los puntos se acumulan por día, semana y para siempre.',
       fLinks:'Todos los enlaces', fSite:'Web', fPrivacy:'Privacidad', fNote:'La clasificación se actualiza cada minuto aprox.'},
     pt:{_n:'Português', title:'SiberJedi Arena — Pense rápido. Digite mais rápido. Vença.',
-      live:'AO VIVO', off:'VOLTA LOGO · ARENA 24/7', h1a:'Pense rápido.', h1b:'Digite mais rápido. Vença.',
-      sub:'Uma pergunta. Centenas de mentes. Só a mais afiada leva os pontos. Entre no chat e prove que você é o cérebro mais rápido da internet.',
+      live:'AO VIVO', off:'VOLTA LOGO · ARENA 24/7', h1a:'O mais esperto do chat?', h1b:'Prove.',
+      sub:'Pergunta nova a cada rodada. Responda no chat; quem for mais rápido ou chegar mais perto leva os pontos. O ranking zera todo dia, semana e mês.',
       ctaTw:'Jogue na Twitch', ctaYt:'Jogue no YouTube', ctaSmall:'Sua mensagem no chat é sua resposta',
       nosign:'Sem cadastro. Sem download. Só você, o chat e o relógio.',
       stRounds:'Rodadas', stPlayers:'Jogadores', stGuesses:'Palpites', stPoints:'Pontos ganhos',
@@ -302,8 +283,8 @@
       s3t:'Suba no ranking', s3d:'Os pontos somam por dia, semana e para sempre.',
       fLinks:'Todos os links', fSite:'Site', fPrivacy:'Privacidade', fNote:'O ranking atualiza mais ou menos a cada minuto.'},
     de:{_n:'Deutsch', title:'SiberJedi Arena — Schnell denken. Schneller tippen. Gewinnen.',
-      live:'JETZT LIVE', off:'GLEICH ZURÜCK · 24/7 ARENA', h1a:'Schnell denken.', h1b:'Schneller tippen. Gewinnen.',
-      sub:'Eine Frage. Hunderte Köpfe. Nur der schärfste holt die Punkte. Spring in den Chat und beweise, dass du das schnellste Hirn im Netz bist.',
+      live:'JETZT LIVE', off:'GLEICH ZURÜCK · 24/7 ARENA', h1a:'Klügster im Chat?', h1b:'Beweis es.',
+      sub:'Jede Runde eine neue Frage. Schreib deine Antwort in den Chat; wer am schnellsten oder am nächsten dran ist, holt die Punkte. Die Rangliste startet täglich, wöchentlich und monatlich neu.',
       ctaTw:'Auf Twitch spielen', ctaYt:'Auf YouTube spielen', ctaSmall:'Deine Chatnachricht ist deine Antwort',
       nosign:'Keine Anmeldung. Kein Download. Nur du, der Chat und die Uhr.',
       stRounds:'Runden', stPlayers:'Spieler', stGuesses:'Tipps', stPoints:'Gewonnene Punkte',
@@ -320,8 +301,8 @@
       s3t:'Aufsteigen', s3d:'Punkte sammeln sich täglich, wöchentlich und für immer.',
       fLinks:'Alle Links', fSite:'Website', fPrivacy:'Datenschutz', fNote:'Rangliste aktualisiert sich etwa jede Minute.'},
     fr:{_n:'Français', title:'SiberJedi Arena — Pense vite. Tape plus vite. Gagne.',
-      live:'EN DIRECT', off:'BIENTÔT DE RETOUR · ARÈNE 24/7', h1a:'Pense vite.', h1b:'Tape plus vite. Gagne.',
-      sub:'Une question. Des centaines d’esprits. Seul le plus affûté rafle les points. Entre dans le chat et prouve que tu es le cerveau le plus rapide du web.',
+      live:'EN DIRECT', off:'BIENTÔT DE RETOUR · ARÈNE 24/7', h1a:'Le plus malin du chat ?', h1b:'Prouve-le.',
+      sub:'Une nouvelle question à chaque manche. Réponds dans le chat ; le plus rapide ou le plus proche rafle les points. Le classement repart à zéro chaque jour, semaine et mois.',
       ctaTw:'Jouer sur Twitch', ctaYt:'Jouer sur YouTube', ctaSmall:'Ton message dans le chat est ta réponse',
       nosign:'Sans inscription. Sans téléchargement. Juste toi, le chat et le chrono.',
       stRounds:'Manches', stPlayers:'Joueurs', stGuesses:'Essais', stPoints:'Points gagnés',
@@ -338,8 +319,8 @@
       s3t:'Grimpe au classement', s3d:'Les points s’accumulent par jour, semaine et pour toujours.',
       fLinks:'Tous les liens', fSite:'Site', fPrivacy:'Confidentialité', fNote:'Le classement se met à jour environ chaque minute.'},
     it:{_n:'Italiano', title:'SiberJedi Arena — Pensa veloce. Scrivi più veloce. Vinci.',
-      live:'IN DIRETTA', off:'TORNIAMO PRESTO · ARENA 24/7', h1a:'Pensa veloce.', h1b:'Scrivi più veloce. Vinci.',
-      sub:'Una domanda. Centinaia di menti. Solo la più affilata prende i punti. Entra in chat e dimostra di essere il cervello più veloce del web.',
+      live:'IN DIRETTA', off:'TORNIAMO PRESTO · ARENA 24/7', h1a:'Il più sveglio della chat?', h1b:'Dimostralo.',
+      sub:'Ogni round una nuova domanda. Scrivi la risposta in chat; il più veloce o il più vicino prende i punti. La classifica si azzera ogni giorno, settimana e mese.',
       ctaTw:'Gioca su Twitch', ctaYt:'Gioca su YouTube', ctaSmall:'Il tuo messaggio in chat è la tua risposta',
       nosign:'Nessuna registrazione. Nessun download. Solo tu, la chat e il cronometro.',
       stRounds:'Round', stPlayers:'Giocatori', stGuesses:'Tentativi', stPoints:'Punti vinti',
@@ -356,8 +337,8 @@
       s3t:'Scala la classifica', s3d:'I punti si sommano ogni giorno, settimana e per sempre.',
       fLinks:'Tutti i link', fSite:'Sito', fPrivacy:'Privacy', fNote:'La classifica si aggiorna circa ogni minuto.'},
     ru:{_n:'Русский', title:'SiberJedi Arena — Думай быстро. Пиши быстрее. Побеждай.',
-      live:'В ЭФИРЕ', off:'СКОРО ВЕРНЁМСЯ · АРЕНА 24/7', h1a:'Думай быстро.', h1b:'Пиши быстрее. Побеждай.',
-      sub:'Один вопрос. Сотни умов. Очки забирает только самый острый. Заходи в чат и докажи, что ты самый быстрый мозг в интернете.',
+      live:'В ЭФИРЕ', off:'СКОРО ВЕРНЁМСЯ · АРЕНА 24/7', h1a:'Самый умный в чате?', h1b:'Докажи.',
+      sub:'Каждый раунд новый вопрос. Пиши ответ в чат; самый быстрый или самый точный забирает очки. Рейтинг обнуляется каждый день, неделю и месяц.',
       ctaTw:'Играть на Twitch', ctaYt:'Играть на YouTube', ctaSmall:'Твоё сообщение в чате — это ответ',
       nosign:'Без регистрации. Без загрузок. Только ты, чат и таймер.',
       stRounds:'Раунды', stPlayers:'Игроки', stGuesses:'Попытки', stPoints:'Очков выиграно',
@@ -374,8 +355,8 @@
       s3t:'Поднимайся в рейтинге', s3d:'Очки копятся за день, неделю и навсегда.',
       fLinks:'Все ссылки', fSite:'Сайт', fPrivacy:'Конфиденциальность', fNote:'Рейтинг обновляется примерно раз в минуту.'},
     ar:{_n:'العربية', _rtl:1, title:'SiberJedi Arena — فكّر بسرعة. اكتب أسرع. اربح.',
-      live:'مباشر الآن', off:'نعود قريبًا · ساحة 24/7', h1a:'فكّر بسرعة.', h1b:'اكتب أسرع. اربح.',
-      sub:'سؤال واحد. مئات العقول. وحده الأذكى يحصد النقاط. ادخل الدردشة وأثبت أنك أسرع عقل على الإنترنت.',
+      live:'مباشر الآن', off:'نعود قريبًا · ساحة 24/7', h1a:'أذكى من في الدردشة؟', h1b:'أثبت ذلك.',
+      sub:'سؤال جديد كل جولة. اكتب إجابتك في الدردشة، والأسرع أو الأقرب يأخذ النقاط. يبدأ الترتيب من جديد كل يوم وأسبوع وشهر.',
       ctaTw:'العب على Twitch', ctaYt:'العب على YouTube', ctaSmall:'رسالتك في الدردشة هي إجابتك',
       nosign:'بلا تسجيل. بلا تنزيل. أنت والدردشة والساعة فقط.',
       stRounds:'الجولات', stPlayers:'اللاعبون', stGuesses:'التخمينات', stPoints:'النقاط المكتسبة',
@@ -392,8 +373,8 @@
       s3t:'اصعد في الترتيب', s3d:'تتراكم النقاط يوميًا وأسبوعيًا وإلى الأبد.',
       fLinks:'كل الروابط', fSite:'الموقع', fPrivacy:'الخصوصية', fNote:'يتحدّث الترتيب كل دقيقة تقريبًا.'},
     hi:{_n:'हिन्दी', title:'SiberJedi Arena — तेज़ सोचो। और तेज़ लिखो। जीतो।',
-      live:'अभी लाइव', off:'जल्द लौटेंगे · 24/7 एरीना', h1a:'तेज़ सोचो।', h1b:'और तेज़ लिखो। जीतो।',
-      sub:'एक सवाल। सैकड़ों दिमाग़। अंक सिर्फ़ सबसे तेज़ दिमाग़ को मिलते हैं। चैट में आओ और साबित करो कि इंटरनेट का सबसे तेज़ दिमाग़ तुम हो।',
+      live:'अभी लाइव', off:'जल्द लौटेंगे · 24/7 एरीना', h1a:'चैट में सबसे तेज़ दिमाग़?', h1b:'साबित करो।',
+      sub:'हर राउंड नया सवाल। जवाब चैट में लिखो; सबसे तेज़ या सबसे क़रीब वाले को अंक मिलते हैं। रैंकिंग हर दिन, हफ़्ते और महीने नई शुरू होती है।',
       ctaTw:'Twitch पर खेलें', ctaYt:'YouTube पर खेलें', ctaSmall:'चैट में तुम्हारा मैसेज ही जवाब है',
       nosign:'कोई साइन-अप नहीं। कोई डाउनलोड नहीं। बस तुम, चैट और घड़ी।',
       stRounds:'राउंड', stPlayers:'खिलाड़ी', stGuesses:'अनुमान', stPoints:'जीते अंक',
@@ -410,8 +391,8 @@
       s3t:'रैंक में चढ़ो', s3d:'अंक रोज़, हफ़्ते और हमेशा के लिए जुड़ते हैं।',
       fLinks:'सभी लिंक', fSite:'वेबसाइट', fPrivacy:'गोपनीयता', fNote:'रैंकिंग लगभग हर मिनट अपडेट होती है।'},
     id:{_n:'Bahasa Indonesia', title:'SiberJedi Arena — Pikir cepat. Ketik lebih cepat. Menang.',
-      live:'LIVE SEKARANG', off:'SEGERA KEMBALI · ARENA 24/7', h1a:'Pikir cepat.', h1b:'Ketik lebih cepat. Menang.',
-      sub:'Satu pertanyaan. Ratusan pikiran. Hanya yang paling tajam yang dapat poin. Masuk ke chat dan buktikan kamu otak tercepat di internet.',
+      live:'LIVE SEKARANG', off:'SEGERA KEMBALI · ARENA 24/7', h1a:'Paling pintar di chat?', h1b:'Buktikan.',
+      sub:'Tiap ronde ada soal baru. Ketik jawabanmu di chat; yang tercepat atau terdekat dapat poin. Peringkat diulang tiap hari, minggu, dan bulan.',
       ctaTw:'Main di Twitch', ctaYt:'Main di YouTube', ctaSmall:'Pesan chat-mu adalah jawabanmu',
       nosign:'Tanpa daftar. Tanpa unduh. Hanya kamu, chat, dan waktu.',
       stRounds:'Ronde', stPlayers:'Pemain', stGuesses:'Tebakan', stPoints:'Poin dimenangkan',
@@ -428,8 +409,8 @@
       s3t:'Naik peringkat', s3d:'Poin terkumpul harian, mingguan, dan selamanya.',
       fLinks:'Semua tautan', fSite:'Situs', fPrivacy:'Privasi', fNote:'Peringkat diperbarui sekitar tiap menit.'},
     ja:{_n:'日本語', title:'SiberJedi Arena — 速く考えろ。もっと速く打て。勝て。',
-      live:'ライブ配信中', off:'まもなく再開 · 24時間アリーナ', h1a:'速く考えろ。', h1b:'もっと速く打て。勝て。',
-      sub:'問題はひとつ。挑むのは何百もの頭脳。ポイントを取るのは最も鋭い一人だけ。チャットに飛び込み、ネット最速の頭脳を証明しよう。',
+      live:'ライブ配信中', off:'まもなく再開 · 24時間アリーナ', h1a:'チャットで一番賢いのは？', h1b:'証明しろ。',
+      sub:'毎ラウンド新しい問題。答えをチャットに書こう。最速か一番近い人がポイントを獲得。ランキングは毎日・毎週・毎月リセット。',
       ctaTw:'Twitchでプレイ', ctaYt:'YouTubeでプレイ', ctaSmall:'チャットのメッセージがそのまま回答',
       nosign:'登録不要。ダウンロード不要。あなたとチャットと時計だけ。',
       stRounds:'ラウンド', stPlayers:'プレイヤー', stGuesses:'回答数', stPoints:'獲得ポイント',
@@ -446,8 +427,8 @@
       s3t:'ランキングを駆け上がれ', s3d:'ポイントは日・週・歴代で積み上がる。',
       fLinks:'すべてのリンク', fSite:'サイト', fPrivacy:'プライバシー', fNote:'ランキングは約1分ごとに更新されます。'},
     ko:{_n:'한국어', title:'SiberJedi Arena — 빨리 생각하고, 더 빨리 쳐라. 이겨라.',
-      live:'지금 라이브', off:'곧 돌아옵니다 · 24/7 아레나', h1a:'빨리 생각하라.', h1b:'더 빨리 쳐라. 이겨라.',
-      sub:'질문은 하나. 도전자는 수백 명. 점수는 가장 날카로운 단 한 명의 것. 채팅에 뛰어들어 인터넷에서 가장 빠른 두뇌임을 증명하라.',
+      live:'지금 라이브', off:'곧 돌아옵니다 · 24/7 아레나', h1a:'채팅에서 제일 똑똑한 사람?', h1b:'증명해 봐.',
+      sub:'매 라운드 새 문제. 채팅에 답을 쓰면 가장 빠르거나 가장 가까운 사람이 점수를 가져간다. 랭킹은 매일, 매주, 매달 새로 시작.',
       ctaTw:'Twitch에서 플레이', ctaYt:'YouTube에서 플레이', ctaSmall:'채팅 메시지가 곧 정답',
       nosign:'가입 없음. 다운로드 없음. 당신과 채팅, 그리고 시계뿐.',
       stRounds:'라운드', stPlayers:'플레이어', stGuesses:'추측', stPoints:'획득 점수',
@@ -464,8 +445,8 @@
       s3t:'랭킹 정복', s3d:'점수는 일·주·역대로 쌓인다.',
       fLinks:'모든 링크', fSite:'웹사이트', fPrivacy:'개인정보', fNote:'랭킹은 약 1분마다 갱신됩니다.'},
     zh:{_n:'中文', title:'SiberJedi Arena — 想得快，打得更快，赢！',
-      live:'正在直播', off:'即将回归 · 全天候竞技场', h1a:'想得快。', h1b:'打得更快。赢！',
-      sub:'一道题。成百上千个大脑。只有最敏锐的那个拿走分数。冲进聊天，证明你是全网最快的大脑。',
+      live:'正在直播', off:'即将回归 · 全天候竞技场', h1a:'聊天里最聪明的是你？', h1b:'证明给我们看。',
+      sub:'每回合一道新题。在聊天里写答案，最快或最接近的人拿分。排行榜每天、每周、每月重置。',
       ctaTw:'在 Twitch 玩', ctaYt:'在 YouTube 玩', ctaSmall:'你的聊天消息就是答案',
       nosign:'无需注册，无需下载。只有你、聊天和倒计时。',
       stRounds:'回合', stPlayers:'玩家', stGuesses:'猜测', stPoints:'赢得积分',
@@ -519,7 +500,7 @@
     T = L[lang];
     document.documentElement.lang = lang;
     document.documentElement.dir = T._rtl ? 'rtl' : 'ltr';
-    document.title = T.title;
+    document.title = 'SiberJedi Arena · ' + T.h1a + ' ' + T.h1b;
     sel.value = lang;
     [].forEach.call(document.querySelectorAll('[data-i]'), function(el){
       var v = T[el.getAttribute('data-i')] || L.en[el.getAttribute('data-i')];
