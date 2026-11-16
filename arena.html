@@ -59,6 +59,11 @@
   .nosign{color:var(--dim); font-size:13px; margin-top:6px}
   .live{margin-top:18px; aspect-ratio:16/9; background:#000; border:2px solid var(--ink); border-radius:10px; overflow:hidden; box-shadow:4px 4px 0 var(--ink)}
   .live iframe{display:block; width:100%; height:100%; border:0}
+  .ltabs{display:flex; gap:8px; margin-top:18px}
+  .ltabs + .live{margin-top:8px}
+  .lt{flex:1 1 0; font:800 13px inherit; font-family:inherit; padding:8px 10px; border-radius:8px; border:2px solid var(--line); background:var(--card); color:var(--dim); cursor:pointer}
+  .lt.on{color:#fff; border-color:var(--ink)}
+  .lt.kick.on{background:#53fc18; color:#0b0b0b} .lt.tw.on{background:var(--tw)} .lt.yt.on{background:var(--yt)}
 
   .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin:24px 0 36px;
     border:2px solid var(--line); border-radius:12px; overflow:hidden}
@@ -172,7 +177,30 @@
       </a>
     </div>
     <div class="nosign" data-i="nosign"></div>
-    <div class="live"><iframe src="https://player.kick.com/siberjediarena?autoplay=true&muted=true" title="Chat Clash live on Kick" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    <div class="ltabs" role="tablist">
+      <button class="lt kick on" type="button" data-p="kick">Kick</button>
+      <button class="lt tw" type="button" data-p="tw">Twitch</button>
+      <button class="lt yt" type="button" data-p="yt">YouTube</button>
+    </div>
+    <div class="live"><iframe id="liveframe" src="https://player.kick.com/siberjediarena?autoplay=true&muted=true" title="Chat Clash live" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    <script>
+    (function(){
+      var h = location.hostname || 'siberjedi.com';
+      var P = {
+        kick: 'https://player.kick.com/siberjediarena?autoplay=true&muted=true',
+        tw: 'https://player.twitch.tv/?channel=siberjediarena&parent=' + h + '&muted=true',
+        yt: 'https://www.youtube.com/embed/live_stream?channel=UCnvg8eqSNzZEZ7Ljx9qPluA&autoplay=1&mute=1'
+      };
+      var f = document.getElementById('liveframe');
+      document.querySelectorAll('.ltabs .lt').forEach(function(b){
+        b.addEventListener('click', function(){
+          document.querySelectorAll('.ltabs .lt').forEach(function(x){ x.classList.remove('on'); });
+          b.classList.add('on');
+          f.src = P[b.getAttribute('data-p')];
+        });
+      });
+    })();
+    </script>
   </header>
 
   <div class="grid">
