@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://siberjedi.github.io/sitemap.xml
+Sitemap: https://siberjedi.com/sitemap.xml
