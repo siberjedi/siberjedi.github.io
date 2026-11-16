@@ -57,6 +57,8 @@
   .cta:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--ink)}
   .cta:active{transform:translate(2px,2px); box-shadow:1px 1px 0 var(--ink)}
   .nosign{color:var(--dim); font-size:13px; margin-top:6px}
+  .live{margin-top:18px; aspect-ratio:16/9; background:#000; border:2px solid var(--ink); border-radius:10px; overflow:hidden; box-shadow:4px 4px 0 var(--ink)}
+  .live iframe{display:block; width:100%; height:100%; border:0}
 
   .grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin:24px 0 36px;
     border:2px solid var(--line); border-radius:12px; overflow:hidden}
@@ -170,6 +172,7 @@
       </a>
     </div>
     <div class="nosign" data-i="nosign"></div>
+    <div class="live"><iframe src="https://player.kick.com/siberjediarena?autoplay=true&muted=true" title="Chat Clash live on Kick" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
   </header>
 
   <div class="grid">
