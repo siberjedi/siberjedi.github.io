@@ -887,32 +887,538 @@
 
 <!-- PROMO + ABOUT -->
 <section id="hakkinda">
-<div id="promo-slider" style="max-width:1100px;margin:1.5rem auto 0;padding:0 24px;">
-  <a id="promo-link" href="coredrop.html" style="display:block;position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--border);text-decoration:none;">
-    <img id="promo-img" src="img/shot-coredrop-1.jpg" alt="CoreDrop — çok yakında" style="width:100%;height:min(38vh,340px);object-fit:cover;display:block;opacity:.92">
-    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,4,8,.92) 0%,rgba(2,4,8,.45) 55%,rgba(2,4,8,.15) 100%);display:flex;flex-direction:column;justify-content:center;padding:0 clamp(16px,4vw,48px);">
-      <span id="promo-etiket" style="font-family:'Share Tech Mono','Oxanium',monospace;font-size:.7rem;letter-spacing:3px;color:#ff0080;margin-bottom:8px;">ÇOK YAKINDA</span>
-      <span id="promo-baslik" style="font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;font-size:clamp(1.3rem,3.4vw,2.2rem);color:#fff;line-height:1.15;">CoreDrop</span>
-      <span id="promo-alt" style="font-family:'Rajdhani',sans-serif;color:#c8e8f0;font-size:clamp(.85rem,2vw,1.05rem);margin-top:6px;">Renkleri düşür, zinciri patlat — 8 bölge, 100+ seviye</span>
-      <span style="margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-family:'Oxanium','Rajdhani',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:1px;color:#02060c;background:linear-gradient(135deg,#00f5ff,#ff0080);padding:9px 18px;border-radius:8px;width:max-content;">ÖN İZLEME →</span>
-    </div>
-  </a>
+<style>
+  #promo-slider {
+    max-width: 1100px;
+    margin: 1.5rem auto 3.5rem;
+    padding: 0 24px;
+    position: relative;
+  }
+
+  #promo-slider .ps-stage {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 229, 255, .25);
+    box-shadow: 0 0 40px rgba(0, 229, 255, .12);
+    aspect-ratio: 21 / 8;
+    min-height: 260px;
+    background: #02040a;
+    outline: none;
+  }
+
+  #promo-slider .ps-stage:focus-visible {
+    box-shadow: 0 0 40px rgba(0, 229, 255, .12), 0 0 0 2px rgba(0, 229, 255, .55);
+  }
+
+  #promo-slider .ps-slide {
+    position: absolute;
+    inset: 0;
+    display: block;
+    opacity: 0;
+    transition: opacity .9s ease;
+    pointer-events: none;
+    text-decoration: none;
+    z-index: 1;
+  }
+
+  #promo-slider .ps-slide.on {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
+  }
+
+  #promo-slider .ps-bg {
+    position: absolute;
+    inset: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(18px) brightness(.45);
+    transform: scale(1.15);
+  }
+
+  #promo-slider .ps-slide.ps-neon .ps-bg {
+    background:
+      radial-gradient(circle at 78% 42%, color-mix(in srgb, var(--ac) 38%, transparent) 0%, transparent 48%),
+      radial-gradient(circle at 96% 96%, rgba(255, 0, 128, .32) 0%, transparent 42%),
+      #050816;
+    filter: none;
+    transform: scale(1.06);
+    animation: ps-neon-shift 9s ease-in-out infinite alternate;
+  }
+
+  @keyframes ps-neon-shift {
+    0% { transform: scale(1.06); filter: saturate(1) brightness(1); }
+    100% { transform: scale(1.16); filter: saturate(1.35) brightness(1.15); }
+  }
+
+  #promo-slider .ps-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transform-origin: center center;
+  }
+
+  #promo-slider .ps-slide.on .ps-img {
+    animation: ps-ken-burns 7s linear both;
+  }
+
+  @keyframes ps-ken-burns {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+  }
+
+  #promo-slider .ps-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(2, 4, 8, .95) 0%, rgba(2, 4, 8, .55) 50%, rgba(2, 4, 8, .1) 100%);
+  }
+
+  #promo-slider .ps-text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    box-sizing: border-box;
+    max-width: 560px;
+    padding: clamp(18px, 5vw, 56px) clamp(18px, 5vw, 56px) clamp(18px, 5vw, 56px) clamp(18px, 8vw, 84px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .7s ease, transform .7s ease;
+    transition-delay: .25s;
+  }
+
+  #promo-slider .ps-slide.on .ps-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #promo-slider .ps-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: .72rem;
+    letter-spacing: 3px;
+    line-height: 1.2;
+    color: var(--ac);
+    border: 1px solid var(--ac);
+    padding: 3px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+
+  #promo-slider .ps-title {
+    margin: 12px 0 0;
+    font-family: 'Oxanium', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4.6vw, 3rem);
+    line-height: 1.02;
+    color: #fff;
+    text-shadow: 0 0 18px var(--ac);
+  }
+
+  #promo-slider .ps-sub {
+    margin: 6px 0 0;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(.95rem, 2vw, 1.15rem);
+    line-height: 1.4;
+    color: #c8e8f0;
+    max-width: 44ch;
+  }
+
+  #promo-slider .ps-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    font-family: 'Oxanium', sans-serif;
+    font-weight: 700;
+    font-size: .85rem;
+    letter-spacing: 1px;
+    color: #02060c;
+    background: var(--ac);
+    padding: 10px 18px;
+    border-radius: 999px;
+    box-shadow: 0 0 18px var(--ac);
+    text-decoration: none;
+  }
+
+  #promo-slider .ps-deco {
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Oxanium', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 8.5vw, 6.5rem);
+    line-height: .9;
+    letter-spacing: .02em;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ac);
+    opacity: .28;
+    text-align: right;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  #promo-slider .ps-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(2, 4, 8, .55);
+    border: 1px solid rgba(0, 229, 255, .4);
+    color: #00e5ff;
+    font-family: 'Oxanium', sans-serif;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 7;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: background .2s ease, border-color .2s ease;
+  }
+
+  #promo-slider .ps-nav:hover {
+    background: rgba(0, 229, 255, .15);
+    border-color: rgba(0, 229, 255, .8);
+  }
+
+  #promo-slider .ps-nav:focus-visible {
+    outline: 2px solid #00e5ff;
+    outline-offset: 2px;
+  }
+
+  #promo-slider .ps-prev {
+    left: 36px;
+  }
+
+  #promo-slider .ps-next {
+    right: 36px;
+  }
+
+  #promo-slider .ps-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 14px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    z-index: 8;
+  }
+
+  #promo-slider .ps-dots button {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .35);
+    cursor: pointer;
+    transition: width .3s ease, background .3s ease;
+  }
+
+  #promo-slider .ps-dots button.on {
+    width: 28px;
+    background: #00e5ff;
+  }
+
+  #promo-slider .ps-dots button:focus-visible {
+    outline: 2px solid #00e5ff;
+    outline-offset: 3px;
+  }
+
+  #promo-slider .ps-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 0;
+    z-index: 6;
+    background: linear-gradient(90deg, #00e5ff, #ff0080);
+    animation: ps-bar-fill 6000ms linear forwards;
+  }
+
+  @keyframes ps-bar-fill {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  @media (max-width: 640px) {
+    #promo-slider .ps-stage {
+      aspect-ratio: 4 / 3;
+    }
+
+    #promo-slider .ps-nav {
+      display: none;
+    }
+
+    #promo-slider .ps-deco {
+      display: none;
+    }
+
+    #promo-slider .ps-text {
+      max-width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #promo-slider .ps-slide.on .ps-img {
+      animation: none;
+    }
+
+    #promo-slider .ps-slide.ps-neon .ps-bg {
+      animation: none;
+    }
+
+    #promo-slider .ps-bar {
+      animation: none;
+      width: 100%;
+    }
+  }
+</style>
+<div id="promo-slider">
+  <div class="ps-stage" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Promosyon slaytları"></div>
+  <button class="ps-nav ps-prev" type="button" aria-label="Önceki slayt">‹</button>
+  <button class="ps-nav ps-next" type="button" aria-label="Sonraki slayt">›</button>
+  <div class="ps-dots" role="group" aria-label="Slayt göstergeleri"></div>
 </div>
 <script>
-(function(){
+(function () {
+  'use strict';
+
   var slaytlar = [
-    {img:'img/shot-coredrop-1.jpg', etiket:'ÇOK YAKINDA', baslik:'CoreDrop', alt:'Renkleri düşür, zinciri patlat — 8 bölge, 100+ seviye', link:'coredrop.html'},
-    {img:'img/shot-chainquake-1.jpg', etiket:'ÖNE ÇIKAN', baslik:'Chainquake', alt:'Buz topu ile zincir kur — 4 element, 50 bölüm', link:'chainquake.html'},
-    {img:'img/shot-keycap-kingdom-1.jpg', etiket:'OYNA', baslik:'Keycap Kingdom', alt:'Tuşa bas, coin kazan, klavyeni kur', link:'keycap-kingdom.html'},
-    {img:'img/shot-soul-of-hero-1.jpg', etiket:'OYNA', baslik:'Soul of Hero', alt:'Donmuş ormanda 5 dev boss', link:'soul-of-hero.html'},
-    {img:'img/shot-daki-in-space-1.jpg', etiket:'OYNA', baslik:'Daki In Space', alt:"Güneş'ten Neptün'e 10 durak", link:'daki-in-space.html'}
+    { img: null, deco: 'CHAT CLASH', renk: '#39ff14', etiket: 'CANLI', baslik: 'Chat Clash', alt: 'Sohbetten oynanan canlı bilgi yarışması: Kick, Twitch, YouTube', cta: 'HEMEN OYNA →', link: 'arena.html' },
+    { img: 'img/shot-coredrop-1.jpg', renk: '#ff0080', etiket: 'ÇOK YAKINDA', baslik: 'CoreDrop', alt: 'Renkleri düşür, zinciri patlat: 8 bölge, 100+ seviye', cta: 'ÖN İZLEME →', link: 'coredrop.html' },
+    { img: 'img/shot-chainquake-1.jpg', renk: '#00e5ff', etiket: 'ÖNE ÇIKAN', baslik: 'Chainquake', alt: 'Buz topu ile zincir kur: 4 element, 50 bölüm', cta: 'İNCELE →', link: 'chainquake.html' },
+    { img: 'img/shot-keycap-kingdom-1.jpg', renk: '#ffe600', etiket: 'OYNA', baslik: 'Keycap Kingdom', alt: 'Tuşa bas, coin kazan, klavyeni kur', cta: 'İNCELE →', link: 'keycap-kingdom.html' },
+    { img: 'img/shot-soul-of-hero-1.jpg', renk: '#00e5ff', etiket: 'OYNA', baslik: 'Soul of Hero', alt: 'Donmuş ormanda 5 dev boss', cta: 'İNCELE →', link: 'soul-of-hero.html' },
+    { img: 'img/shot-daki-in-space-1.jpg', renk: '#ff0080', etiket: 'OYNA', baslik: 'Daki In Space', alt: "Güneş'ten Neptün'e 10 durak", cta: 'İNCELE →', link: 'daki-in-space.html' }
   ];
-  var i=0, img=document.getElementById('promo-img'), et=document.getElementById('promo-etiket'),
-      ba=document.getElementById('promo-baslik'), al=document.getElementById('promo-alt'), li=document.getElementById('promo-link');
-  if(!img) return;
-  function gec(){ i=(i+1)%slaytlar.length; var s=slaytlar[i];
-    img.src=s.img; et.textContent=s.etiket; ba.textContent=s.baslik; al.textContent=s.alt; li.href=s.link; }
-  setInterval(gec, 5000);
+
+  var root = document.getElementById('promo-slider');
+  if (!root) { return; }
+
+  var stage = root.querySelector('.ps-stage');
+  var dotsBox = root.querySelector('.ps-dots');
+  var prevBtn = root.querySelector('.ps-prev');
+  var nextBtn = root.querySelector('.ps-next');
+
+  var bar = document.createElement('div');
+  bar.className = 'ps-bar';
+  stage.appendChild(bar);
+
+  var slides = [];
+  var dots = [];
+  var index = 0;
+  var timer = null;
+  var paused = false;
+  var INTERVAL = 6000;
+  var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  function buildSlide(data, i) {
+    var slide = document.createElement('a');
+    slide.className = 'ps-slide';
+    slide.href = data.link;
+    slide.style.setProperty('--ac', data.renk);
+    slide.setAttribute('aria-hidden', 'true');
+    slide.setAttribute('aria-label', data.baslik);
+
+    var bg = document.createElement('div');
+    bg.className = 'ps-bg';
+    if (data.img) {
+      bg.style.backgroundImage = 'url("' + data.img + '")';
+    }
+    slide.appendChild(bg);
+
+    if (data.img) {
+      var img = document.createElement('img');
+      img.className = 'ps-img';
+      img.src = data.img;
+      img.alt = data.alt;
+      if (i > 0) {
+        img.setAttribute('loading', 'lazy');
+      }
+      slide.appendChild(img);
+    }
+
+    var shade = document.createElement('div');
+    shade.className = 'ps-shade';
+    slide.appendChild(shade);
+
+    if (!data.img) {
+      slide.className += ' ps-neon';
+      var deco = document.createElement('div');
+      deco.className = 'ps-deco';
+      deco.textContent = data.deco;
+      deco.setAttribute('aria-hidden', 'true');
+      slide.appendChild(deco);
+    }
+
+    var text = document.createElement('div');
+    text.className = 'ps-text';
+
+    var tag = document.createElement('span');
+    tag.className = 'ps-tag';
+    tag.textContent = data.etiket;
+
+    var title = document.createElement('div');
+    title.className = 'ps-title';
+    title.textContent = data.baslik;
+
+    var sub = document.createElement('p');
+    sub.className = 'ps-sub';
+    sub.textContent = data.alt;
+
+    var cta = document.createElement('span');
+    cta.className = 'ps-cta';
+    cta.textContent = data.cta;
+
+    text.appendChild(tag);
+    text.appendChild(title);
+    text.appendChild(sub);
+    text.appendChild(cta);
+    slide.appendChild(text);
+
+    stage.appendChild(slide);
+    slides.push(slide);
+
+    var dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'ps-dot';
+    dot.setAttribute('aria-label', data.baslik + ' slaytına git');
+    dot.addEventListener('click', function () { go(i); });
+    dotsBox.appendChild(dot);
+    dots.push(dot);
+  }
+
+  function restartBar() {
+    if (reduceMotion) { return; }
+    bar.style.animation = 'none';
+    void bar.offsetWidth;
+    bar.style.animation = 'ps-bar-fill ' + INTERVAL + 'ms linear forwards';
+    bar.style.animationPlayState = 'running';
+  }
+
+  function pauseBar() {
+    if (reduceMotion) { return; }
+    bar.style.animationPlayState = 'paused';
+  }
+
+  function restartTimer() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+    restartBar();
+    if (paused || document.hidden) {
+      pauseBar();
+      return;
+    }
+    timer = setInterval(function () { go(index + 1); }, INTERVAL);
+  }
+
+  function go(n) {
+    var total = slides.length;
+    if (!total) { return; }
+    index = ((n % total) + total) % total;
+
+    for (var i = 0; i < total; i++) {
+      if (i === index) {
+        slides[i].classList.add('on');
+        slides[i].setAttribute('aria-hidden', 'false');
+        slides[i].removeAttribute('tabindex');
+        dots[i].classList.add('on');
+        dots[i].setAttribute('aria-current', 'true');
+      } else {
+        slides[i].classList.remove('on');
+        slides[i].setAttribute('aria-hidden', 'true');
+        slides[i].setAttribute('tabindex', '-1');
+        dots[i].classList.remove('on');
+        dots[i].removeAttribute('aria-current');
+      }
+    }
+
+    restartTimer();
+  }
+
+  for (var j = 0; j < slaytlar.length; j++) {
+    buildSlide(slaytlar[j], j);
+  }
+
+  prevBtn.addEventListener('click', function () { go(index - 1); });
+  nextBtn.addEventListener('click', function () { go(index + 1); });
+
+  stage.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      go(index - 1);
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      go(index + 1);
+    }
+  });
+
+  var touchX = 0;
+  stage.addEventListener('touchstart', function (e) {
+    if (e.touches && e.touches.length) {
+      touchX = e.touches[0].clientX;
+    }
+  }, false);
+
+  stage.addEventListener('touchend', function (e) {
+    var endX = (e.changedTouches && e.changedTouches.length) ? e.changedTouches[0].clientX : touchX;
+    var dx = endX - touchX;
+    if (dx > 40) {
+      go(index - 1);
+    } else if (dx < -40) {
+      go(index + 1);
+    }
+  }, false);
+
+  root.addEventListener('mouseenter', function () {
+    paused = true;
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+    pauseBar();
+  });
+
+  root.addEventListener('mouseleave', function () {
+    paused = false;
+    if (!document.hidden) {
+      restartTimer();
+    }
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      pauseBar();
+    } else if (!paused) {
+      restartTimer();
+    }
+  });
+
+  go(0);
 })();
 </script>
 
@@ -1001,6 +1507,15 @@
       <span class="game-platform">Google Play · Yakında</span>
       <a href="coredrop.html" class="game-btn game-btn-yakinda">ÖN İZLEME →</a>
     </div>
+    <div class="game-card">
+      <img class="game-icon-img" src="img/icon-chatclash.svg" alt="Chat Clash ikonu" width="64" height="64" loading="lazy">
+      <div class="game-tag">Canlı Yayın · Kick · Twitch · YouTube</div>
+      <h3 class="game-title">Chat Clash</h3>
+      <p class="game-desc">Sohbetten oynanan canlı bilgi yarışması. Her turda yeni soru, kayıt yok: cevabı chat'e yaz, en hızlı ya da en yakın tahmin kazansın. Günlük, haftalık ve aylık sıralama.</p>
+      <span class="game-platform">Tarayıcı · Canlı yayın</span>
+      <a href="arena.html" class="game-btn">Hemen Oyna →</a>
+      <a href="https://kick.com/siberjediarena" target="_blank" rel="noopener" class="game-btn game-btn-alt">Kick'te İzle →</a>
+    </div>
   </div>
 </section>
 
@@ -1065,6 +1580,11 @@
     <h2 class="section-title">Projeler</h2>
   </div>
   <div class="projects-grid reveal">
+    <a href="arena.html" class="project-card">
+      <div class="project-head"><span class="project-icon">🧠</span><span class="project-title">Chat Clash</span><span class="project-lang">Canlı</span></div>
+      <p class="project-desc">Kick, Twitch ve YouTube sohbetinden oynanan canlı bilgi yarışması. Yayın botu, otomatik soru turları ve canlı sıralama tablosu.</p>
+      <span class="project-link">siberjedi.com/chatclash ↗</span>
+    </a>
     <a href="https://github.com/siberjedi/neon-image-studio" target="_blank" class="project-card">
       <div class="project-head"><span class="project-icon">🖼️</span><span class="project-title">neon-image-studio</span><span class="project-lang">Python</span></div>
       <p class="project-desc">Oyun varlıkları için yerel AI görsel üretim stüdyosu. Gradio arayüzü + ComfyUI arka ucu ile çalışır.</p>
