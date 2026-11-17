@@ -125,8 +125,9 @@ nav .nav-planla{animation:planlaPulse 2.2s ease-in-out infinite;letter-spacing:3
 .istat-kart:before{content:'';position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--a1),var(--a2))}
 .istat-sayi{font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;font-size:clamp(1.7rem,4vw,2.3rem);color:#fff;text-shadow:0 0 18px var(--a1);line-height:1.1}
 .istat-ad{font-family:'Share Tech Mono','Oxanium',monospace;font-size:.72rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:6px}
-.ulkeler{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.ulke{display:inline-flex;align-items:center;gap:7px;background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:5px 12px 5px 6px;font-size:.88rem}
+.ulkeler{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,auto);grid-auto-flow:column;gap:8px 12px;margin-top:16px;max-width:560px}
+.ulke-no{font-family:'Oxanium','Rajdhani',sans-serif;color:var(--a1);min-width:1.4em;text-align:right}
+.ulke{display:flex;align-items:center;gap:9px;background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:5px 12px 5px 6px;font-size:.88rem}
 .ulke img{width:22px;height:15px;border-radius:3px;object-fit:cover}
 .istat-not{margin-top:12px;font-family:'Share Tech Mono','Oxanium',monospace;font-size:.72rem;color:var(--muted);letter-spacing:1px}
 .canli-nokta{display:inline-block;width:8px;height:8px;border-radius:50%;background:#39ff14;box-shadow:0 0 10px #39ff14;margin-right:8px;animation:nabiz 1.6s ease-in-out infinite}
@@ -258,7 +259,7 @@ body{--a1:#00f5ff;--a2:#ff7a00}
 (function(){
   var KAYNAK='https://raw.githubusercontent.com/siberjedi/siberjedi.github.io/oyun-istatistik/coredrop.json';
   var ESIK={toplam_indirme:100,toplam_oyuncu:100,oyuncu_30g:50,bolum_tamamlanan_toplam:500,ulke_sayisi_toplam:10};
-  var AD={toplam_indirme:'Toplam indirme',toplam_oyuncu:'Toplam oyuncu',oyuncu_30g:'Son 30 gün oyuncu',bolum_tamamlanan_toplam:'Tamamlanan bölüm',ulke_sayisi_toplam:'Ülkeden oyuncu'};
+  var AD={toplam_indirme:'Toplam oyuncu',toplam_oyuncu:'Aktif oyuncu',oyuncu_30g:'Son 30 gün oyuncu',bolum_tamamlanan_toplam:'Tamamlanan bölüm',ulke_sayisi_toplam:'Ülkeden oyuncu'};
   var SIRA=['toplam_indirme','toplam_oyuncu','oyuncu_30g','bolum_tamamlanan_toplam','ulke_sayisi_toplam'];
   var u=new URLSearchParams(location.search).get('istat');
   if(u&&(u.indexOf('//')>-1||!/^[A-Za-z0-9_.\-\/]+\.json$/.test(u))) u=null;
@@ -273,14 +274,15 @@ body{--a1:#00f5ff;--a2:#ff7a00}
     });
     var ul=document.getElementById('istat-ulkeler'), adlar=null;
     try{adlar=new Intl.DisplayNames(['tr'],{type:'region'});}catch(e){}
-    if((d.ulkeler||[]).length>=3) (d.ulkeler||[]).slice(0,10).forEach(function(c){
+    if((d.ulkeler||[]).length>=3) (d.ulkeler||[]).filter(function(c){return /^[A-Z]{2}$/.test(c.kod);}).slice(0,6).forEach(function(c,i){
       if(!/^[A-Z]{2}$/.test(c.kod)) return;
       var e=document.createElement('span'); e.className='ulke';
+      var no=document.createElement('b'); no.className='ulke-no'; no.textContent=(i+1)+'.'; e.appendChild(no);
       var im=document.createElement('img'); im.loading='lazy'; im.alt=''; im.src='https://flagcdn.com/w40/'+c.kod.toLowerCase()+'.png';
       e.appendChild(im); e.appendChild(document.createTextNode(adlar?adlar.of(c.kod):c.kod)); ul.appendChild(e);
     });
     if(n<2) return;
-    if(d.guncellendi){var t=new Date(d.guncellendi); if(!isNaN(t)) document.getElementById('istat-not').textContent=(typeof d.toplam_indirme==='number'?'Firebase ve Google Play':'Firebase')+' verisi · son güncelleme '+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+(ul.children.length?' · bayraklar: son 30 günün en aktif ülkeleri':'');}
+    if(d.guncellendi){var t=new Date(d.guncellendi); if(!isNaN(t)) document.getElementById('istat-not').textContent=(typeof d.toplam_indirme==='number'?'Firebase ve Google Play':'Firebase')+' verisi · son güncelleme '+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+(ul.children.length?' · en aktif 6 ülke: son 30 gün':'');}
     document.getElementById('istat').hidden=false;
   }).catch(function(){});
 })();
