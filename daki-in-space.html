@@ -249,7 +249,7 @@ body{--a1:#ffee00;--a2:#ff0080}
 })();
 (function(){
   var KAYNAK='https://raw.githubusercontent.com/siberjedi/siberjedi.github.io/oyun-istatistik/daki-in-space.json';
-  var ESIK={toplam_indirme:100,toplam_oyuncu:100,oyuncu_30g:50,bolum_tamamlanan_toplam:500,ulke_sayisi_toplam:5};
+  var ESIK={toplam_indirme:100,toplam_oyuncu:100,oyuncu_30g:50,bolum_tamamlanan_toplam:500,ulke_sayisi_toplam:10};
   var AD={toplam_indirme:'Toplam indirme',toplam_oyuncu:'Toplam oyuncu',oyuncu_30g:'Son 30 gün oyuncu',bolum_tamamlanan_toplam:'Tamamlanan bölüm',ulke_sayisi_toplam:'Ülkeden oyuncu'};
   var SIRA=['toplam_indirme','toplam_oyuncu','oyuncu_30g','bolum_tamamlanan_toplam','ulke_sayisi_toplam'];
   var u=new URLSearchParams(location.search).get('istat');
@@ -260,7 +260,7 @@ body{--a1:#ffee00;--a2:#ff0080}
       var v=d[k]; if(typeof v!=='number'||v<ESIK[k]) return;
       var kart=document.createElement('div'); kart.className='istat-kart';
       var a=document.createElement('div'); a.className='istat-sayi'; a.textContent=f.format(v)+(k==='toplam_indirme'?'+':'');
-      var b=document.createElement('div'); b.className='istat-ad'; b.textContent=AD[k];
+      var b=document.createElement('div'); b.className='istat-ad'; b.textContent=(k==='bolum_tamamlanan_toplam'&&d.bolum_etiket)?d.bolum_etiket:AD[k];
       kart.appendChild(a); kart.appendChild(b); g.appendChild(kart); n++;
     });
     var ul=document.getElementById('istat-ulkeler'), adlar=null;
@@ -271,7 +271,7 @@ body{--a1:#ffee00;--a2:#ff0080}
       var im=document.createElement('img'); im.loading='lazy'; im.alt=''; im.src='https://flagcdn.com/w40/'+c.kod.toLowerCase()+'.png';
       e.appendChild(im); e.appendChild(document.createTextNode(adlar?adlar.of(c.kod):c.kod)); ul.appendChild(e);
     });
-    if(!n&&!ul.children.length) return;
+    if(n<2) return;
     if(d.guncellendi){var t=new Date(d.guncellendi); if(!isNaN(t)) document.getElementById('istat-not').textContent=(typeof d.toplam_indirme==='number'?'Firebase ve Google Play':'Firebase')+' verisi · son güncelleme '+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+(ul.children.length?' · bayraklar: son 30 günün en aktif ülkeleri':'');}
     document.getElementById('istat').hidden=false;
   }).catch(function(){});
