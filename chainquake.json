@@ -1,0 +1,67 @@
+{
+ "oyun": "chainquake",
+ "guncellendi": "2026-11-28T15:06+03:00",
+ "oyuncu_7g": 136,
+ "oyuncu_30g": 387,
+ "toplam_oyuncu": 1799,
+ "bolum_tamamlanan_toplam": 5155,
+ "bolum_tamamlanan_7g": 260,
+ "ort_sure_sn": 491,
+ "sure_7g_sn": 44536,
+ "yeni_oyuncu_28g": 120,
+ "ulke_sayisi_30g": 72,
+ "ulkeler": [
+  {
+   "kod": "ID",
+   "oyuncu": 35
+  },
+  {
+   "kod": "IN",
+   "oyuncu": 32
+  },
+  {
+   "kod": "DZ",
+   "oyuncu": 26
+  },
+  {
+   "kod": "EG",
+   "oyuncu": 22
+  },
+  {
+   "kod": "PK",
+   "oyuncu": 17
+  },
+  {
+   "kod": "AR",
+   "oyuncu": 15
+  },
+  {
+   "kod": "MX",
+   "oyuncu": 15
+  },
+  {
+   "kod": "SD",
+   "oyuncu": 15
+  },
+  {
+   "kod": "IR",
+   "oyuncu": 13
+  },
+  {
+   "kod": "BR",
+   "oyuncu": 12
+  },
+  {
+   "kod": "KZ",
+   "oyuncu": 12
+  },
+  {
+   "kod": "US",
+   "oyuncu": 12
+  }
+ ],
+ "ulke_sayisi_toplam": 118,
+ "play_indirme_hesap": 2279,
+ "toplam_indirme": 2228,
+ "toplam_indirme_kaynak": "Play Console 2026-11-17 (2200) + Firebase yeni (28)"
+}

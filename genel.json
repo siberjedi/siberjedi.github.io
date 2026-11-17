@@ -1,0 +1,25 @@
+{
+ "guncellendi": "2026-11-28T15:07+03:00",
+ "chatclash": {
+  "yayin_saat": 45.89,
+  "yayin_saat_7g": 16.02,
+  "tur": 1884
+ },
+ "quizjedi": {
+  "oyuncu": 168,
+  "oyuncu_30g": 168,
+  "yeni_oyuncu_28g": 168,
+  "yayin_saat": 25.3,
+  "yayin_saat_7g": 23.86,
+  "tur": 1144
+ },
+ "toplam_oyuncu": 3051,
+ "toplam_indirme": 22747,
+ "aylik_oyuncu": 1227,
+ "toplam_saat": 556.8,
+ "bolum_toplam": 10001,
+ "saatte_bolum": 20.6,
+ "oyuncu_hiz_saat": 1.0402,
+ "saat_hiz_saat": 0.4569,
+ "oyun_sayisi": 5
+}
