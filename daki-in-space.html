@@ -264,7 +264,7 @@ body{--a1:#ffee00;--a2:#ff0080}
     SIRA.forEach(function(k){
       var v=d[k]; if(typeof v!=='number'||v<ESIK[k]) return;
       var kart=document.createElement('div'); kart.className='istat-kart';
-      var a=document.createElement('div'); a.className='istat-sayi'; a.textContent=f.format(v)+(k==='toplam_indirme'?'+':'');
+      var a=document.createElement('div'); a.className='istat-sayi'; a.textContent=(k==='toplam_indirme'&&v>=1000)?new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:1}).format(v).replace(/\s*B$/,' bin'):f.format(v);
       var b=document.createElement('div'); b.className='istat-ad'; b.textContent=(k==='bolum_tamamlanan_toplam'&&d.bolum_etiket)?d.bolum_etiket:AD[k];
       kart.appendChild(a); kart.appendChild(b); g.appendChild(kart); n++;
     });
