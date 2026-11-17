@@ -1,0 +1,67 @@
+{
+ "oyun": "coredrop",
+ "guncellendi": "2026-11-21T08:30+03:00",
+ "oyuncu_7g": 32,
+ "oyuncu_30g": 35,
+ "toplam_oyuncu": 37,
+ "bolum_tamamlanan_toplam": 0,
+ "bolum_tamamlanan_7g": 0,
+ "ort_sure_sn": 386,
+ "sure_7g_sn": 11991,
+ "yeni_oyuncu_28g": 0,
+ "ulke_sayisi_30g": 16,
+ "ulkeler": [
+  {
+   "kod": "IR",
+   "oyuncu": 9
+  },
+  {
+   "kod": "IQ",
+   "oyuncu": 5
+  },
+  {
+   "kod": "DZ",
+   "oyuncu": 3
+  },
+  {
+   "kod": "EG",
+   "oyuncu": 3
+  },
+  {
+   "kod": "IN",
+   "oyuncu": 3
+  },
+  {
+   "kod": "BR",
+   "oyuncu": 2
+  },
+  {
+   "kod": "TR",
+   "oyuncu": 2
+  },
+  {
+   "kod": "US",
+   "oyuncu": 2
+  },
+  {
+   "kod": "AR",
+   "oyuncu": 1
+  },
+  {
+   "kod": "CA",
+   "oyuncu": 1
+  },
+  {
+   "kod": "CM",
+   "oyuncu": 1
+  },
+  {
+   "kod": "EC",
+   "oyuncu": 1
+  }
+ ],
+ "ulke_sayisi_toplam": 17,
+ "play_indirme_hesap": 25,
+ "toplam_indirme": 78,
+ "toplam_indirme_kaynak": "Play Console 2026-11-19 (78) + Firebase yeni (0)"
+}

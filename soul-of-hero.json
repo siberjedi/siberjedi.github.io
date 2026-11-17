@@ -1,0 +1,68 @@
+{
+ "oyun": "soul-of-hero",
+ "guncellendi": "2026-11-21T08:30+03:00",
+ "oyuncu_7g": 76,
+ "oyuncu_30g": 653,
+ "toplam_oyuncu": 1057,
+ "bolum_tamamlanan_toplam": 4353,
+ "bolum_tamamlanan_7g": 406,
+ "bolum_etiket": "Oynanan bölüm",
+ "ort_sure_sn": 717,
+ "sure_7g_sn": 61970,
+ "yeni_oyuncu_28g": 531,
+ "ulke_sayisi_30g": 88,
+ "ulkeler": [
+  {
+   "kod": "IN",
+   "oyuncu": 52
+  },
+  {
+   "kod": "IR",
+   "oyuncu": 52
+  },
+  {
+   "kod": "EG",
+   "oyuncu": 49
+  },
+  {
+   "kod": "PK",
+   "oyuncu": 42
+  },
+  {
+   "kod": "VE",
+   "oyuncu": 40
+  },
+  {
+   "kod": "IQ",
+   "oyuncu": 26
+  },
+  {
+   "kod": "BR",
+   "oyuncu": 23
+  },
+  {
+   "kod": "CU",
+   "oyuncu": 21
+  },
+  {
+   "kod": "US",
+   "oyuncu": 20
+  },
+  {
+   "kod": "BD",
+   "oyuncu": 19
+  },
+  {
+   "kod": "VN",
+   "oyuncu": 19
+  },
+  {
+   "kod": "MA",
+   "oyuncu": 18
+  }
+ ],
+ "ulke_sayisi_toplam": 104,
+ "play_indirme_hesap": 18124,
+ "toplam_indirme": 18402,
+ "toplam_indirme_kaynak": "Play Console 2026-11-17 (18400) + Firebase yeni (2)"
+}

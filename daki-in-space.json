@@ -1,0 +1,39 @@
+{
+ "oyun": "daki-in-space",
+ "guncellendi": "2026-11-21T08:30+03:00",
+ "oyuncu_7g": 1,
+ "oyuncu_30g": 8,
+ "toplam_oyuncu": 20,
+ "bolum_tamamlanan_toplam": 0,
+ "bolum_tamamlanan_7g": 0,
+ "ort_sure_sn": 68,
+ "sure_7g_sn": 0,
+ "yeni_oyuncu_28g": 7,
+ "ulke_sayisi_30g": 5,
+ "ulkeler": [
+  {
+   "kod": "US",
+   "oyuncu": 3
+  },
+  {
+   "kod": "ID",
+   "oyuncu": 2
+  },
+  {
+   "kod": "BR",
+   "oyuncu": 1
+  },
+  {
+   "kod": "IQ",
+   "oyuncu": 1
+  },
+  {
+   "kod": "IR",
+   "oyuncu": 1
+  }
+ ],
+ "ulke_sayisi_toplam": 7,
+ "play_indirme_hesap": 1466,
+ "toplam_indirme": 1481,
+ "toplam_indirme_kaynak": "Play Console 2026-11-17 (1480) + Firebase yeni (1)"
+}

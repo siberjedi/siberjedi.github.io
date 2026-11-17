@@ -1,0 +1,35 @@
+{
+ "oyun": "keycap-kingdom",
+ "guncellendi": "2026-11-21T08:30+03:00",
+ "oyuncu_7g": 3,
+ "oyuncu_30g": 14,
+ "toplam_oyuncu": 19,
+ "bolum_tamamlanan_toplam": 0,
+ "bolum_tamamlanan_7g": 0,
+ "ort_sure_sn": 226,
+ "sure_7g_sn": 141,
+ "yeni_oyuncu_28g": 0,
+ "ulke_sayisi_30g": 4,
+ "ulkeler": [
+  {
+   "kod": "KR",
+   "oyuncu": 9
+  },
+  {
+   "kod": "US",
+   "oyuncu": 3
+  },
+  {
+   "kod": "BD",
+   "oyuncu": 1
+  },
+  {
+   "kod": "JP",
+   "oyuncu": 1
+  }
+ ],
+ "ulke_sayisi_toplam": 6,
+ "play_indirme_hesap": 391,
+ "toplam_indirme": 383,
+ "toplam_indirme_kaynak": "Play Console 2026-11-17 (383) + Firebase yeni (0)"
+}
