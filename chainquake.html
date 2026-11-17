@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chainquake — Arcade / Platform | SiberJedi</title>
-<meta name="description" content="Chainquake, buzdan top yapıp düşmanları zincirleme devirdiğin hızlı tempolu bir arcade platform oyunudur. 4 element dünyasında 50 bölüm, dev boss savaşları">
+<meta name="description" content="Canavarları dondur, kartopuna çevir, tekmele ve yuvarlanan topun önündeki her şeyi ezdiğini izle! Dört element, beş dünya, 50 el yapımı bölüm ve destansı boss savaşları.">
 <meta name="keywords" content="Chainquake, SiberJedi, Android oyun, Arcade / Platform, ücretsiz oyun, indie oyun">
 <meta name="author" content="SiberJedi">
 <meta name="robots" content="index, follow">
@@ -12,15 +12,15 @@
 <link rel="icon" type="image/png" href="img/icon-chainquake.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://siberjedi.com/chainquake.html">
-<meta property="og:title" content="Chainquake — Arcade / Platform | SiberJedi">
-<meta property="og:description" content="Buz topuna dönüştür, it, zincirle. 4 element dünyası ve dev boss&#x27;lar.">
-<meta property="og:image" content="https://siberjedi.com/img/shot-chainquake-1.jpg">
+<meta property="og:title" content="Chainquake | Arcade / Platform | SiberJedi">
+<meta property="og:description" content="Canavarları dondur, kartopuna çevir, tekmele ve yuvarlanan topun önündeki her şeyi ezdiğini izle! Dört element, beş dünya, 50 el yapımı bölüm ve destansı boss savaşları.">
+<meta property="og:image" content="https://siberjedi.com/img/banner-chainquake.jpg">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="SiberJedi">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Chainquake | SiberJedi">
-<meta name="twitter:description" content="Buz topuna dönüştür, it, zincirle. 4 element dünyası ve dev boss&#x27;lar.">
-<meta name="twitter:image" content="https://siberjedi.com/img/shot-chainquake-1.jpg">
+<meta name="twitter:description" content="Canavarları dondur, kartopuna çevir, tekmele ve yuvarlanan topun önündeki her şeyi ezdiğini izle! Dört element, beş dünya, 50 el yapımı bölüm ve destansı boss savaşları.">
+<meta name="twitter:image" content="https://siberjedi.com/img/banner-chainquake.jpg">
 <meta name="theme-color" content="#020408">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +31,7 @@
   "@type": "VideoGame",
   "name": "Chainquake",
   "url": "https://siberjedi.com/chainquake.html",
-  "description": "Chainquake, buzdan top yapıp düşmanları zincirleme devirdiğin hızlı tempolu bir arcade platform oyunudur. 4 element dünyasında 50 bölüm, dev boss savaşları ve kahraman yükseltmeleri seni bekliyor.",
+  "description": "Canavarları dondur, kartopuna çevir, tekmele ve yuvarlanan topun önündeki her şeyi ezdiğini izle! Dört element, beş dünya, 50 el yapımı bölüm ve destansı boss savaşları.",
   "applicationCategory": "Game",
   "operatingSystem": "Android",
   "genre": "Arcade / Platform",
@@ -50,7 +50,7 @@
   "downloadUrl": "https://play.google.com/store/apps/details?id=com.siberjedi.chainquake",
   "image": [
     "https://siberjedi.com/img/icon-chainquake.png",
-    "https://siberjedi.com/img/shot-chainquake-1.jpg"
+    "https://siberjedi.com/img/banner-chainquake.jpg"
   ]
 }
 </script>
@@ -106,7 +106,17 @@ ol.adimlar li:before{counter-increment:s;content:counter(s);position:absolute;le
 footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:var(--muted);font-size:.85rem;margin-top:30px}
 footer a{margin:0 8px}
 
-.hero,.btn,h1 span,h2{--a1:#00f5ff;--a2:#ff0080}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center;padding:44px 24px 30px}
+.hero-ust{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.hero-ikon{width:74px;height:74px;border-radius:18px;margin:0}
+.hero-ust .badge{margin:0}
+.pill{display:inline-block;font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:2px;color:#02060c;background:var(--a2);border-radius:999px;padding:5px 12px;box-shadow:0 0 16px var(--a2)}
+.hero-gorsel img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--border);box-shadow:0 0 44px color-mix(in srgb,var(--a1) 28%,transparent)}
+.puan{color:var(--yellow)}
+.kart h3{font-family:'Oxanium','Rajdhani',sans-serif;font-size:.95rem;color:var(--a1);margin-bottom:6px;letter-spacing:.5px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding-top:24px}.hero-gorsel{order:-1}}
+
 body{--a1:#00f5ff;--a2:#ff0080}
 </style>
 </head>
@@ -126,30 +136,36 @@ body{--a1:#00f5ff;--a2:#ff0080}
 </nav>
 
 <header class="hero">
-  <img class="hero-ikon" src="img/icon-chainquake.svg" alt="Chainquake ikonu" width="110" height="110">
-  <div class="badge">ARCADE / PLATFORM · ANDROID · ÜCRETSİZ</div>
-  <h1>Chainquake<br><span>Buz Topu ile Zincir Kur</span></h1>
-  <p class="lede">Buz topuna dönüştür, it, zincirle. 4 element dünyası ve dev boss&#x27;lar.</p>
-  <a class="btn" href="https://play.google.com/store/apps/details?id=com.siberjedi.chainquake" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
-  <div class="meta">
+  <div class="hero-metin">
+    <div class="hero-ust">
+      <img class="hero-ikon" src="img/icon-chainquake.svg" alt="Chainquake ikonu" width="74" height="74">
+      <div class="badge">ARCADE / PLATFORM · ANDROID · ÜCRETSİZ</div>
+    </div>
+    <h1>Chainquake<br><span>Dondur. Tekmele. Ez.</span></h1>
+    <p class="lede">Canavarları dondur, kartopuna çevir, tekmele ve yuvarlanan topun önündeki her şeyi ezdiğini izle! Dört element, beş dünya, 50 el yapımı bölüm ve destansı boss savaşları.</p>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.siberjedi.chainquake" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
+    <div class="meta">
     <span>TÜR <b>Arcade / Platform</b></span>
     <span>PLATFORM <b>Android</b></span>
     <span>FİYAT <b>Ücretsiz</b></span>
-    <span>GELİŞTİRİCİ <b>SiberJedi</b></span>
+    <span>SON GÜNCELLEME <b>29 Eylül 2026</b></span>
+    <span>ÇEVRİMDIŞI <b>Oynanır</b></span>
+    </div>
   </div>
+  <div class="hero-gorsel"><img src="img/banner-chainquake.jpg" alt="Chainquake tanıtım görseli" width="1024" height="500"></div>
 </header>
 
 <section class="galeri">
   <h2>EKRAN GÖRÜNTÜLERİ</h2>
   <div class="serit" id="serit">
-        <img src="img/shot-chainquake-1.jpg" alt="Chainquake ekran görüntüsü 0" loading="lazy">
-        <img src="img/shot-chainquake-2.jpg" alt="Chainquake ekran görüntüsü 1" loading="lazy">
-        <img src="img/shot-chainquake-3.jpg" alt="Chainquake ekran görüntüsü 2" loading="lazy">
-        <img src="img/shot-chainquake-4.jpg" alt="Chainquake ekran görüntüsü 3" loading="lazy">
-        <img src="img/shot-chainquake-5.jpg" alt="Chainquake ekran görüntüsü 4" loading="lazy">
-        <img src="img/shot-chainquake-6.jpg" alt="Chainquake ekran görüntüsü 5" loading="lazy">
-        <img src="img/shot-chainquake-7.jpg" alt="Chainquake ekran görüntüsü 6" loading="lazy">
-        <img src="img/shot-chainquake-8.jpg" alt="Chainquake ekran görüntüsü 7" loading="lazy">
+    <img src="img/shot-chainquake-1.jpg" alt="Chainquake ekran görüntüsü 1" loading="lazy">
+    <img src="img/shot-chainquake-2.jpg" alt="Chainquake ekran görüntüsü 2" loading="lazy">
+    <img src="img/shot-chainquake-3.jpg" alt="Chainquake ekran görüntüsü 3" loading="lazy">
+    <img src="img/shot-chainquake-4.jpg" alt="Chainquake ekran görüntüsü 4" loading="lazy">
+    <img src="img/shot-chainquake-5.jpg" alt="Chainquake ekran görüntüsü 5" loading="lazy">
+    <img src="img/shot-chainquake-6.jpg" alt="Chainquake ekran görüntüsü 6" loading="lazy">
+    <img src="img/shot-chainquake-7.jpg" alt="Chainquake ekran görüntüsü 7" loading="lazy">
+    <img src="img/shot-chainquake-8.jpg" alt="Chainquake ekran görüntüsü 8" loading="lazy">
   </div>
   <div class="oklar">
     <button class="ok" id="geri" aria-label="Önceki">‹</button>
@@ -160,45 +176,51 @@ body{--a1:#00f5ff;--a2:#ff0080}
 <section>
   <h2>NASIL OYNANIR</h2>
   <ol class="adimlar">
-          <li>Canavarı kartopuna dönüştür</li>
-          <li>Topu sıraya it</li>
-          <li>Tüm sırayı deviren zinciri izle</li>
+    <li>Canavara buz at, dondur ve dev bir kartopuna çevir.</li>
+    <li>Kartopunu tekmele; yolundaki her canavar zincire eklenir.</li>
+    <li>Zincir uzadıkça top büyür, parlar ve skorun katlanır.</li>
+    <li>Tek atışta bütün canavarları ezersen: PERFECT!</li>
   </ol>
 </section>
 
 <section>
   <h2>ÖZELLİKLER</h2>
   <div class="grid">
-          <div class="kart"><p>4 element dünyası: buz, lav, orman, kristal mağara</p></div>
-          <div class="kart"><p>Dev boss savaşları + bonus bölümler</p></div>
-          <div class="kart"><p>Zincir kombo sistemi (x4, x7, x10)</p></div>
-          <div class="kart"><p>Kahraman yükseltmeleri: sağlık, atış hızı, menzil, dondurma gücü</p></div>
+    <div class="kart"><h3>Dört element, beş dünya</h3><p>Buz, ateş, orman ve elektrik. Her boss sonrası kahramanın yeni bir elemente yükselir; son dünyaya hangi elementle gireceğini sen seçersin.</p></div>
+    <div class="kart"><h3>50 el yapımı bölüm</h3><p>Bronz, gümüş ve altın yıldızlar: önce geç, sonra ustalaş. Zamana karşı bonus bölümler de var.</p></div>
+    <div class="kart"><h3>5 destansı boss</h3><p>Her birinin kendi saldırıları ve zayıf anları var.</p></div>
+    <div class="kart"><h3>Kahramanını güçlendir</h3><p>Can, atış hızı, dondurma gücü ve daha fazlası. Saç, göz, zırh, kask ve kanatlarla kişiselleştir.</p></div>
+    <div class="kart"><h3>New Game+</h3><p>Oyunu bitirince daha güçlü canavarlar, yeni ünvanlar ve hediyeler.</p></div>
+    <div class="kart"><h3>İnternetsiz oyna</h3><p>Yıldız yolunda sadece oynayarak özel ödüller kazan, bağlantı gerekmez.</p></div>
   </div>
 </section>
 
 <section>
   <h2>CHAINQUAKE HAKKINDA</h2>
-  <p class="lede">Chainquake, buzdan top yapıp düşmanları zincirleme devirdiğin hızlı tempolu bir arcade platform oyunudur. 4 element dünyasında 50 bölüm, dev boss savaşları ve kahraman yükseltmeleri seni bekliyor.</p>
+  <p class="lede">Chainquake, klasik tek ekranlı arcade platform oyunlarının ruhunu zincirleme kombolar, element güçleri ve destansı boss savaşlarıyla buluşturuyor. Dondur, tekmele, ez: zincir senin elinde!</p>
+  <a class="btn" href="https://play.google.com/store/apps/details?id=com.siberjedi.chainquake" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
 </section>
 
 <section>
   <h2>DİĞER OYUNLAR</h2>
   <div class="digerleri">
-        <a class="diger" href="keycap-kingdom.html"><img src="img/icon-keycap-kingdom.svg" alt="Keycap Kingdom ikonu" width="44" height="44"><div><b>Keycap Kingdom</b><span>Idle / Tapper</span></div></a>
-        <a class="diger" href="soul-of-hero.html"><img src="img/icon-soul-of-hero.svg" alt="Soul of Hero ikonu" width="44" height="44"><div><b>Soul of Hero</b><span>Action / Platform</span></div></a>
-        <a class="diger" href="daki-in-space.html"><img src="img/icon-daki-in-space.svg" alt="Daki In Space ikonu" width="44" height="44"><div><b>Daki In Space</b><span>Arcade / Space</span></div></a>
-        <a class="diger" href="coredrop.html"><img src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="44" height="44"><div><b>CoreDrop</b><span>Çok Yakında</span></div></a>
+    <a class="diger" href="coredrop.html"><img src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="44" height="44"><div><b>CoreDrop</b><span>Sonsuz Koşu · Yeni</span></div></a>
+    <a class="diger" href="keycap-kingdom.html"><img src="img/icon-keycap-kingdom.svg" alt="Keycap Kingdom ikonu" width="44" height="44"><div><b>Keycap Kingdom</b><span>Tıklama / Koleksiyon</span></div></a>
+    <a class="diger" href="soul-of-hero.html"><img src="img/icon-soul-of-hero.svg" alt="Soul of Hero ikonu" width="44" height="44"><div><b>Soul of Hero</b><span>Aksiyon / RPG</span></div></a>
+    <a class="diger" href="daki-in-space.html"><img src="img/icon-daki-in-space.svg" alt="Daki In Space ikonu" width="44" height="44"><div><b>Daki In Space</b><span>Arcade / Uzay</span></div></a>
+    <a class="diger" href="arena.html"><img src="img/icon-chatclash.svg" alt="Chat Clash ikonu" width="44" height="44"><div><b>Chat Clash</b><span>Canlı yayın yarışması</span></div></a>
   </div>
 </section>
 
 <footer>
   © 2026 SiberJedi ·
   <a href="/">Ana Sayfa</a> ·
+  <a href="coredrop.html">CoreDrop</a> ·
   <a href="chainquake.html">Chainquake</a> ·
   <a href="keycap-kingdom.html">Keycap</a> ·
   <a href="soul-of-hero.html">SOH</a> ·
   <a href="daki-in-space.html">Daki</a> ·
-  <a href="coredrop.html">CoreDrop</a>
+  <a href="arena.html">Chat Clash</a>
 </footer>
 
 <script>

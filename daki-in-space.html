@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daki In Space — Arcade / Space | SiberJedi</title>
-<meta name="description" content="Daki In Space, Daki karakteriyle uzayda roket uçurduğun bir arcade oyunudur. Güneş&#x27;ten Neptün&#x27;e 10 durak, 6 gemi ve asteroid kuşağı seni bekliyor.">
-<meta name="keywords" content="Daki In Space, SiberJedi, Android oyun, Arcade / Space, ücretsiz oyun, indie oyun">
+<title>Daki In Space — Arcade / Uzay | SiberJedi</title>
+<meta name="description" content="Sevimli astronot Daki ile uzayın derinliklerine çık: süzül, engellerden kaç, ödülleri topla ve farklı gezegenlere ulaş. Google Play&#x27;de adı: Daki Uzayda.">
+<meta name="keywords" content="Daki In Space, SiberJedi, Android oyun, Arcade / Uzay, ücretsiz oyun, indie oyun">
 <meta name="author" content="SiberJedi">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://siberjedi.com/daki-in-space.html">
 <link rel="icon" type="image/png" href="img/icon-daki-in-space.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://siberjedi.com/daki-in-space.html">
-<meta property="og:title" content="Daki In Space — Arcade / Space | SiberJedi">
-<meta property="og:description" content="Güneş&#x27;ten Neptün&#x27;e 10 durak. 6 gemi, asteroid kuşağı, coin avı.">
-<meta property="og:image" content="https://siberjedi.com/img/shot-daki-in-space-1.jpg">
+<meta property="og:title" content="Daki In Space | Arcade / Uzay | SiberJedi">
+<meta property="og:description" content="Sevimli astronot Daki ile uzayın derinliklerine çık: süzül, engellerden kaç, ödülleri topla ve farklı gezegenlere ulaş. Google Play&#x27;de adı: Daki Uzayda.">
+<meta property="og:image" content="https://siberjedi.com/img/banner-daki-in-space.jpg">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="SiberJedi">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Daki In Space | SiberJedi">
-<meta name="twitter:description" content="Güneş&#x27;ten Neptün&#x27;e 10 durak. 6 gemi, asteroid kuşağı, coin avı.">
-<meta name="twitter:image" content="https://siberjedi.com/img/shot-daki-in-space-1.jpg">
+<meta name="twitter:description" content="Sevimli astronot Daki ile uzayın derinliklerine çık: süzül, engellerden kaç, ödülleri topla ve farklı gezegenlere ulaş. Google Play&#x27;de adı: Daki Uzayda.">
+<meta name="twitter:image" content="https://siberjedi.com/img/banner-daki-in-space.jpg">
 <meta name="theme-color" content="#020408">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,10 +31,10 @@
   "@type": "VideoGame",
   "name": "Daki In Space",
   "url": "https://siberjedi.com/daki-in-space.html",
-  "description": "Daki In Space, Daki karakteriyle uzayda roket uçurduğun bir arcade oyunudur. Güneş'ten Neptün'e 10 durak, 6 gemi ve asteroid kuşağı seni bekliyor.",
+  "description": "Sevimli astronot Daki ile uzayın derinliklerine çık: süzül, engellerden kaç, ödülleri topla ve farklı gezegenlere ulaş. Google Play'de adı: Daki Uzayda.",
   "applicationCategory": "Game",
   "operatingSystem": "Android",
-  "genre": "Arcade / Space",
+  "genre": "Arcade / Uzay",
   "inLanguage": "tr",
   "offers": {
     "@type": "Offer",
@@ -50,7 +50,7 @@
   "downloadUrl": "https://play.google.com/store/apps/details?id=com.AlpiGames.DakiUzayda",
   "image": [
     "https://siberjedi.com/img/icon-daki-in-space.png",
-    "https://siberjedi.com/img/shot-daki-in-space-1.jpg"
+    "https://siberjedi.com/img/banner-daki-in-space.jpg"
   ]
 }
 </script>
@@ -106,7 +106,17 @@ ol.adimlar li:before{counter-increment:s;content:counter(s);position:absolute;le
 footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:var(--muted);font-size:.85rem;margin-top:30px}
 footer a{margin:0 8px}
 
-.hero,.btn,h1 span,h2{--a1:#ffee00;--a2:#ff0080}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center;padding:44px 24px 30px}
+.hero-ust{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.hero-ikon{width:74px;height:74px;border-radius:18px;margin:0}
+.hero-ust .badge{margin:0}
+.pill{display:inline-block;font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:2px;color:#02060c;background:var(--a2);border-radius:999px;padding:5px 12px;box-shadow:0 0 16px var(--a2)}
+.hero-gorsel img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--border);box-shadow:0 0 44px color-mix(in srgb,var(--a1) 28%,transparent)}
+.puan{color:var(--yellow)}
+.kart h3{font-family:'Oxanium','Rajdhani',sans-serif;font-size:.95rem;color:var(--a1);margin-bottom:6px;letter-spacing:.5px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding-top:24px}.hero-gorsel{order:-1}}
+
 body{--a1:#ffee00;--a2:#ff0080}
 </style>
 </head>
@@ -126,28 +136,34 @@ body{--a1:#ffee00;--a2:#ff0080}
 </nav>
 
 <header class="hero">
-  <img class="hero-ikon" src="img/icon-daki-in-space.svg" alt="Daki In Space ikonu" width="110" height="110">
-  <div class="badge">ARCADE / SPACE · ANDROID · ÜCRETSİZ</div>
-  <h1>Daki In Space<br><span>Uzayda Roket Yolculuğu</span></h1>
-  <p class="lede">Güneş&#x27;ten Neptün&#x27;e 10 durak. 6 gemi, asteroid kuşağı, coin avı.</p>
-  <a class="btn" href="https://play.google.com/store/apps/details?id=com.AlpiGames.DakiUzayda" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
-  <div class="meta">
-    <span>TÜR <b>Arcade / Space</b></span>
+  <div class="hero-metin">
+    <div class="hero-ust">
+      <img class="hero-ikon" src="img/icon-daki-in-space.svg" alt="Daki In Space ikonu" width="74" height="74">
+      <div class="badge">ARCADE / UZAY · ANDROID · ÜCRETSİZ</div>
+    </div>
+    <h1>Daki In Space<br><span>Sevimli Astronotla Uzay Macerası</span></h1>
+    <p class="lede">Sevimli astronot Daki ile uzayın derinliklerine çık: süzül, engellerden kaç, ödülleri topla ve farklı gezegenlere ulaş. Google Play&#x27;de adı: Daki Uzayda.</p>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.AlpiGames.DakiUzayda" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
+    <div class="meta">
+    <span>TÜR <b>Arcade / Uzay</b></span>
     <span>PLATFORM <b>Android</b></span>
     <span>FİYAT <b>Ücretsiz</b></span>
-    <span>GELİŞTİRİCİ <b>SiberJedi</b></span>
+    <span>SON GÜNCELLEME <b>20 Ekim 2026</b></span>
+    <span>YAŞ <b>Her yaşa uygun</b></span>
+    </div>
   </div>
+  <div class="hero-gorsel"><img src="img/banner-daki-in-space.jpg" alt="Daki In Space tanıtım görseli" width="1024" height="500"></div>
 </header>
 
 <section class="galeri">
   <h2>EKRAN GÖRÜNTÜLERİ</h2>
   <div class="serit" id="serit">
-        <img src="img/shot-daki-in-space-1.jpg" alt="Daki In Space ekran görüntüsü 0" loading="lazy">
-        <img src="img/shot-daki-in-space-2.jpg" alt="Daki In Space ekran görüntüsü 1" loading="lazy">
-        <img src="img/shot-daki-in-space-3.jpg" alt="Daki In Space ekran görüntüsü 2" loading="lazy">
-        <img src="img/shot-daki-in-space-4.jpg" alt="Daki In Space ekran görüntüsü 3" loading="lazy">
-        <img src="img/shot-daki-in-space-5.jpg" alt="Daki In Space ekran görüntüsü 4" loading="lazy">
-        <img src="img/shot-daki-in-space-6.jpg" alt="Daki In Space ekran görüntüsü 5" loading="lazy">
+    <img src="img/shot-daki-in-space-1.jpg" alt="Daki In Space ekran görüntüsü 1" loading="lazy">
+    <img src="img/shot-daki-in-space-2.jpg" alt="Daki In Space ekran görüntüsü 2" loading="lazy">
+    <img src="img/shot-daki-in-space-3.jpg" alt="Daki In Space ekran görüntüsü 3" loading="lazy">
+    <img src="img/shot-daki-in-space-4.jpg" alt="Daki In Space ekran görüntüsü 4" loading="lazy">
+    <img src="img/shot-daki-in-space-5.jpg" alt="Daki In Space ekran görüntüsü 5" loading="lazy">
+    <img src="img/shot-daki-in-space-6.jpg" alt="Daki In Space ekran görüntüsü 6" loading="lazy">
   </div>
   <div class="oklar">
     <button class="ok" id="geri" aria-label="Önceki">‹</button>
@@ -158,45 +174,49 @@ body{--a1:#ffee00;--a2:#ff0080}
 <section>
   <h2>NASIL OYNANIR</h2>
   <ol class="adimlar">
-          <li>Gezegen seç</li>
-          <li>Fırlat ve coin topla</li>
-          <li>Gemini yükselt, sonraki durağa geç</li>
+    <li>Uzayda süzül, engellerden kaç.</li>
+    <li>Ödülleri ve altınları topla.</li>
+    <li>Gemini geliştir, yeni yeteneklerin kilidini aç.</li>
+    <li>Sıradaki gezegene ulaş, yeni müziği ve zorluğu keşfet.</li>
   </ol>
 </section>
 
 <section>
   <h2>ÖZELLİKLER</h2>
   <div class="grid">
-          <div class="kart"><p>Güneş&#x27;ten Neptün&#x27;e 10 gezegen durağı</p></div>
-          <div class="kart"><p>6 farklı gemi + yakıt tankı, iz, yükseltme</p></div>
-          <div class="kart"><p>Asteroid kuşağı ve hız bölümleri</p></div>
-          <div class="kart"><p>İki mod: Drift ve Bonus Run</p></div>
+    <div class="kart"><h3>Gezegen gezegen yolculuk</h3><p>Her gezegen yeni bir müzik, yeni zorluklar ve gemin için yeni geliştirmeler sunar.</p></div>
+    <div class="kart"><h3>Gemini geliştir</h3><p>Yeni yeteneklerin kilidini aç, uzayı kendi hızında keşfet.</p></div>
+    <div class="kart"><h3>Basit kontroller</h3><p>Öğrenmesi kolay, ustalaşması keyifli.</p></div>
+    <div class="kart"><h3>Rahatlatıcı ama dikkat ister</h3><p>Renkli görseller ve akıcı oynanış her yaştan oyuncuya hitap eder.</p></div>
   </div>
 </section>
 
 <section>
   <h2>DAKI IN SPACE HAKKINDA</h2>
-  <p class="lede">Daki In Space, Daki karakteriyle uzayda roket uçurduğun bir arcade oyunudur. Güneş&#x27;ten Neptün&#x27;e 10 durak, 6 gemi ve asteroid kuşağı seni bekliyor.</p>
+  <p class="lede">Daki In Space, Daki karakteriyle uzayda hız, keşif ve eğlence sunan bir arcade oyunu. Her yolculuk farklı, her gezegen kendine özgü bir deneyim.</p>
+  <a class="btn" href="https://play.google.com/store/apps/details?id=com.AlpiGames.DakiUzayda" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
 </section>
 
 <section>
   <h2>DİĞER OYUNLAR</h2>
   <div class="digerleri">
-        <a class="diger" href="chainquake.html"><img src="img/icon-chainquake.svg" alt="Chainquake ikonu" width="44" height="44"><div><b>Chainquake</b><span>Arcade / Platform</span></div></a>
-        <a class="diger" href="keycap-kingdom.html"><img src="img/icon-keycap-kingdom.svg" alt="Keycap Kingdom ikonu" width="44" height="44"><div><b>Keycap Kingdom</b><span>Idle / Tapper</span></div></a>
-        <a class="diger" href="soul-of-hero.html"><img src="img/icon-soul-of-hero.svg" alt="Soul of Hero ikonu" width="44" height="44"><div><b>Soul of Hero</b><span>Action / Platform</span></div></a>
-        <a class="diger" href="coredrop.html"><img src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="44" height="44"><div><b>CoreDrop</b><span>Çok Yakında</span></div></a>
+    <a class="diger" href="coredrop.html"><img src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="44" height="44"><div><b>CoreDrop</b><span>Sonsuz Koşu · Yeni</span></div></a>
+    <a class="diger" href="chainquake.html"><img src="img/icon-chainquake.svg" alt="Chainquake ikonu" width="44" height="44"><div><b>Chainquake</b><span>Arcade / Platform</span></div></a>
+    <a class="diger" href="keycap-kingdom.html"><img src="img/icon-keycap-kingdom.svg" alt="Keycap Kingdom ikonu" width="44" height="44"><div><b>Keycap Kingdom</b><span>Tıklama / Koleksiyon</span></div></a>
+    <a class="diger" href="soul-of-hero.html"><img src="img/icon-soul-of-hero.svg" alt="Soul of Hero ikonu" width="44" height="44"><div><b>Soul of Hero</b><span>Aksiyon / RPG</span></div></a>
+    <a class="diger" href="arena.html"><img src="img/icon-chatclash.svg" alt="Chat Clash ikonu" width="44" height="44"><div><b>Chat Clash</b><span>Canlı yayın yarışması</span></div></a>
   </div>
 </section>
 
 <footer>
   © 2026 SiberJedi ·
   <a href="/">Ana Sayfa</a> ·
+  <a href="coredrop.html">CoreDrop</a> ·
   <a href="chainquake.html">Chainquake</a> ·
   <a href="keycap-kingdom.html">Keycap</a> ·
   <a href="soul-of-hero.html">SOH</a> ·
   <a href="daki-in-space.html">Daki</a> ·
-  <a href="coredrop.html">CoreDrop</a>
+  <a href="arena.html">Chat Clash</a>
 </footer>
 
 <script>

@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Soul of Hero — Action / Platform | SiberJedi</title>
-<meta name="description" content="Soul of Hero, donmuş bir ormanda geçen aksiyon platform oyunudur. 5 dev boss, hızlı refleks bölümleri ve soul tabanlı yükseltmelerle kahramanını güçlendir.">
-<meta name="keywords" content="Soul of Hero, SiberJedi, Android oyun, Action / Platform, ücretsiz oyun, indie oyun">
+<title>Soul of Hero — Aksiyon / RPG | SiberJedi</title>
+<meta name="description" content="Krallık ile Cehennem her 100 yılda bir savaşır. Krallık bu saldırıları durdurmanın yolunu bulmuştu ama onu Cehennem Kralı&#x27;na kaptırdı. Şimdi ruh sahipleri karşılaşacak ve kahraman olacak.">
+<meta name="keywords" content="Soul of Hero, SiberJedi, Android oyun, Aksiyon / RPG, ücretsiz oyun, indie oyun">
 <meta name="author" content="SiberJedi">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://siberjedi.com/soul-of-hero.html">
 <link rel="icon" type="image/png" href="img/icon-soul-of-hero.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://siberjedi.com/soul-of-hero.html">
-<meta property="og:title" content="Soul of Hero — Action / Platform | SiberJedi">
-<meta property="og:description" content="Orman donuyor. 5 dev boss. Tek kahraman.">
-<meta property="og:image" content="https://siberjedi.com/img/shot-soul-of-hero-1.jpg">
+<meta property="og:title" content="Soul of Hero | Aksiyon / RPG | SiberJedi">
+<meta property="og:description" content="Krallık ile Cehennem her 100 yılda bir savaşır. Krallık bu saldırıları durdurmanın yolunu bulmuştu ama onu Cehennem Kralı&#x27;na kaptırdı. Şimdi ruh sahipleri karşılaşacak ve kahraman olacak.">
+<meta property="og:image" content="https://siberjedi.com/img/banner-soul-of-hero.jpg">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="SiberJedi">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Soul of Hero | SiberJedi">
-<meta name="twitter:description" content="Orman donuyor. 5 dev boss. Tek kahraman.">
-<meta name="twitter:image" content="https://siberjedi.com/img/shot-soul-of-hero-1.jpg">
+<meta name="twitter:description" content="Krallık ile Cehennem her 100 yılda bir savaşır. Krallık bu saldırıları durdurmanın yolunu bulmuştu ama onu Cehennem Kralı&#x27;na kaptırdı. Şimdi ruh sahipleri karşılaşacak ve kahraman olacak.">
+<meta name="twitter:image" content="https://siberjedi.com/img/banner-soul-of-hero.jpg">
 <meta name="theme-color" content="#020408">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,10 +31,10 @@
   "@type": "VideoGame",
   "name": "Soul of Hero",
   "url": "https://siberjedi.com/soul-of-hero.html",
-  "description": "Soul of Hero, donmuş bir ormanda geçen aksiyon platform oyunudur. 5 dev boss, hızlı refleks bölümleri ve soul tabanlı yükseltmelerle kahramanını güçlendir.",
+  "description": "Krallık ile Cehennem her 100 yılda bir savaşır. Krallık bu saldırıları durdurmanın yolunu bulmuştu ama onu Cehennem Kralı'na kaptırdı. Şimdi ruh sahipleri karşılaşacak ve kahraman olacak.",
   "applicationCategory": "Game",
   "operatingSystem": "Android",
-  "genre": "Action / Platform",
+  "genre": "Aksiyon / RPG",
   "inLanguage": "tr",
   "offers": {
     "@type": "Offer",
@@ -50,7 +50,7 @@
   "downloadUrl": "https://play.google.com/store/apps/details?id=com.AlpiGames.SoulOfHero",
   "image": [
     "https://siberjedi.com/img/icon-soul-of-hero.png",
-    "https://siberjedi.com/img/shot-soul-of-hero-1.jpg"
+    "https://siberjedi.com/img/banner-soul-of-hero.jpg"
   ]
 }
 </script>
@@ -106,7 +106,17 @@ ol.adimlar li:before{counter-increment:s;content:counter(s);position:absolute;le
 footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:var(--muted);font-size:.85rem;margin-top:30px}
 footer a{margin:0 8px}
 
-.hero,.btn,h1 span,h2{--a1:#00ff88;--a2:#ff0080}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center;padding:44px 24px 30px}
+.hero-ust{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.hero-ikon{width:74px;height:74px;border-radius:18px;margin:0}
+.hero-ust .badge{margin:0}
+.pill{display:inline-block;font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:2px;color:#02060c;background:var(--a2);border-radius:999px;padding:5px 12px;box-shadow:0 0 16px var(--a2)}
+.hero-gorsel img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--border);box-shadow:0 0 44px color-mix(in srgb,var(--a1) 28%,transparent)}
+.puan{color:var(--yellow)}
+.kart h3{font-family:'Oxanium','Rajdhani',sans-serif;font-size:.95rem;color:var(--a1);margin-bottom:6px;letter-spacing:.5px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding-top:24px}.hero-gorsel{order:-1}}
+
 body{--a1:#00ff88;--a2:#ff0080}
 </style>
 </head>
@@ -126,28 +136,34 @@ body{--a1:#00ff88;--a2:#ff0080}
 </nav>
 
 <header class="hero">
-  <img class="hero-ikon" src="img/icon-soul-of-hero.svg" alt="Soul of Hero ikonu" width="110" height="110">
-  <div class="badge">ACTION / PLATFORM · ANDROID · ÜCRETSİZ</div>
-  <h1>Soul of Hero<br><span>Buzdan Kahramanın Destanı</span></h1>
-  <p class="lede">Orman donuyor. 5 dev boss. Tek kahraman.</p>
-  <a class="btn" href="https://play.google.com/store/apps/details?id=com.AlpiGames.SoulOfHero" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
-  <div class="meta">
-    <span>TÜR <b>Action / Platform</b></span>
+  <div class="hero-metin">
+    <div class="hero-ust">
+      <img class="hero-ikon" src="img/icon-soul-of-hero.svg" alt="Soul of Hero ikonu" width="74" height="74">
+      <div class="badge">AKSIYON / RPG · ANDROID · ÜCRETSİZ</div>
+    </div>
+    <h1>Soul of Hero<br><span>Ruh Her Şeyindir, Kahraman Ruhundur</span></h1>
+    <p class="lede">Krallık ile Cehennem her 100 yılda bir savaşır. Krallık bu saldırıları durdurmanın yolunu bulmuştu ama onu Cehennem Kralı&#x27;na kaptırdı. Şimdi ruh sahipleri karşılaşacak ve kahraman olacak.</p>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.AlpiGames.SoulOfHero" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
+    <div class="meta">
+    <span>TÜR <b>Aksiyon / RPG</b></span>
     <span>PLATFORM <b>Android</b></span>
     <span>FİYAT <b>Ücretsiz</b></span>
-    <span>GELİŞTİRİCİ <b>SiberJedi</b></span>
+    <span>SON GÜNCELLEME <b>14 Kasım 2026</b></span>
+    <span>PUAN <b><span class="puan">4,4 ★</span> (40 yorum)</b></span>
+    </div>
   </div>
+  <div class="hero-gorsel"><img src="img/banner-soul-of-hero.jpg" alt="Soul of Hero tanıtım görseli" width="1024" height="500"></div>
 </header>
 
 <section class="galeri">
   <h2>EKRAN GÖRÜNTÜLERİ</h2>
   <div class="serit" id="serit">
-        <img src="img/shot-soul-of-hero-1.jpg" alt="Soul of Hero ekran görüntüsü 0" loading="lazy">
-        <img src="img/shot-soul-of-hero-2.jpg" alt="Soul of Hero ekran görüntüsü 1" loading="lazy">
-        <img src="img/shot-soul-of-hero-3.jpg" alt="Soul of Hero ekran görüntüsü 2" loading="lazy">
-        <img src="img/shot-soul-of-hero-4.jpg" alt="Soul of Hero ekran görüntüsü 3" loading="lazy">
-        <img src="img/shot-soul-of-hero-5.jpg" alt="Soul of Hero ekran görüntüsü 4" loading="lazy">
-        <img src="img/shot-soul-of-hero-6.jpg" alt="Soul of Hero ekran görüntüsü 5" loading="lazy">
+    <img src="img/shot-soul-of-hero-1.jpg" alt="Soul of Hero ekran görüntüsü 1" loading="lazy">
+    <img src="img/shot-soul-of-hero-2.jpg" alt="Soul of Hero ekran görüntüsü 2" loading="lazy">
+    <img src="img/shot-soul-of-hero-3.jpg" alt="Soul of Hero ekran görüntüsü 3" loading="lazy">
+    <img src="img/shot-soul-of-hero-4.jpg" alt="Soul of Hero ekran görüntüsü 4" loading="lazy">
+    <img src="img/shot-soul-of-hero-5.jpg" alt="Soul of Hero ekran görüntüsü 5" loading="lazy">
+    <img src="img/shot-soul-of-hero-6.jpg" alt="Soul of Hero ekran görüntüsü 6" loading="lazy">
   </div>
   <div class="oklar">
     <button class="ok" id="geri" aria-label="Önceki">‹</button>
@@ -158,45 +174,51 @@ body{--a1:#00ff88;--a2:#ff0080}
 <section>
   <h2>NASIL OYNANIR</h2>
   <ol class="adimlar">
-          <li>Dondur, tekmele, zincirle</li>
-          <li>Boss&#x27;un zayıf noktasını bul</li>
-          <li>Yeni yetenekler aç</li>
+    <li>Kahraman sınıfını seç: Okçu ya da Savaşçı.</li>
+    <li>Krallığı işgal eden ordulara karşı platform bölümlerinde ilerle.</li>
+    <li>Ok ve büyü kürelerini saldırınla savuştur, okçu ve büyücüleri sustur.</li>
+    <li>Su bölümlerinde yüzerken saldır, düşmanları alt et.</li>
   </ol>
 </section>
 
 <section>
   <h2>ÖZELLİKLER</h2>
   <div class="grid">
-          <div class="kart"><p>5 dev boss savaşı</p></div>
-          <div class="kart"><p>Donmuş orman dünyası</p></div>
-          <div class="kart"><p>Soul tabanlı yükseltme sistemi</p></div>
-          <div class="kart"><p>Hızlı refleks gerektiren platform bölümleri</p></div>
+    <div class="kart"><h3>Hikayeli macera</h3><p>Kahramanın Ruhu, Bölüm 1: İşgal. Krallık ile Cehennem arasındaki yüzyıllık savaş.</p></div>
+    <div class="kart"><h3>Sınıflar</h3><p>Okçu ve Savaşçı: her biri farklı oynanış, farklı strateji.</p></div>
+    <div class="kart"><h3>Savuşturma</h3><p>Ok ve büyü kürelerini saldırınla geri çevir; vurulan okçu ve büyücü kısa süre ateş edemez.</p></div>
+    <div class="kart"><h3>Su bölümleri</h3><p>Yüzerken saldırı, ayarlanabilir joystick, sudan karaya kolay çıkış.</p></div>
+    <div class="kart"><h3>Sürekli güncelleniyor</h3><p>Akıcı hareket, basılı tut = kombo, daha akıllı düşmanlar ve performans iyileştirmeleri.</p></div>
+    <div class="kart"><h3>Oyuncular seviyor</h3><p>10 binden fazla indirme, Google Play&#x27;de 4,4 puan.</p></div>
   </div>
 </section>
 
 <section>
   <h2>SOUL OF HERO HAKKINDA</h2>
-  <p class="lede">Soul of Hero, donmuş bir ormanda geçen aksiyon platform oyunudur. 5 dev boss, hızlı refleks bölümleri ve soul tabanlı yükseltmelerle kahramanını güçlendir.</p>
+  <p class="lede">Soul of Hero, Krallık ile Cehennem arasındaki savaşta ruhunu kahramanlığa dönüştürdüğün bir 2D aksiyon RPG. SiberJedi&#x27;nin ilk büyük projesi ve hâlâ düzenli güncelleme alıyor.</p>
+  <a class="btn" href="https://play.google.com/store/apps/details?id=com.AlpiGames.SoulOfHero" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
 </section>
 
 <section>
   <h2>DİĞER OYUNLAR</h2>
   <div class="digerleri">
-        <a class="diger" href="chainquake.html"><img src="img/icon-chainquake.svg" alt="Chainquake ikonu" width="44" height="44"><div><b>Chainquake</b><span>Arcade / Platform</span></div></a>
-        <a class="diger" href="keycap-kingdom.html"><img src="img/icon-keycap-kingdom.svg" alt="Keycap Kingdom ikonu" width="44" height="44"><div><b>Keycap Kingdom</b><span>Idle / Tapper</span></div></a>
-        <a class="diger" href="daki-in-space.html"><img src="img/icon-daki-in-space.svg" alt="Daki In Space ikonu" width="44" height="44"><div><b>Daki In Space</b><span>Arcade / Space</span></div></a>
-        <a class="diger" href="coredrop.html"><img src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="44" height="44"><div><b>CoreDrop</b><span>Çok Yakında</span></div></a>
+    <a class="diger" href="coredrop.html"><img src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="44" height="44"><div><b>CoreDrop</b><span>Sonsuz Koşu · Yeni</span></div></a>
+    <a class="diger" href="chainquake.html"><img src="img/icon-chainquake.svg" alt="Chainquake ikonu" width="44" height="44"><div><b>Chainquake</b><span>Arcade / Platform</span></div></a>
+    <a class="diger" href="keycap-kingdom.html"><img src="img/icon-keycap-kingdom.svg" alt="Keycap Kingdom ikonu" width="44" height="44"><div><b>Keycap Kingdom</b><span>Tıklama / Koleksiyon</span></div></a>
+    <a class="diger" href="daki-in-space.html"><img src="img/icon-daki-in-space.svg" alt="Daki In Space ikonu" width="44" height="44"><div><b>Daki In Space</b><span>Arcade / Uzay</span></div></a>
+    <a class="diger" href="arena.html"><img src="img/icon-chatclash.svg" alt="Chat Clash ikonu" width="44" height="44"><div><b>Chat Clash</b><span>Canlı yayın yarışması</span></div></a>
   </div>
 </section>
 
 <footer>
   © 2026 SiberJedi ·
   <a href="/">Ana Sayfa</a> ·
+  <a href="coredrop.html">CoreDrop</a> ·
   <a href="chainquake.html">Chainquake</a> ·
   <a href="keycap-kingdom.html">Keycap</a> ·
   <a href="soul-of-hero.html">SOH</a> ·
   <a href="daki-in-space.html">Daki</a> ·
-  <a href="coredrop.html">CoreDrop</a>
+  <a href="arena.html">Chat Clash</a>
 </footer>
 
 <script>

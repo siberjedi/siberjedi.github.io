@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Keycap Kingdom — Idle / Tapper | SiberJedi</title>
-<meta name="description" content="Keycap Kingdom, mekanik klavye tutkunları için bir idle/tapper oyunudur. Tuşa basarak coin kazan, keycap birleştir, klavyeni kur ve gizli arcade mini oyunl">
-<meta name="keywords" content="Keycap Kingdom, SiberJedi, Android oyun, Idle / Tapper, ücretsiz oyun, indie oyun">
+<title>Keycap Kingdom — Tıklama / Koleksiyon | SiberJedi</title>
+<meta name="description" content="Her dokunuşun altın kazandırdığı, her paketin yeni tuş kapakları açtığı klavye temalı bir tıklama ve koleksiyon oyunu. Üstelik klavyenin içinde 19 arcade mini oyun var.">
+<meta name="keywords" content="Keycap Kingdom, SiberJedi, Android oyun, Tıklama / Koleksiyon, ücretsiz oyun, indie oyun">
 <meta name="author" content="SiberJedi">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://siberjedi.com/keycap-kingdom.html">
 <link rel="icon" type="image/png" href="img/icon-keycap-kingdom.png">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://siberjedi.com/keycap-kingdom.html">
-<meta property="og:title" content="Keycap Kingdom — Idle / Tapper | SiberJedi">
-<meta property="og:description" content="Tuşa bas, coin kazan, klavyeni kur. Merge ve arcade mini oyunlar.">
-<meta property="og:image" content="https://siberjedi.com/img/shot-keycap-kingdom-1.jpg">
+<meta property="og:title" content="Keycap Kingdom | Tıklama / Koleksiyon | SiberJedi">
+<meta property="og:description" content="Her dokunuşun altın kazandırdığı, her paketin yeni tuş kapakları açtığı klavye temalı bir tıklama ve koleksiyon oyunu. Üstelik klavyenin içinde 19 arcade mini oyun var.">
+<meta property="og:image" content="https://siberjedi.com/img/banner-keycap-kingdom.jpg">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="SiberJedi">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Keycap Kingdom | SiberJedi">
-<meta name="twitter:description" content="Tuşa bas, coin kazan, klavyeni kur. Merge ve arcade mini oyunlar.">
-<meta name="twitter:image" content="https://siberjedi.com/img/shot-keycap-kingdom-1.jpg">
+<meta name="twitter:description" content="Her dokunuşun altın kazandırdığı, her paketin yeni tuş kapakları açtığı klavye temalı bir tıklama ve koleksiyon oyunu. Üstelik klavyenin içinde 19 arcade mini oyun var.">
+<meta name="twitter:image" content="https://siberjedi.com/img/banner-keycap-kingdom.jpg">
 <meta name="theme-color" content="#020408">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,10 +31,10 @@
   "@type": "VideoGame",
   "name": "Keycap Kingdom",
   "url": "https://siberjedi.com/keycap-kingdom.html",
-  "description": "Keycap Kingdom, mekanik klavye tutkunları için bir idle/tapper oyunudur. Tuşa basarak coin kazan, keycap birleştir, klavyeni kur ve gizli arcade mini oyunlarını keşfet.",
+  "description": "Her dokunuşun altın kazandırdığı, her paketin yeni tuş kapakları açtığı klavye temalı bir tıklama ve koleksiyon oyunu. Üstelik klavyenin içinde 19 arcade mini oyun var.",
   "applicationCategory": "Game",
   "operatingSystem": "Android",
-  "genre": "Idle / Tapper",
+  "genre": "Tıklama / Koleksiyon",
   "inLanguage": "tr",
   "offers": {
     "@type": "Offer",
@@ -50,7 +50,7 @@
   "downloadUrl": "https://play.google.com/store/apps/details?id=com.SiberJedi.KeycapKingdom",
   "image": [
     "https://siberjedi.com/img/icon-keycap-kingdom.png",
-    "https://siberjedi.com/img/shot-keycap-kingdom-1.jpg"
+    "https://siberjedi.com/img/banner-keycap-kingdom.jpg"
   ]
 }
 </script>
@@ -106,7 +106,17 @@ ol.adimlar li:before{counter-increment:s;content:counter(s);position:absolute;le
 footer{border-top:1px solid var(--border);padding:28px 24px;text-align:center;color:var(--muted);font-size:.85rem;margin-top:30px}
 footer a{margin:0 8px}
 
-.hero,.btn,h1 span,h2{--a1:#ffb000;--a2:#00f5ff}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;align-items:center;padding:44px 24px 30px}
+.hero-ust{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.hero-ikon{width:74px;height:74px;border-radius:18px;margin:0}
+.hero-ust .badge{margin:0}
+.pill{display:inline-block;font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:2px;color:#02060c;background:var(--a2);border-radius:999px;padding:5px 12px;box-shadow:0 0 16px var(--a2)}
+.hero-gorsel img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--border);box-shadow:0 0 44px color-mix(in srgb,var(--a1) 28%,transparent)}
+.puan{color:var(--yellow)}
+.kart h3{font-family:'Oxanium','Rajdhani',sans-serif;font-size:.95rem;color:var(--a1);margin-bottom:6px;letter-spacing:.5px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding-top:24px}.hero-gorsel{order:-1}}
+
 body{--a1:#ffb000;--a2:#00f5ff}
 </style>
 </head>
@@ -126,28 +136,38 @@ body{--a1:#ffb000;--a2:#00f5ff}
 </nav>
 
 <header class="hero">
-  <img class="hero-ikon" src="img/icon-keycap-kingdom.svg" alt="Keycap Kingdom ikonu" width="110" height="110">
-  <div class="badge">IDLE / TAPPER · ANDROID · ÜCRETSİZ</div>
-  <h1>Keycap Kingdom<br><span>Klavye İmparatorluğu Kur</span></h1>
-  <p class="lede">Tuşa bas, coin kazan, klavyeni kur. Merge ve arcade mini oyunlar.</p>
-  <a class="btn" href="https://play.google.com/store/apps/details?id=com.SiberJedi.KeycapKingdom" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
-  <div class="meta">
-    <span>TÜR <b>Idle / Tapper</b></span>
+  <div class="hero-metin">
+    <div class="hero-ust">
+      <img class="hero-ikon" src="img/icon-keycap-kingdom.svg" alt="Keycap Kingdom ikonu" width="74" height="74">
+      <div class="badge">TIKLAMA / KOLEKSIYON · ANDROID · ÜCRETSİZ</div>
+    </div>
+    <h1>Keycap Kingdom<br><span>Klavyeni Tuş Tuş Kur</span></h1>
+    <p class="lede">Her dokunuşun altın kazandırdığı, her paketin yeni tuş kapakları açtığı klavye temalı bir tıklama ve koleksiyon oyunu. Üstelik klavyenin içinde 19 arcade mini oyun var.</p>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=com.SiberJedi.KeycapKingdom" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
+    <div class="meta">
+    <span>TÜR <b>Tıklama / Koleksiyon</b></span>
     <span>PLATFORM <b>Android</b></span>
     <span>FİYAT <b>Ücretsiz</b></span>
-    <span>GELİŞTİRİCİ <b>SiberJedi</b></span>
+    <span>SON GÜNCELLEME <b>14 Ekim 2026</b></span>
+    <span>DİL <b>13 dil</b></span>
+    </div>
   </div>
+  <div class="hero-gorsel"><img src="img/banner-keycap-kingdom.jpg" alt="Keycap Kingdom tanıtım görseli" width="1024" height="500"></div>
 </header>
 
 <section class="galeri">
   <h2>EKRAN GÖRÜNTÜLERİ</h2>
   <div class="serit" id="serit">
-        <img src="img/shot-keycap-kingdom-1.jpg" alt="Keycap Kingdom ekran görüntüsü 0" loading="lazy">
-        <img src="img/shot-keycap-kingdom-2.jpg" alt="Keycap Kingdom ekran görüntüsü 1" loading="lazy">
-        <img src="img/shot-keycap-kingdom-3.jpg" alt="Keycap Kingdom ekran görüntüsü 2" loading="lazy">
-        <img src="img/shot-keycap-kingdom-4.jpg" alt="Keycap Kingdom ekran görüntüsü 3" loading="lazy">
-        <img src="img/shot-keycap-kingdom-5.jpg" alt="Keycap Kingdom ekran görüntüsü 4" loading="lazy">
-        <img src="img/shot-keycap-kingdom-6.jpg" alt="Keycap Kingdom ekran görüntüsü 5" loading="lazy">
+    <img src="img/shot-keycap-arcade-1.jpg" alt="Keycap Kingdom ekran görüntüsü 1" loading="lazy">
+    <img src="img/shot-keycap-arcade-2.jpg" alt="Keycap Kingdom ekran görüntüsü 2" loading="lazy">
+    <img src="img/shot-keycap-arcade-3.jpg" alt="Keycap Kingdom ekran görüntüsü 3" loading="lazy">
+    <img src="img/shot-keycap-arcade-4.jpg" alt="Keycap Kingdom ekran görüntüsü 4" loading="lazy">
+    <img src="img/shot-keycap-kingdom-1.jpg" alt="Keycap Kingdom ekran görüntüsü 5" loading="lazy">
+    <img src="img/shot-keycap-kingdom-2.jpg" alt="Keycap Kingdom ekran görüntüsü 6" loading="lazy">
+    <img src="img/shot-keycap-kingdom-3.jpg" alt="Keycap Kingdom ekran görüntüsü 7" loading="lazy">
+    <img src="img/shot-keycap-kingdom-4.jpg" alt="Keycap Kingdom ekran görüntüsü 8" loading="lazy">
+    <img src="img/shot-keycap-kingdom-5.jpg" alt="Keycap Kingdom ekran görüntüsü 9" loading="lazy">
+    <img src="img/shot-keycap-kingdom-6.jpg" alt="Keycap Kingdom ekran görüntüsü 10" loading="lazy">
   </div>
   <div class="oklar">
     <button class="ok" id="geri" aria-label="Önceki">‹</button>
@@ -158,45 +178,51 @@ body{--a1:#ffb000;--a2:#00f5ff}
 <section>
   <h2>NASIL OYNANIR</h2>
   <ol class="adimlar">
-          <li>Büyük tuşa bas, coin topla</li>
-          <li>Klavye slotlarını doldur</li>
-          <li>Keycap&#x27;leri birleştir, seviye atla</li>
+    <li>Dokun, altın kazan: hem aktif hem pasif gelir.</li>
+    <li>Paket aç, farklı nadirliklerde tuş kapakları topla.</li>
+    <li>Aynı kapakları birleştir, güçlü klavye dizilimleri kur.</li>
+    <li>Arcade mini oyunlarda nadirlik basamaklarını aş, hediye paketleri kazan.</li>
   </ol>
 </section>
 
 <section>
   <h2>ÖZELLİKLER</h2>
   <div class="grid">
-          <div class="kart"><p>Tap ile coin kazan, klavye slotlarını doldur</p></div>
-          <div class="kart"><p>Keycap birleştirme (merge) sistemi</p></div>
-          <div class="kart"><p>Gizli neon arcade: Turbo Tap ve Keycap Kombat</p></div>
-          <div class="kart"><p>Classic / Neon / Gold klavye setleri</p></div>
+    <div class="kart"><h3>19 arcade mini oyun</h3><p>Keycap Kombat, Neon Rail, Fruit Slash ve daha fazlası. Her oyunun kendi müziği ve ilerlemesi var.</p></div>
+    <div class="kart"><h3>Koleksiyon ve birleştirme</h3><p>Farklı nadirliklerde tuş kapakları topla, birleştirip koleksiyonunu yükselt.</p></div>
+    <div class="kart"><h3>Google Play sıralamaları</h3><p>Liderlik tablolarında yerini al, ödüllü görevleri tamamla.</p></div>
+    <div class="kart"><h3>Yeni klavyeler</h3><p>Nadirliğe göre monitör çerçeveleri, dokunma efektleri ve Sakura yaprak yağmuru.</p></div>
+    <div class="kart"><h3>13 dil</h3><p>Japonca, Korece, Çince ve daha fazlası.</p></div>
+    <div class="kart"><h3>Rahatlatıcı ilerleme</h3><p>Tatmin edici ilerleme oyunlarını sevenler için ödüllendirici bir koleksiyon deneyimi.</p></div>
   </div>
 </section>
 
 <section>
   <h2>KEYCAP KINGDOM HAKKINDA</h2>
-  <p class="lede">Keycap Kingdom, mekanik klavye tutkunları için bir idle/tapper oyunudur. Tuşa basarak coin kazan, keycap birleştir, klavyeni kur ve gizli arcade mini oyunlarını keşfet.</p>
+  <p class="lede">Keycap Kingdom, klavye tutkunları ve ilerleme oyunu sevenler için tasarlandı. Koleksiyonuna başla, en iyi klavye krallığını kur!</p>
+  <a class="btn" href="https://play.google.com/store/apps/details?id=com.SiberJedi.KeycapKingdom" rel="noopener" target="_blank">▶ Google Play'den İndir</a>
 </section>
 
 <section>
   <h2>DİĞER OYUNLAR</h2>
   <div class="digerleri">
-        <a class="diger" href="chainquake.html"><img src="img/icon-chainquake.svg" alt="Chainquake ikonu" width="44" height="44"><div><b>Chainquake</b><span>Arcade / Platform</span></div></a>
-        <a class="diger" href="soul-of-hero.html"><img src="img/icon-soul-of-hero.svg" alt="Soul of Hero ikonu" width="44" height="44"><div><b>Soul of Hero</b><span>Action / Platform</span></div></a>
-        <a class="diger" href="daki-in-space.html"><img src="img/icon-daki-in-space.svg" alt="Daki In Space ikonu" width="44" height="44"><div><b>Daki In Space</b><span>Arcade / Space</span></div></a>
-        <a class="diger" href="coredrop.html"><img src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="44" height="44"><div><b>CoreDrop</b><span>Çok Yakında</span></div></a>
+    <a class="diger" href="coredrop.html"><img src="img/icon-coredrop.svg" alt="CoreDrop ikonu" width="44" height="44"><div><b>CoreDrop</b><span>Sonsuz Koşu · Yeni</span></div></a>
+    <a class="diger" href="chainquake.html"><img src="img/icon-chainquake.svg" alt="Chainquake ikonu" width="44" height="44"><div><b>Chainquake</b><span>Arcade / Platform</span></div></a>
+    <a class="diger" href="soul-of-hero.html"><img src="img/icon-soul-of-hero.svg" alt="Soul of Hero ikonu" width="44" height="44"><div><b>Soul of Hero</b><span>Aksiyon / RPG</span></div></a>
+    <a class="diger" href="daki-in-space.html"><img src="img/icon-daki-in-space.svg" alt="Daki In Space ikonu" width="44" height="44"><div><b>Daki In Space</b><span>Arcade / Uzay</span></div></a>
+    <a class="diger" href="arena.html"><img src="img/icon-chatclash.svg" alt="Chat Clash ikonu" width="44" height="44"><div><b>Chat Clash</b><span>Canlı yayın yarışması</span></div></a>
   </div>
 </section>
 
 <footer>
   © 2026 SiberJedi ·
   <a href="/">Ana Sayfa</a> ·
+  <a href="coredrop.html">CoreDrop</a> ·
   <a href="chainquake.html">Chainquake</a> ·
   <a href="keycap-kingdom.html">Keycap</a> ·
   <a href="soul-of-hero.html">SOH</a> ·
   <a href="daki-in-space.html">Daki</a> ·
-  <a href="coredrop.html">CoreDrop</a>
+  <a href="arena.html">Chat Clash</a>
 </footer>
 
 <script>
