@@ -274,7 +274,7 @@ body{--a1:#00ff88;--a2:#ff0080}
       e.appendChild(im); e.appendChild(document.createTextNode(adlar?adlar.of(c.kod):c.kod)); ul.appendChild(e);
     });
     if(!n&&!ul.children.length) return;
-    if(d.guncellendi){var t=new Date(d.guncellendi); if(!isNaN(t)) document.getElementById('istat-not').textContent='Firebase ve Google Play verisi · son güncelleme '+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+(ul.children.length?' · bayraklar: son 30 günün en aktif ülkeleri':'');}
+    if(d.guncellendi){var t=new Date(d.guncellendi); if(!isNaN(t)) document.getElementById('istat-not').textContent=(typeof d.toplam_indirme==='number'?'Firebase ve Google Play':'Firebase')+' verisi · son güncelleme '+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+(ul.children.length?' · bayraklar: son 30 günün en aktif ülkeleri':'');}
     document.getElementById('istat').hidden=false;
   }).catch(function(){});
 })();
