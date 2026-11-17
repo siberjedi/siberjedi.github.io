@@ -129,6 +129,15 @@ nav .nav-planla{animation:planlaPulse 2.2s ease-in-out infinite;letter-spacing:3
 .ulke-no{font-family:'Oxanium','Rajdhani',sans-serif;color:var(--a1);min-width:1.4em;text-align:right}
 .ulke{display:flex;align-items:center;gap:9px;background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:5px 12px 5px 6px;font-size:.88rem}
 .ulke img{width:22px;height:15px;border-radius:3px;object-fit:cover}
+.istat-kart.bekliyor{border-style:dashed}
+.istat-kart.bekliyor:before{opacity:.35;animation:ykAkis 2.4s linear infinite;background:linear-gradient(90deg,transparent,var(--a1),transparent);background-size:200% 100%}
+.istat-kart.bekliyor .istat-sayi{display:flex;align-items:center;gap:6px;min-height:1.1em;text-shadow:none}
+.istat-kart.bekliyor .istat-sayi small{font-family:'Share Tech Mono','Oxanium',monospace;font-size:.68rem;font-weight:400;letter-spacing:2px;color:var(--a1);margin-left:6px;opacity:.8}
+.yk{width:9px;height:9px;border-radius:50%;background:var(--a1);box-shadow:0 0 8px var(--a1);animation:ykNabiz 1.2s ease-in-out infinite}
+.yk:nth-child(2){animation-delay:.2s}.yk:nth-child(3){animation-delay:.4s}
+@keyframes ykNabiz{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+@keyframes ykAkis{to{background-position:-200% 0}}
+@media(prefers-reduced-motion:reduce){.yk,.istat-kart.bekliyor:before{animation:none}}
 .istat-not{margin-top:12px;font-family:'Share Tech Mono','Oxanium',monospace;font-size:.72rem;color:var(--muted);letter-spacing:1px}
 .canli-nokta{display:inline-block;width:8px;height:8px;border-radius:50%;background:#39ff14;box-shadow:0 0 10px #39ff14;margin-right:8px;animation:nabiz 1.6s ease-in-out infinite}
 @keyframes nabiz{50%{opacity:.35}}
@@ -266,11 +275,12 @@ body{--a1:#00f5ff;--a2:#ff7a00}
   fetch(u||KAYNAK,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
     var g=document.getElementById('istat-grid'),n=0,f=new Intl.NumberFormat('tr-TR');
     SIRA.forEach(function(k){
-      var v=d[k]; if(typeof v!=='number'||v<ESIK[k]) return;
-      var kart=document.createElement('div'); kart.className='istat-kart';
-      var a=document.createElement('div'); a.className='istat-sayi'; a.textContent=(k==='toplam_indirme'&&v>=1000)?new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:1}).format(v).replace(/\s*B$/,' bin'):f.format(v);
+      var v=d[k], bekle=(typeof v!=='number'||v<ESIK[k]);
+      var kart=document.createElement('div'); kart.className='istat-kart'+(bekle?' bekliyor':'');
+      var a=document.createElement('div'); a.className='istat-sayi';
+      if(bekle) a.innerHTML='<span class="yk"></span><span class="yk"></span><span class="yk"></span><small>güncelleniyor</small>'; else a.textContent=(k==='toplam_indirme'&&v>=1000)?new Intl.NumberFormat('tr-TR',{notation:'compact',maximumFractionDigits:1}).format(v).replace(/\s*B$/,' bin'):f.format(v);
       var b=document.createElement('div'); b.className='istat-ad'; b.textContent=(k==='bolum_tamamlanan_toplam'&&d.bolum_etiket)?d.bolum_etiket:AD[k];
-      kart.appendChild(a); kart.appendChild(b); g.appendChild(kart); n++;
+      kart.appendChild(a); kart.appendChild(b); g.appendChild(kart); if(!bekle) n++;
     });
     var ul=document.getElementById('istat-ulkeler'), adlar=null;
     try{adlar=new Intl.DisplayNames(['tr'],{type:'region'});}catch(e){}
@@ -281,7 +291,7 @@ body{--a1:#00f5ff;--a2:#ff7a00}
       var im=document.createElement('img'); im.loading='lazy'; im.alt=''; im.src='https://flagcdn.com/w40/'+c.kod.toLowerCase()+'.png';
       e.appendChild(im); e.appendChild(document.createTextNode(adlar?adlar.of(c.kod):c.kod)); ul.appendChild(e);
     });
-    if(n<2) return;
+    if(n<1) return;
     if(d.guncellendi){var t=new Date(d.guncellendi); if(!isNaN(t)) document.getElementById('istat-not').textContent=(typeof d.toplam_indirme==='number'?'Firebase ve Google Play':'Firebase')+' verisi · son güncelleme '+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+(ul.children.length?' · en aktif 6 ülke: son 30 gün':'');}
     document.getElementById('istat').hidden=false;
   }).catch(function(){});
