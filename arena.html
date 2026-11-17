@@ -45,6 +45,9 @@
   .hero{padding:6px 0 28px}
   .onair{display:inline-flex; align-items:center; gap:8px; font:800 12px 'JetBrains Mono',monospace;
     letter-spacing:1.5px; padding:6px 10px; border-radius:6px; background:var(--acc2); color:#fff}
+  .onair-champ{display:inline-flex; align-items:center; gap:6px; margin-left:8px; font:700 13px 'JetBrains Mono',monospace; color:#ffd166; padding:4px 10px; border:1px solid rgba(255,209,102,.4); border-radius:999px}
+  .onair-champ[hidden]{display:none}
+  .onair-champ .plat{width:14px;height:14px}
   .onair.off{background:var(--card); color:var(--dim); border:2px solid var(--line)}
   .onair .d{width:8px; height:8px; border-radius:50%; background:#fff; animation:blink 1s steps(2,start) infinite}
   .onair.off .d{background:var(--dim); animation:none}
@@ -170,6 +173,7 @@
 
   <header class="hero">
     <span class="onair off" id="onair"><span class="d"></span><span id="onair-t">…</span></span>
+    <span class="onair-champ" id="onair-champ" title="#1 this week" hidden></span>
     <h1><span data-i="h1a"></span><br><span class="g" data-i="h1b"></span></h1>
     <p class="sub" data-i="sub"></p>
     <div class="ctas">
@@ -609,10 +613,16 @@
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function fmt(n){ try { return Number(n||0).toLocaleString(NUMLOC[lang]); } catch(e){ return String(n||0); } }
   function saat(iso){ try { return new Date(iso).toLocaleTimeString(NUMLOC[lang],{hour:'2-digit',minute:'2-digit'}); } catch(e){ return '–'; } }
-  function oyuncu(u){ u = String(u||''); var yt = u.charAt(0) === '@'; return (yt ? YT : TW) + esc(yt ? u.slice(1) : u); }
+  var KK = '<svg class="plat" viewBox="0 0 24 24"><rect x="1" y="1" width="22" height="22" rx="5" fill="#53fc18"/><path d="M6 5h4v4h2V7h2V5h4v6h-2v2h2v6h-4v-2h-2v-2h-2v4H6z" fill="#0b0e0f"/></svg>';
+  function oyuncu(u){ u = String(u||''); var yt = u.charAt(0) === '@', kk = u.slice(0,2) === 'k:'; return (yt ? YT : kk ? KK : TW) + esc(yt ? u.slice(1) : kk ? u.slice(2) : u); }
 
   function ciz(){
-    var canli = data && data.updated_ts && (Date.now()/1000 - data.updated_ts) < 240;
+    // canli: son tur 5 dk icinde bittiyse (turlar yalniz yayin acikken oynanir)
+    var sonTur = data && data.last_round && Date.parse(data.last_round.ended_at);
+    var canli = !!(sonTur && (Date.now() - sonTur) < 300000 && data.updated_ts && (Date.now()/1000 - data.updated_ts) < 300);
+    var sw = data && data.periods && data.periods.weekly && data.periods.weekly[0];
+    var sp = $('onair-champ');
+    if (sp) { sp.hidden = !sw; if (sw) sp.innerHTML = '👑 ' + oyuncu(sw.user) + ' <b>' + fmt(sw.points) + '</b>'; }
     $('onair').className = 'onair' + (canli ? '' : ' off');
     $('onair-t').textContent = canli ? T.live : T.off;
     if(!data){
