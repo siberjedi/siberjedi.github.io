@@ -115,6 +115,18 @@ footer a{margin:0 8px}
 .hero-gorsel img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--border);box-shadow:0 0 44px color-mix(in srgb,var(--a1) 28%,transparent)}
 .puan{color:var(--yellow)}
 .kart h3{font-family:'Oxanium','Rajdhani',sans-serif;font-size:.95rem;color:var(--a1);margin-bottom:6px;letter-spacing:.5px}
+.istat[hidden]{display:none}
+.istat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.istat-kart{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:18px 16px;position:relative;overflow:hidden}
+.istat-kart:before{content:'';position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--a1),var(--a2))}
+.istat-sayi{font-family:'Oxanium','Rajdhani',sans-serif;font-weight:800;font-size:clamp(1.7rem,4vw,2.3rem);color:#fff;text-shadow:0 0 18px var(--a1);line-height:1.1}
+.istat-ad{font-family:'Share Tech Mono','Oxanium',monospace;font-size:.72rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:6px}
+.ulkeler{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.ulke{display:inline-flex;align-items:center;gap:7px;background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:5px 12px 5px 6px;font-size:.88rem}
+.ulke img{width:22px;height:15px;border-radius:3px;object-fit:cover}
+.istat-not{margin-top:12px;font-family:'Share Tech Mono','Oxanium',monospace;font-size:.72rem;color:var(--muted);letter-spacing:1px}
+.canli-nokta{display:inline-block;width:8px;height:8px;border-radius:50%;background:#39ff14;box-shadow:0 0 10px #39ff14;margin-right:8px;animation:nabiz 1.6s ease-in-out infinite}
+@keyframes nabiz{50%{opacity:.35}}
 @media (max-width:900px){.hero{grid-template-columns:1fr;gap:22px;padding-top:24px}.hero-gorsel{order:-1}}
 
 body{--a1:#ffb000;--a2:#00f5ff}
@@ -154,6 +166,13 @@ body{--a1:#ffb000;--a2:#00f5ff}
   </div>
   <div class="hero-gorsel"><img src="img/banner-keycap-kingdom.jpg" alt="Keycap Kingdom tanıtım görseli" width="1024" height="500"></div>
 </header>
+
+<section class="istat" id="istat" hidden>
+  <h2><span class="canli-nokta"></span>OYUNCULAR</h2>
+  <div class="istat-grid" id="istat-grid"></div>
+  <div class="ulkeler" id="istat-ulkeler"></div>
+  <p class="istat-not" id="istat-not"></p>
+</section>
 
 <section class="galeri">
   <h2>EKRAN GÖRÜNTÜLERİ</h2>
@@ -233,6 +252,35 @@ body{--a1:#ffb000;--a2:#00f5ff}
   var adim=function(){var i=s.querySelector('img'); return i? i.getBoundingClientRect().width+14 : 400;};
   document.getElementById('geri').addEventListener('click',function(){s.scrollBy({left:-adim()*2,behavior:'smooth'});});
   document.getElementById('ileri').addEventListener('click',function(){s.scrollBy({left:adim()*2,behavior:'smooth'});});
+})();
+(function(){
+  var KAYNAK='https://raw.githubusercontent.com/siberjedi/siberjedi.github.io/oyun-istatistik/keycap-kingdom.json';
+  var ESIK={toplam_indirme:100,toplam_oyuncu:100,oyuncu_30g:50,bolum_tamamlanan_toplam:500,ulke_sayisi_toplam:5};
+  var AD={toplam_indirme:'Toplam indirme',toplam_oyuncu:'Toplam oyuncu',oyuncu_30g:'Son 30 gün oyuncu',bolum_tamamlanan_toplam:'Tamamlanan bölüm',ulke_sayisi_toplam:'Ülkeden oyuncu'};
+  var SIRA=['toplam_indirme','toplam_oyuncu','oyuncu_30g','bolum_tamamlanan_toplam','ulke_sayisi_toplam'];
+  var u=new URLSearchParams(location.search).get('istat');
+  if(u&&(u.indexOf('//')>-1||!/^[A-Za-z0-9_.\-\/]+\.json$/.test(u))) u=null;
+  fetch(u||KAYNAK,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+    var g=document.getElementById('istat-grid'),n=0,f=new Intl.NumberFormat('tr-TR');
+    SIRA.forEach(function(k){
+      var v=d[k]; if(typeof v!=='number'||v<ESIK[k]) return;
+      var kart=document.createElement('div'); kart.className='istat-kart';
+      var a=document.createElement('div'); a.className='istat-sayi'; a.textContent=f.format(v)+(k==='toplam_indirme'?'+':'');
+      var b=document.createElement('div'); b.className='istat-ad'; b.textContent=AD[k];
+      kart.appendChild(a); kart.appendChild(b); g.appendChild(kart); n++;
+    });
+    var ul=document.getElementById('istat-ulkeler'), adlar=null;
+    try{adlar=new Intl.DisplayNames(['tr'],{type:'region'});}catch(e){}
+    if((d.ulkeler||[]).length>=3) (d.ulkeler||[]).slice(0,10).forEach(function(c){
+      if(!/^[A-Z]{2}$/.test(c.kod)) return;
+      var e=document.createElement('span'); e.className='ulke';
+      var im=document.createElement('img'); im.loading='lazy'; im.alt=''; im.src='https://flagcdn.com/w40/'+c.kod.toLowerCase()+'.png';
+      e.appendChild(im); e.appendChild(document.createTextNode(adlar?adlar.of(c.kod):c.kod)); ul.appendChild(e);
+    });
+    if(!n&&!ul.children.length) return;
+    if(d.guncellendi){var t=new Date(d.guncellendi); if(!isNaN(t)) document.getElementById('istat-not').textContent='Firebase ve Google Play verisi · son güncelleme '+t.toLocaleDateString('tr-TR',{day:'numeric',month:'long'})+(ul.children.length?' · bayraklar: son 30 günün en aktif ülkeleri':'');}
+    document.getElementById('istat').hidden=false;
+  }).catch(function(){});
 })();
 </script>
 </body>
