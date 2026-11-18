@@ -71,6 +71,13 @@
   .live iframe{display:block; width:100%; height:100%; border:0}
   .ltabs{display:flex; gap:8px; margin-top:18px}
   .ltabs + .live{margin-top:8px}
+  .lwrap{display:grid; grid-template-columns:1fr; gap:10px; margin-top:8px}
+  .lwrap .live{margin-top:0}
+  .lchat{height:380px; background:#0e0e10; border:2px solid var(--ink); border-radius:10px; overflow:hidden; box-shadow:4px 4px 0 var(--ink)}
+  .lchat iframe{display:block; width:100%; height:100%; border:0}
+  .lchat[hidden]{display:none}
+  @media (min-width:900px){ .lwrap.chat{grid-template-columns:1fr 320px} .lwrap.chat .lchat{height:auto} }
+  .lt small{display:block; font-size:10px; font-weight:700; opacity:.8; letter-spacing:.5px}
   .lt{flex:1 1 0; font:800 13px inherit; font-family:inherit; padding:8px 10px; border-radius:8px; border:2px solid var(--line); background:var(--card); color:var(--dim); cursor:pointer}
   .lt.on{color:#fff; border-color:var(--ink)}
   .lt.kick.on{background:#53fc18; color:#0b0b0b} .lt.tw.on{background:var(--tw)} .lt.yt.on{background:var(--yt)}
@@ -192,25 +199,44 @@
     </div>
     <div class="nosign" data-i="nosign"></div>
     <div class="ltabs" role="tablist">
-      <button class="lt kick on" type="button" data-p="kick">Kick</button>
-      <button class="lt tw" type="button" data-p="tw">Twitch</button>
+      <button class="lt kick on" type="button" data-p="kick">Kick<small>Arena</small></button>
+      <button class="lt tw" type="button" data-p="tw2">Twitch<small>SiberJedi</small></button>
+      <button class="lt tw" type="button" data-p="tw">Twitch<small>Arena</small></button>
       <button class="lt yt" type="button" data-p="yt">YouTube</button>
     </div>
-    <div class="live"><iframe id="liveframe" src="https://player.kick.com/siberjediarena?autoplay=true&muted=true" title="Chat Clash live" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+    <div class="lwrap chat" id="lwrap">
+      <div class="live"><iframe id="liveframe" src="https://player.kick.com/siberjediarena?autoplay=true&muted=true" title="Chat Clash live" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="lchat" id="lchat"><iframe id="chatframe" title="Live chat" loading="lazy"></iframe></div>
+    </div>
     <script>
     (function(){
       var h = location.hostname || 'siberjedi.com';
       var P = {
         kick: 'https://player.kick.com/siberjediarena?autoplay=true&muted=true',
         tw: 'https://player.twitch.tv/?channel=siberjediarena&parent=' + h + '&muted=true',
+        tw2: 'https://player.twitch.tv/?channel=siberjedi&parent=' + h + '&muted=true',
         yt: 'https://www.youtube.com/embed/live_stream?channel=UCnvg8eqSNzZEZ7Ljx9qPluA&autoplay=1&mute=1'
       };
       var f = document.getElementById('liveframe');
+      /* secili kanalin sohbeti oynaticinin yaninda (YouTube: canli video kimligi olmadan sohbet gomulemez) */
+      var C = {
+        kick: 'https://kick.com/popout/siberjediarena/chat',
+        tw: 'https://www.twitch.tv/embed/siberjediarena/chat?darkpopout&parent=' + h,
+        tw2: 'https://www.twitch.tv/embed/siberjedi/chat?darkpopout&parent=' + h,
+        yt: ''
+      };
+      var cf = document.getElementById('chatframe'), cb = document.getElementById('lchat'), lw = document.getElementById('lwrap');
+      function sohbet(p){
+        var u = C[p] || '';
+        cb.hidden = !u; lw.classList.toggle('chat', !!u);
+        if (u && cf.getAttribute('src') !== u) cf.src = u;
+      }
+      sohbet('kick');
       /* yayindaki Twitch kanali (stats.json channels.twitch): baglanti + oynatici */
       /* canli platform (stats.json channels.canli): kullanici sekme secmediyse oynatici oraya gecer */
       window.arenaCanli = function(liste){
         if (window.arenaElle || !liste || !liste.length) return;
-        var esle = {twitch: 'tw', kick: 'kick', youtube: 'yt'};
+        var esle = {twitch: (window.arenaTwKanal === 'siberjediarena' ? 'tw' : 'tw2'), kick: 'kick', youtube: 'yt'};
         var sira = ['twitch', 'kick', 'youtube'].filter(function(x){ return liste.indexOf(x) >= 0; });
         if (!sira.length) return;
         var hedef = document.querySelector('.ltabs .lt[data-p="' + esle[sira[0]] + '"]');
@@ -220,11 +246,7 @@
         if (!/^[a-z0-9_]{3,25}$/.test(ch || '')) return;
         var a = document.getElementById('cta-tw');
         if (a) a.href = 'https://www.twitch.tv/' + ch;
-        var yeni = 'https://player.twitch.tv/?channel=' + ch + '&parent=' + h + '&muted=true';
-        if (P.tw === yeni) return;
-        P.tw = yeni;
-        var on = document.querySelector('.ltabs .lt.on');
-        if (on && on.getAttribute('data-p') === 'tw') f.src = yeni;
+        window.arenaTwKanal = ch;   /* iki Twitch kanali da sabit sekmede; yalniz baglanti + varsayilan sekme */
       };
       document.querySelectorAll('.ltabs .lt').forEach(function(b){
         b.addEventListener('click', function(ev){
@@ -232,6 +254,7 @@
           document.querySelectorAll('.ltabs .lt').forEach(function(x){ x.classList.remove('on'); });
           b.classList.add('on');
           f.src = P[b.getAttribute('data-p')];
+          sohbet(b.getAttribute('data-p'));
         });
       });
     })();
