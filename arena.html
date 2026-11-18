@@ -207,6 +207,15 @@
       };
       var f = document.getElementById('liveframe');
       /* yayindaki Twitch kanali (stats.json channels.twitch): baglanti + oynatici */
+      /* canli platform (stats.json channels.canli): kullanici sekme secmediyse oynatici oraya gecer */
+      window.arenaCanli = function(liste){
+        if (window.arenaElle || !liste || !liste.length) return;
+        var esle = {twitch: 'tw', kick: 'kick', youtube: 'yt'};
+        var sira = ['twitch', 'kick', 'youtube'].filter(function(x){ return liste.indexOf(x) >= 0; });
+        if (!sira.length) return;
+        var hedef = document.querySelector('.ltabs .lt[data-p="' + esle[sira[0]] + '"]');
+        if (hedef && !hedef.classList.contains('on')) hedef.click();
+      };
       window.arenaTwitch = function(ch){
         if (!/^[a-z0-9_]{3,25}$/.test(ch || '')) return;
         var a = document.getElementById('cta-tw');
@@ -218,7 +227,8 @@
         if (on && on.getAttribute('data-p') === 'tw') f.src = yeni;
       };
       document.querySelectorAll('.ltabs .lt').forEach(function(b){
-        b.addEventListener('click', function(){
+        b.addEventListener('click', function(ev){
+          if (ev && ev.isTrusted) window.arenaElle = true;
           document.querySelectorAll('.ltabs .lt').forEach(function(x){ x.classList.remove('on'); });
           b.classList.add('on');
           f.src = P[b.getAttribute('data-p')];
@@ -716,6 +726,7 @@
       .catch(function(){ return al(RAW + '?t=' + Date.now()); })   /* API sinirina takilirsa */
       .then(function(txt){ if(txt){ data = JSON.parse(txt); } hata = false;
         if (data && data.channels && window.arenaTwitch) window.arenaTwitch(String(data.channels.twitch || '').toLowerCase());
+        if (data && data.channels && window.arenaCanli) window.arenaCanli(data.channels.canli);
         ciz(); })
       .catch(function(){ hata = true; ciz(); });
   }
