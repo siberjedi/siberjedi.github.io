@@ -922,6 +922,10 @@
       <div><div class="hi-sayi" id="hi-oyuncu">0</div><div class="hi-ad">Toplam oyuncu</div></div>
     </div>
     <div class="hi-satir">
+      <span class="hi-emoji" aria-hidden="true">🎮</span>
+      <div><div class="hi-sayi" id="hi-aylik">0</div><div class="hi-ad">Aylık aktif oyuncu</div></div>
+    </div>
+    <div class="hi-satir">
       <span class="hi-emoji" aria-hidden="true">⏱️</span>
       <div><div class="hi-sayi" id="hi-saat">0</div><div class="hi-ad">Toplam oyun süresi</div></div>
     </div>
@@ -1952,13 +1956,17 @@
   var p=document.getElementById('hero-istat'); if(!p||!window.fetch) return;
   var f=new Intl.NumberFormat('tr-TR'), f1=new Intl.NumberFormat('tr-TR',{maximumFractionDigits:1});
   fetch(KAYNAK,{cache:'no-cache'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
-    if(!(d.toplam_oyuncu>=1000)) return;
+    // toplam = Play Console indirme tabanı + sonrasındaki Firebase yeni oyuncular; aylık = son 30 gün aktif (Firebase)
+    var top=d.toplam_indirme||d.toplam_oyuncu||0, ay=d.aylik_oyuncu||0;
+    if(!(top>=1000)) return;
     var t0=new Date(d.guncellendi).getTime(); if(isNaN(t0)) t0=Date.now();
     var hizO=d.oyuncu_hiz_saat||0, hizS=d.saat_hiz_saat||0;
-    function simdi(){ var sa=Math.max(0,(Date.now()-t0)/36e5); return {o:d.toplam_oyuncu+hizO*sa, s:d.toplam_saat+hizS*sa}; }
-    var eO=document.getElementById('hi-oyuncu'), eS=document.getElementById('hi-saat'), eC=document.getElementById('hi-carpan');
-    function yaz(o,saat,c){
+    function simdi(){ var sa=Math.max(0,(Date.now()-t0)/36e5); return {o:top+hizO*sa, s:d.toplam_saat+hizS*sa}; }
+    var eO=document.getElementById('hi-oyuncu'), eA=document.getElementById('hi-aylik'), eS=document.getElementById('hi-saat'), eC=document.getElementById('hi-carpan');
+    if(!ay&&eA) eA.parentNode.parentNode.style.display='none';
+    function yaz(o,saat,c,k){
       eO.textContent=f.format(Math.floor(o));
+      if(eA) eA.textContent=f.format(Math.floor(ay*(k==null?1:k)));
       var dk=Math.floor(saat*60);
       eS.innerHTML=f.format(Math.floor(dk/60))+'<small>saat</small> '+(dk%60)+'<small>dk</small>';
       eC.textContent='\u00d7'+f1.format(c);
@@ -1971,7 +1979,7 @@
     if(az){ yaz(hedef.o,hedef.s,d.saatte_bolum); canli(); return; }
     var t1=Date.now(), zam=setInterval(function(){
       var k=Math.min(1,(Date.now()-t1)/sure), e=1-Math.pow(1-k,3);
-      yaz(hedef.o*e, hedef.s*e, d.saatte_bolum*e);
+      yaz(hedef.o*e, hedef.s*e, d.saatte_bolum*e, e);
       if(k>=1){ clearInterval(zam); canli(); }
     },33);
   }).catch(function(){});
