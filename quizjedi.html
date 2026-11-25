@@ -159,10 +159,10 @@
   var RAW = 'https://raw.githubusercontent.com/siberjedi/siberjedi.github.io/stats/quizjedi.json';
   var API = 'https://api.github.com/repos/siberjedi/siberjedi.github.io/contents/quizjedi.json?ref=stats';
   var data = null, period = 'daily', awPeriod = 'daily', etag = null;
-  var AWK = [['wins','🏆','Galibiyet Makinesi','galibiyet'],['bullseye','🎯','Keskin Nişancı','tam isabet'],
-    ['guesses','🌪️','Sohbet Fırtınası','tahmin'],['best_round','💥','En Büyük Tur','puan'],['fastest','⚡','Şimşek El','sn'],
-    ['champ_boss','⚔️','Boss Avcısı','puan'],['champ_number','🧮','Rakam Büyücüsü','puan'],
-    ['champ_word','✍️','Söz Ustası','puan'],['champ_fact','🧠','Bilgi Şampiyonu','puan']];
+  var AWK = [['wins','👽','Uzaylı','galibiyet'],['bullseye','🎯','Keskin Nişancı','tam isabet'],
+    ['guesses','🔮','Kâhin','tahmin'],['best_round','💀','Seri Katil','puan'],['fastest','⚡','Şimşek El','sn'],
+    ['champ_boss','⚔️','Boss Avcısı','puan'],['champ_number','♟️','Stratejist','puan'],
+    ['champ_word','🏹','Avcı','puan'],['champ_fact','🧠','Bilgi Şampiyonu','puan']];
   var $ = function(id){ return document.getElementById(id); };
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
