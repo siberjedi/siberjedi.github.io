@@ -160,9 +160,9 @@
   var API = 'https://api.github.com/repos/siberjedi/siberjedi.github.io/contents/quizjedi.json?ref=stats';
   var data = null, period = 'daily', awPeriod = 'daily', etag = null;
   var AWK = [['wins','🏆','Galibiyet Makinesi','galibiyet'],['bullseye','🎯','Keskin Nişancı','tam isabet'],
-    ['guesses','💬','Tahmin Kralı','tahmin'],['best_round','💥','En Büyük Tur','puan'],['fastest','⚡','Şimşek El','sn'],
-    ['champ_boss','⚔️','Boss Avcısı','puan'],['champ_number','🔢','Sayı Şampiyonu','puan'],
-    ['champ_word','🔤','Kelime & Görsel Şampiyonu','puan'],['champ_fact','🧠','Bilgi Şampiyonu','puan']];
+    ['guesses','🌪️','Sohbet Fırtınası','tahmin'],['best_round','💥','En Büyük Tur','puan'],['fastest','⚡','Şimşek El','sn'],
+    ['champ_boss','⚔️','Boss Avcısı','puan'],['champ_number','🧮','Rakam Büyücüsü','puan'],
+    ['champ_word','✍️','Söz Ustası','puan'],['champ_fact','🧠','Bilgi Şampiyonu','puan']];
   var $ = function(id){ return document.getElementById(id); };
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
