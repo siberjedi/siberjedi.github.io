@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuizJedi GLOBAL · Live chat trivia on YouTube (SiberJediArena)</title>
+<meta name="description" content="Live chat trivia on YouTube every day at 20:00 UTC on SiberJediArena. Type your answer in chat, climb the leaderboard. Daily, weekly and monthly rankings.">
+<meta property="og:title" content="QuizJedi GLOBAL · Type in chat and win!">
+<meta property="og:description" content="Live trivia on YouTube at 20:00 UTC (SiberJediArena). Number, word, flag, emoji and boss battle rounds.">
+<meta property="og:image" content="https://siberjedi.com/img/icon-siberjedi.png">
+<meta name="theme-color" content="#101014">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Archivo+Black&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#101014; --card:#18181f; --line:#2c2c38;
+    --txt:#f2f0ea; --dim:#9a98a6; --acc:#27e0c0; --acc2:#8b5cff;
+    --gold:#ffd400; --silver:#d6d3cc; --bronze:#e08a4f; --yt:#ff0033;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; min-height:100vh; color:var(--txt); background:var(--bg);
+    font-family:Archivo,'Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif; overflow-x:hidden}
+  .wrap{width:100%; max-width:980px; margin:0 auto; padding:18px 16px 56px}
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:26px;
+    padding-bottom:14px; border-bottom:2px solid var(--line)}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--txt);
+    font-family:'Archivo Black',Archivo,sans-serif; font-size:19px; letter-spacing:.5px}
+  .brand .dot{width:12px; height:12px; border-radius:50%; background:var(--yt); box-shadow:0 0 12px var(--yt)}
+  .brand b{background:linear-gradient(90deg,var(--acc),var(--acc2)); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:400}
+  .home{display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:var(--txt); background:var(--card);
+    border:2px solid var(--line); border-radius:8px; padding:7px 12px; font:700 13px Archivo,sans-serif; white-space:nowrap}
+  .home:hover{border-color:var(--acc)}
+  h1{font-family:'Archivo Black',Archivo,sans-serif; font-size:clamp(28px,5vw,44px); line-height:1.05; margin:0 0 10px}
+  h1 .g{background:linear-gradient(90deg,var(--acc),var(--acc2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .sub{color:var(--dim); font-size:17px; margin:0 0 22px; max-width:620px}
+  .grid{display:grid; grid-template-columns:minmax(0,360px) minmax(0,1fr); gap:20px; align-items:start}
+  @media(max-width:760px){ .grid{grid-template-columns:1fr} }
+  .player{position:relative; width:100%; aspect-ratio:9/16; max-height:640px; border-radius:14px; overflow:hidden;
+    border:2px solid var(--line); background:#000}
+  .player iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  .yt-btn{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:12px; text-decoration:none;
+    background:var(--yt); color:#fff; font:900 15px Archivo,sans-serif; letter-spacing:.5px; padding:12px; border-radius:10px}
+  .yt-btn:hover{filter:brightness(1.1)}
+  .card{background:var(--card); border:2px solid var(--line); border-radius:14px; padding:16px}
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px}
+  .tab{background:transparent; color:var(--dim); border:2px solid var(--line); border-radius:8px; padding:7px 12px;
+    font:800 13px Archivo,sans-serif; cursor:pointer}
+  .tab.on{color:#0b0b0f; background:var(--acc); border-color:var(--acc)}
+  ol.board{list-style:none; margin:0; padding:0; display:grid; gap:6px}
+  ol.board li{display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:10px;
+    padding:9px 12px; border-radius:10px; background:rgba(255,255,255,.035)}
+  ol.board .rk{font:800 15px 'JetBrains Mono',monospace; color:var(--dim); text-align:center}
+  ol.board li:nth-child(1) .rk{color:var(--gold)} ol.board li:nth-child(2) .rk{color:var(--silver)} ol.board li:nth-child(3) .rk{color:var(--bronze)}
+  ol.board .nm{font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  ol.board .pt{font:800 16px 'JetBrains Mono',monospace; color:var(--gold)}
+  ol.board .wn{display:block; font:500 12px Archivo,sans-serif; color:var(--dim)}
+  .bos{color:var(--dim); padding:14px 4px}
+  .stats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:16px}
+  @media(max-width:480px){ .stats{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  .st{background:var(--card); border:2px solid var(--line); border-radius:12px; padding:12px; text-align:center}
+  .st b{display:block; font:800 22px 'JetBrains Mono',monospace; color:var(--txt)}
+  .st span{font-size:12px; color:var(--dim); letter-spacing:1px}
+  .son{margin-top:14px; color:var(--dim); font-size:14px}
+  .son b{color:var(--txt)}
+  /* odul kategorileri (arena ile ayni) */
+  .awhead{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:34px 0 12px}
+  .awhead h2{margin:0}
+  .awards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px}
+  @media(max-width:760px){.awards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .aw{background:var(--card); border:2px solid var(--line); border-radius:10px; padding:12px; min-width:0}
+  .aw.on{border-color:var(--acc)}
+  .aw .ai{font-size:22px; line-height:1}
+  .aw .al{font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--dim); font-weight:800; margin:8px 0 5px; line-height:1.3}
+  .aw .au{font-weight:900; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .aw .av{font:800 13px 'JetBrains Mono',monospace; color:var(--acc); margin-top:3px}
+  .aw:not(.on) .au{color:var(--dim); font-weight:600}
+  .awl{list-style:none; margin:10px 0 0; padding:8px 0 0; border-top:1px dashed var(--line); font-size:12px}
+  .awl li{display:flex; align-items:center; gap:6px; padding:2px 0; min-width:0}
+  .awl .n{flex:none; width:16px; color:var(--dim); font:800 11px 'JetBrains Mono',monospace}
+  .awl .u{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:700; color:#cfcdd6}
+  .awl .v{flex:none; color:var(--acc); font:800 11px 'JetBrains Mono',monospace}
+  h2{font-family:'Archivo Black',Archivo,sans-serif; font-size:22px; margin:34px 0 12px}
+  .modes{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px}
+  .mode{background:var(--card); border:2px solid var(--line); border-radius:12px; padding:12px 14px}
+  .mode b{display:block; margin-bottom:4px}
+  .mode span{color:var(--dim); font-size:14px}
+  .upd{margin-top:10px; font-size:12px; color:var(--dim)}
+  footer{margin-top:40px; color:var(--dim); font-size:13px; text-align:center}
+  footer a{color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="quizjedi-global.html"><span class="dot"></span><span>QUIZ<b>JEDI</b> <small style="font-size:11px;color:#9a98a6;font-family:Archivo,sans-serif">GLOBAL</small></span></a>
+    <a class="home" href="quizjedi.html">🌍 TR sürümü</a> <a class="home" href="index.html">← siberjedi.com</a>
+  </div>
+
+  <h1>Type in chat,<br><span class="g">prove your knowledge!</span></h1>
+  <p class="sub">Live chat trivia on YouTube every day at <b>20:00 UTC</b> (01:00 Istanbul). No signup: type your answer in chat — fastest or closest wins. The bigger the crowd, the longer we stream!</p>
+
+  <div class="grid">
+    <div>
+      <div class="player">
+        <iframe id="yt" title="QuizJedi Global live stream" loading="lazy"
+          src="https://www.youtube.com/embed/live_stream?channel=UCnvg8eqSNzZEZ7Ljx9qPluA&amp;autoplay=0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <a class="yt-btn" href="https://www.youtube.com/@SiberJediArena/live" target="_blank" rel="noopener">▶ Open on YouTube and join the chat</a>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="tabs" id="tabs">
+          <button class="tab on" data-p="daily">Today</button>
+          <button class="tab" data-p="weekly">This week</button>
+          <button class="tab" data-p="monthly">This month</button>
+          <button class="tab" data-p="season">Season</button>
+          <button class="tab" data-p="all">All time</button>
+        </div>
+        <ol class="board" id="board"><li class="bos">Loading leaderboard…</li></ol>
+        <div class="son" id="son"></div>
+        <div class="upd" id="upd"></div>
+      </div>
+      <div class="stats">
+        <div class="st"><b id="t-oyuncu">–</b><span>PLAYERS</span></div>
+        <div class="st"><b id="t-tur">–</b><span>ROUNDS</span></div>
+        <div class="st"><b id="t-puan">–</b><span>POINTS</span></div>
+        <div class="st"><b id="t-tam">–</b><span>BULLSEYES</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="awhead">
+    <h2 id="awbaslik">QuizJedi legends</h2>
+    <div class="tabs" id="awtabs" style="margin:0">
+      <button class="tab on" data-p="daily">Today</button>
+      <button class="tab" data-p="weekly">This week</button>
+      <button class="tab" data-p="monthly">This month</button>
+      <button class="tab" data-p="season">Season</button>
+      <button class="tab" data-p="all">All time</button>
+    </div>
+  </div>
+  <div class="awards" id="awards"></div>
+
+  <h2>How to play</h2>
+  <div class="modes">
+    <div class="mode"><b>🔢 Number round</b><span>Closest guess to the hidden number wins.</span></div>
+    <div class="mode"><b>🔤 Word round</b><span>Points drop as letters are revealed; solve early to win more.</span></div>
+    <div class="mode"><b>🏳️ Flag · 😀 Emoji · 🔷 Shape</b><span>Recognise the picture and type its name in chat.</span></div>
+    <div class="mode"><b>⚔️ Boss battle</b><span>Team up and hit with correct answers — everyone gets ×5 points if you win!</span></div>
+  </div>
+
+  <footer>QuizJedi is made by <a href="index.html">SiberJedi</a> · Scores are tracked by your YouTube chat name.</footer>
+</div>
+<script>
+(function(){
+  var RAW = 'https://raw.githubusercontent.com/siberjedi/siberjedi.github.io/stats/quizjedi-global.json';
+  var API = 'https://api.github.com/repos/siberjedi/siberjedi.github.io/contents/quizjedi-global.json?ref=stats';
+  var data = null, period = 'daily', awPeriod = 'daily', etag = null;
+  var AWK = [['wins','👽','Alien','wins'],['bullseye','🎯','Sniper','bullseyes'],
+    ['guesses','🔮','Oracle','guesses'],['best_round','💀','Slayer','points'],['fastest','🤠','Gunslinger','s'],
+    ['champ_boss','⚔️','Warlord','points'],['champ_number','♟️','Strategist','points'],
+    ['champ_word','🏹','Hunter','points'],['champ_fact','🎓','Professor','points']];
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function fmt(n){ return Number(n || 0).toLocaleString('en-US'); }
+  function ad(u){ return String(u || '').replace(/^(@|k:)/, ''); }
+  function odulCiz(){
+    var a = (data && data.awards && data.awards[awPeriod]) || {};
+    var sz = data && data.season;                       /* sahip 25.11: 3 aylik sezon */
+    $('awbaslik').textContent = awPeriod === 'season'
+      ? 'Season legends' + (sz ? ' · ' + sz.ad + ' (' + sz.aralik + ')' : '') : 'QuizJedi legends';
+    $('awards').innerHTML = AWK.map(function(w){
+      var v = a[w[0]];
+      return '<div class="aw' + (v ? ' on' : '') + '"><div class="ai">' + w[1] + '</div><div class="al">' + esc(w[2]) + '</div>' +
+        '<div class="au">' + (v ? esc(ad(v.user)) : 'Unclaimed — grab it!') + '</div>' +
+        (v ? '<div class="av">' + fmt(v.value) + ' ' + esc(w[3]) + '</div>' : '') +
+        (v && v.top && v.top.length > 1 ? '<ol class="awl">' + v.top.slice(1, 5).map(function(r, i){
+          return '<li><span class="n">' + (i + 2) + '</span><span class="u">' + esc(ad(r.user)) + '</span><span class="v">' + fmt(r.value) + '</span></li>';
+        }).join('') + '</ol>' : '') + '</div>';
+    }).join('');
+  }
+  function ciz(){
+    if (!data) return;
+    odulCiz();
+    var list = (data.periods && data.periods[period]) || [];
+    $('board').innerHTML = list.length ? list.map(function(r, i){
+      return '<li><span class="rk">' + (i + 1) + '</span><span class="nm">' + esc(ad(r.user)) +
+        '<span class="wn">' + fmt(r.wins) + ' rounds won</span></span><span class="pt">' + fmt(r.points) + '</span></li>';
+    }).join('') : '<li class="bos">No points yet this period. Be the first — live at 20:00 UTC!</li>';
+    var t = data.totals || {};
+    $('t-oyuncu').textContent = fmt(t.players); $('t-tur').textContent = fmt(t.rounds);
+    $('t-puan').textContent = fmt(t.points); $('t-tam').textContent = fmt(t.exacts);
+    var lr = data.last_round;
+    $('son').innerHTML = lr && lr.winner && lr.winner.charAt(0) !== '~'
+      ? 'Last round won by <b>' + esc(ad(lr.winner)) + '</b> (+' + fmt(lr.points) + ' points)' : '';
+    try { $('upd').textContent = 'Updated: ' + new Date(data.updated_at).toLocaleString('en-US'); } catch (e) {}
+  }
+  function al(url, h){
+    return fetch(url, { headers: h || {}, cache: 'no-store' }).then(function(r){
+      if (r.status === 304) return null;
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var e = r.headers.get('ETag'); if (e && h) etag = e;
+      return r.json();
+    });
+  }
+  function yukle(){
+    var h = { 'Accept': 'application/vnd.github.raw' }; if (etag) h['If-None-Match'] = etag;
+    al(API, h).catch(function(){ return al(RAW + '?t=' + Date.now()); })   /* API sinirina takilirsa ham dosya */
+      .then(function(d){ if (d) { data = d; } ciz(); })
+      .catch(function(){ if (!data) $('board').innerHTML = '<li class="bos">Leaderboard could not be loaded.</li>'; });
+  }
+  function sekme(id, cb){
+    $(id).addEventListener('click', function(e){
+      var b = e.target.closest('.tab'); if (!b) return;
+      Array.prototype.forEach.call($(id).querySelectorAll('.tab'), function(x){ x.classList.toggle('on', x === b); });
+      cb(b.getAttribute('data-p')); ciz();
+    });
+  }
+  sekme('tabs', function(p){ period = p; });
+  sekme('awtabs', function(p){ awPeriod = p; });
+  yukle(); setInterval(yukle, 60000);
+})();
+</script>
+</body>
+</html>
