@@ -63,6 +63,23 @@
   .st span{font-size:12px; color:var(--dim); letter-spacing:1px}
   .son{margin-top:14px; color:var(--dim); font-size:14px}
   .son b{color:var(--txt)}
+  /* odul kategorileri (arena ile ayni) */
+  .awhead{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:34px 0 12px}
+  .awhead h2{margin:0}
+  .awards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px}
+  @media(max-width:760px){.awards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .aw{background:var(--card); border:2px solid var(--line); border-radius:10px; padding:12px; min-width:0}
+  .aw.on{border-color:var(--acc)}
+  .aw .ai{font-size:22px; line-height:1}
+  .aw .al{font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--dim); font-weight:800; margin:8px 0 5px; line-height:1.3}
+  .aw .au{font-weight:900; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .aw .av{font:800 13px 'JetBrains Mono',monospace; color:var(--acc); margin-top:3px}
+  .aw:not(.on) .au{color:var(--dim); font-weight:600}
+  .awl{list-style:none; margin:10px 0 0; padding:8px 0 0; border-top:1px dashed var(--line); font-size:12px}
+  .awl li{display:flex; align-items:center; gap:6px; padding:2px 0; min-width:0}
+  .awl .n{flex:none; width:16px; color:var(--dim); font:800 11px 'JetBrains Mono',monospace}
+  .awl .u{flex:1; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:700; color:#cfcdd6}
+  .awl .v{flex:none; color:var(--acc); font:800 11px 'JetBrains Mono',monospace}
   h2{font-family:'Archivo Black',Archivo,sans-serif; font-size:22px; margin:34px 0 12px}
   .modes{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px}
   .mode{background:var(--card); border:2px solid var(--line); border-radius:12px; padding:12px 14px}
@@ -114,6 +131,17 @@
     </div>
   </div>
 
+  <div class="awhead">
+    <h2>QuizJedi efsaneleri</h2>
+    <div class="tabs" id="awtabs" style="margin:0">
+      <button class="tab on" data-p="daily">Bugün</button>
+      <button class="tab" data-p="weekly">Bu hafta</button>
+      <button class="tab" data-p="monthly">Bu ay</button>
+      <button class="tab" data-p="all">Tüm zamanlar</button>
+    </div>
+  </div>
+  <div class="awards" id="awards"></div>
+
   <h2>Nasıl oynanır?</h2>
   <div class="modes">
     <div class="mode"><b>🔢 Sayı tahmini</b><span>Aralıktaki gizli sayıya en yakın tahmin kazanır.</span></div>
@@ -127,14 +155,32 @@
 <script>
 (function(){
   var RAW = 'https://raw.githubusercontent.com/siberjedi/siberjedi.github.io/stats/quizjedi.json';
-  var data = null, period = 'daily';
+  var API = 'https://api.github.com/repos/siberjedi/siberjedi.github.io/contents/quizjedi.json?ref=stats';
+  var data = null, period = 'daily', awPeriod = 'daily', etag = null;
+  var AWK = [['wins','🏆','Galibiyet Makinesi','galibiyet'],['bullseye','🎯','Keskin Nişancı','tam isabet'],
+    ['guesses','💬','Tahmin Kralı','tahmin'],['best_round','💥','En Büyük Tur','puan'],['fastest','⚡','Şimşek El','sn'],
+    ['champ_boss','⚔️','Boss Avcısı','puan'],['champ_number','🔢','Sayı Şampiyonu','puan'],
+    ['champ_word','🔤','Kelime & Görsel Şampiyonu','puan'],['champ_fact','🧠','Bilgi Şampiyonu','puan']];
   var $ = function(id){ return document.getElementById(id); };
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function fmt(n){ return Number(n || 0).toLocaleString('tr-TR'); }
   function ad(u){ return String(u || '').replace(/^(@|k:)/, ''); }
+  function odulCiz(){
+    var a = (data && data.awards && data.awards[awPeriod]) || {};
+    $('awards').innerHTML = AWK.map(function(w){
+      var v = a[w[0]];
+      return '<div class="aw' + (v ? ' on' : '') + '"><div class="ai">' + w[1] + '</div><div class="al">' + esc(w[2]) + '</div>' +
+        '<div class="au">' + (v ? esc(ad(v.user)) : 'Sahipsiz — kap!') + '</div>' +
+        (v ? '<div class="av">' + fmt(v.value) + ' ' + esc(w[3]) + '</div>' : '') +
+        (v && v.top && v.top.length > 1 ? '<ol class="awl">' + v.top.slice(1, 5).map(function(r, i){
+          return '<li><span class="n">' + (i + 2) + '</span><span class="u">' + esc(ad(r.user)) + '</span><span class="v">' + fmt(r.value) + '</span></li>';
+        }).join('') + '</ol>' : '') + '</div>';
+    }).join('');
+  }
   function ciz(){
     if (!data) return;
+    odulCiz();
     var list = (data.periods && data.periods[period]) || [];
     $('board').innerHTML = list.length ? list.map(function(r, i){
       return '<li><span class="rk">' + (i + 1) + '</span><span class="nm">' + esc(ad(r.user)) +
@@ -148,17 +194,29 @@
       ? 'Son turu <b>' + esc(ad(lr.winner)) + '</b> kazandı (+' + fmt(lr.points) + ' puan)' : '';
     try { $('upd').textContent = 'Güncellendi: ' + new Date(data.updated_at).toLocaleString('tr-TR'); } catch (e) {}
   }
+  function al(url, h){
+    return fetch(url, { headers: h || {}, cache: 'no-store' }).then(function(r){
+      if (r.status === 304) return null;
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var e = r.headers.get('ETag'); if (e && h) etag = e;
+      return r.json();
+    });
+  }
   function yukle(){
-    fetch(RAW + '?t=' + Date.now(), { cache: 'no-store' }).then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(d){ if (d) { data = d; ciz(); } })
+    var h = { 'Accept': 'application/vnd.github.raw' }; if (etag) h['If-None-Match'] = etag;
+    al(API, h).catch(function(){ return al(RAW + '?t=' + Date.now()); })   /* API sinirina takilirsa ham dosya */
+      .then(function(d){ if (d) { data = d; } ciz(); })
       .catch(function(){ if (!data) $('board').innerHTML = '<li class="bos">Sıralama şu an yüklenemedi.</li>'; });
   }
-  $('tabs').addEventListener('click', function(e){
-    var b = e.target.closest('.tab'); if (!b) return;
-    period = b.getAttribute('data-p');
-    Array.prototype.forEach.call(document.querySelectorAll('.tab'), function(x){ x.classList.toggle('on', x === b); });
-    ciz();
-  });
+  function sekme(id, cb){
+    $(id).addEventListener('click', function(e){
+      var b = e.target.closest('.tab'); if (!b) return;
+      Array.prototype.forEach.call($(id).querySelectorAll('.tab'), function(x){ x.classList.toggle('on', x === b); });
+      cb(b.getAttribute('data-p')); ciz();
+    });
+  }
+  sekme('tabs', function(p){ period = p; });
+  sekme('awtabs', function(p){ awPeriod = p; });
   yukle(); setInterval(yukle, 60000);
 })();
 </script>
