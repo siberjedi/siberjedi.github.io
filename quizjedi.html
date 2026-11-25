@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuizJedi CANLI · Her akşam 19:00 sohbetten bilgi yarışması</title>
+<meta name="description" content="YouTube'da her akşam 19:00'da canlı bilgi yarışması. Cevabını sohbete yaz, puan topla. Günlük, haftalık ve aylık sıralama.">
+<meta property="og:title" content="QuizJedi CANLI · Sohbete yaz, kazan!">
+<meta property="og:description" content="Her akşam 19:00'da YouTube'da canlı bilgi yarışması. Sayı, kelime, bayrak, emoji ve boss savaşı turları.">
+<meta property="og:image" content="https://siberjedi.com/img/icon-siberjedi.png">
+<meta name="theme-color" content="#101014">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Archivo+Black&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#101014; --card:#18181f; --line:#2c2c38;
+    --txt:#f2f0ea; --dim:#9a98a6; --acc:#27e0c0; --acc2:#8b5cff;
+    --gold:#ffd400; --silver:#d6d3cc; --bronze:#e08a4f; --yt:#ff0033;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; min-height:100vh; color:var(--txt); background:var(--bg);
+    font-family:Archivo,'Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif; overflow-x:hidden}
+  .wrap{width:100%; max-width:980px; margin:0 auto; padding:18px 16px 56px}
+  .top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:26px;
+    padding-bottom:14px; border-bottom:2px solid var(--line)}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--txt);
+    font-family:'Archivo Black',Archivo,sans-serif; font-size:19px; letter-spacing:.5px}
+  .brand .dot{width:12px; height:12px; border-radius:50%; background:var(--yt); box-shadow:0 0 12px var(--yt)}
+  .brand b{background:linear-gradient(90deg,var(--acc),var(--acc2)); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:400}
+  .home{display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:var(--txt); background:var(--card);
+    border:2px solid var(--line); border-radius:8px; padding:7px 12px; font:700 13px Archivo,sans-serif; white-space:nowrap}
+  .home:hover{border-color:var(--acc)}
+  h1{font-family:'Archivo Black',Archivo,sans-serif; font-size:clamp(28px,5vw,44px); line-height:1.05; margin:0 0 10px}
+  h1 .g{background:linear-gradient(90deg,var(--acc),var(--acc2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .sub{color:var(--dim); font-size:17px; margin:0 0 22px; max-width:620px}
+  .grid{display:grid; grid-template-columns:minmax(0,360px) minmax(0,1fr); gap:20px; align-items:start}
+  @media(max-width:760px){ .grid{grid-template-columns:1fr} }
+  .player{position:relative; width:100%; aspect-ratio:9/16; max-height:640px; border-radius:14px; overflow:hidden;
+    border:2px solid var(--line); background:#000}
+  .player iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  .yt-btn{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:12px; text-decoration:none;
+    background:var(--yt); color:#fff; font:900 15px Archivo,sans-serif; letter-spacing:.5px; padding:12px; border-radius:10px}
+  .yt-btn:hover{filter:brightness(1.1)}
+  .card{background:var(--card); border:2px solid var(--line); border-radius:14px; padding:16px}
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px}
+  .tab{background:transparent; color:var(--dim); border:2px solid var(--line); border-radius:8px; padding:7px 12px;
+    font:800 13px Archivo,sans-serif; cursor:pointer}
+  .tab.on{color:#0b0b0f; background:var(--acc); border-color:var(--acc)}
+  ol.board{list-style:none; margin:0; padding:0; display:grid; gap:6px}
+  ol.board li{display:grid; grid-template-columns:34px minmax(0,1fr) auto; align-items:center; gap:10px;
+    padding:9px 12px; border-radius:10px; background:rgba(255,255,255,.035)}
+  ol.board .rk{font:800 15px 'JetBrains Mono',monospace; color:var(--dim); text-align:center}
+  ol.board li:nth-child(1) .rk{color:var(--gold)} ol.board li:nth-child(2) .rk{color:var(--silver)} ol.board li:nth-child(3) .rk{color:var(--bronze)}
+  ol.board .nm{font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  ol.board .pt{font:800 16px 'JetBrains Mono',monospace; color:var(--gold)}
+  ol.board .wn{display:block; font:500 12px Archivo,sans-serif; color:var(--dim)}
+  .bos{color:var(--dim); padding:14px 4px}
+  .stats{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:16px}
+  @media(max-width:480px){ .stats{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  .st{background:var(--card); border:2px solid var(--line); border-radius:12px; padding:12px; text-align:center}
+  .st b{display:block; font:800 22px 'JetBrains Mono',monospace; color:var(--txt)}
+  .st span{font-size:12px; color:var(--dim); letter-spacing:1px}
+  .son{margin-top:14px; color:var(--dim); font-size:14px}
+  .son b{color:var(--txt)}
+  h2{font-family:'Archivo Black',Archivo,sans-serif; font-size:22px; margin:34px 0 12px}
+  .modes{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px}
+  .mode{background:var(--card); border:2px solid var(--line); border-radius:12px; padding:12px 14px}
+  .mode b{display:block; margin-bottom:4px}
+  .mode span{color:var(--dim); font-size:14px}
+  .upd{margin-top:10px; font-size:12px; color:var(--dim)}
+  footer{margin-top:40px; color:var(--dim); font-size:13px; text-align:center}
+  footer a{color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="quizjedi.html"><span class="dot"></span><span>QUIZ<b>JEDI</b></span></a>
+    <a class="home" href="index.html">← siberjedi.com</a>
+  </div>
+
+  <h1>Sohbete yaz,<br><span class="g">bilgini kanıtla!</span></h1>
+  <p class="sub">Her akşam <b>19:00</b>'da YouTube'da canlı bilgi yarışması. Kayıt yok: cevabını sohbete yaz, en hızlı ya da en yakın olan kazanır. Kalabalık oldukça yayın uzar!</p>
+
+  <div class="grid">
+    <div>
+      <div class="player">
+        <iframe id="yt" title="QuizJedi canlı yayın" loading="lazy"
+          src="https://www.youtube.com/embed/live_stream?channel=UCiPvPf31_XbSrtTaEIoqoMg&amp;autoplay=0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <a class="yt-btn" href="https://www.youtube.com/@QuizJedi/live" target="_blank" rel="noopener">▶ YouTube'da aç ve sohbete katıl</a>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="tabs" id="tabs">
+          <button class="tab on" data-p="daily">Bugün</button>
+          <button class="tab" data-p="weekly">Bu hafta</button>
+          <button class="tab" data-p="monthly">Bu ay</button>
+          <button class="tab" data-p="all">Tüm zamanlar</button>
+        </div>
+        <ol class="board" id="board"><li class="bos">Sıralama yükleniyor…</li></ol>
+        <div class="son" id="son"></div>
+        <div class="upd" id="upd"></div>
+      </div>
+      <div class="stats">
+        <div class="st"><b id="t-oyuncu">–</b><span>OYUNCU</span></div>
+        <div class="st"><b id="t-tur">–</b><span>TUR</span></div>
+        <div class="st"><b id="t-puan">–</b><span>PUAN</span></div>
+        <div class="st"><b id="t-tam">–</b><span>TAM İSABET</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Nasıl oynanır?</h2>
+  <div class="modes">
+    <div class="mode"><b>🔢 Sayı tahmini</b><span>Aralıktaki gizli sayıya en yakın tahmin kazanır.</span></div>
+    <div class="mode"><b>🔤 Kelime tahmini</b><span>Harfler açıldıkça puan düşer; erken çöz, çok kazan.</span></div>
+    <div class="mode"><b>🏳️ Bayrak · 😀 Emoji · 🔷 Şekil</b><span>Görseli tanı, adını sohbete yaz.</span></div>
+    <div class="mode"><b>⚔️ Boss savaşı</b><span>Takım olun, doğru cevaplarla vurun: kazanırsanız herkes ×5 puan!</span></div>
+  </div>
+
+  <footer>QuizJedi bir <a href="index.html">SiberJedi</a> yapımıdır · Puanlar YouTube sohbetindeki adınla tutulur.</footer>
+</div>
+<script>
+(function(){
+  var RAW = 'https://raw.githubusercontent.com/siberjedi/siberjedi.github.io/stats/quizjedi.json';
+  var data = null, period = 'daily';
+  var $ = function(id){ return document.getElementById(id); };
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function fmt(n){ return Number(n || 0).toLocaleString('tr-TR'); }
+  function ad(u){ return String(u || '').replace(/^(@|k:)/, ''); }
+  function ciz(){
+    if (!data) return;
+    var list = (data.periods && data.periods[period]) || [];
+    $('board').innerHTML = list.length ? list.map(function(r, i){
+      return '<li><span class="rk">' + (i + 1) + '</span><span class="nm">' + esc(ad(r.user)) +
+        '<span class="wn">' + fmt(r.wins) + ' kazanılan tur</span></span><span class="pt">' + fmt(r.points) + '</span></li>';
+    }).join('') : '<li class="bos">Bu dönemde henüz puan yok. İlk sen ol: her akşam 19:00!</li>';
+    var t = data.totals || {};
+    $('t-oyuncu').textContent = fmt(t.players); $('t-tur').textContent = fmt(t.rounds);
+    $('t-puan').textContent = fmt(t.points); $('t-tam').textContent = fmt(t.exacts);
+    var lr = data.last_round;
+    $('son').innerHTML = lr && lr.winner && lr.winner.charAt(0) !== '~'
+      ? 'Son turu <b>' + esc(ad(lr.winner)) + '</b> kazandı (+' + fmt(lr.points) + ' puan)' : '';
+    try { $('upd').textContent = 'Güncellendi: ' + new Date(data.updated_at).toLocaleString('tr-TR'); } catch (e) {}
+  }
+  function yukle(){
+    fetch(RAW + '?t=' + Date.now(), { cache: 'no-store' }).then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){ if (d) { data = d; ciz(); } })
+      .catch(function(){ if (!data) $('board').innerHTML = '<li class="bos">Sıralama şu an yüklenemedi.</li>'; });
+  }
+  $('tabs').addEventListener('click', function(e){
+    var b = e.target.closest('.tab'); if (!b) return;
+    period = b.getAttribute('data-p');
+    Array.prototype.forEach.call(document.querySelectorAll('.tab'), function(x){ x.classList.toggle('on', x === b); });
+    ciz();
+  });
+  yukle(); setInterval(yukle, 60000);
+})();
+</script>
+</body>
+</html>

@@ -54,5 +54,11 @@
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://siberjedi.com/quizjedi.html</loc>
+    <lastmod>2026-11-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>
 
