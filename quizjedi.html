@@ -116,6 +116,7 @@
           <button class="tab on" data-p="daily">Bugün</button>
           <button class="tab" data-p="weekly">Bu hafta</button>
           <button class="tab" data-p="monthly">Bu ay</button>
+          <button class="tab" data-p="season">Bu sezon</button>
           <button class="tab" data-p="all">Tüm zamanlar</button>
         </div>
         <ol class="board" id="board"><li class="bos">Sıralama yükleniyor…</li></ol>
@@ -132,11 +133,12 @@
   </div>
 
   <div class="awhead">
-    <h2>QuizJedi efsaneleri</h2>
+    <h2 id="awbaslik">QuizJedi efsaneleri</h2>
     <div class="tabs" id="awtabs" style="margin:0">
       <button class="tab on" data-p="daily">Bugün</button>
       <button class="tab" data-p="weekly">Bu hafta</button>
       <button class="tab" data-p="monthly">Bu ay</button>
+      <button class="tab" data-p="season">Bu sezon</button>
       <button class="tab" data-p="all">Tüm zamanlar</button>
     </div>
   </div>
@@ -168,6 +170,9 @@
   function ad(u){ return String(u || '').replace(/^(@|k:)/, ''); }
   function odulCiz(){
     var a = (data && data.awards && data.awards[awPeriod]) || {};
+    var sz = data && data.season;                       /* sahip 25.11: 3 aylik sezon */
+    $('awbaslik').textContent = awPeriod === 'season'
+      ? 'Sezonun efsaneleri' + (sz ? ' · ' + sz.ad + ' (' + sz.aralik + ')' : '') : 'QuizJedi efsaneleri';
     $('awards').innerHTML = AWK.map(function(w){
       var v = a[w[0]];
       return '<div class="aw' + (v ? ' on' : '') + '"><div class="ai">' + w[1] + '</div><div class="al">' + esc(w[2]) + '</div>' +
