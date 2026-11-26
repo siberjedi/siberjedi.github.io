@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QuizJedi GLOBAL · Live chat trivia on YouTube (SiberJediArena)</title>
-<meta name="description" content="Live chat trivia on YouTube every day at 20:00 UTC on SiberJediArena. Type your answer in chat, climb the leaderboard. Daily, weekly and monthly rankings.">
+<meta name="description" content="Live chat trivia on YouTube at 01:00 UTC (04:00 Istanbul) on SiberJediArena. Type your answer in chat, climb the leaderboard. Daily, weekly and monthly rankings.">
 <meta property="og:title" content="QuizJedi GLOBAL · Type in chat and win!">
-<meta property="og:description" content="Live trivia on YouTube at 20:00 UTC (SiberJediArena). Number, word, flag, emoji and boss battle rounds.">
+<meta property="og:description" content="Live trivia on YouTube at 01:00 UTC (SiberJediArena). Number, word, flag, emoji and boss battle rounds.">
 <meta property="og:image" content="https://siberjedi.com/img/icon-siberjedi.png">
 <meta name="theme-color" content="#101014">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,7 +98,7 @@
   </div>
 
   <h1>Type in chat,<br><span class="g">prove your knowledge!</span></h1>
-  <p class="sub">Live chat trivia on YouTube every day at <b>20:00 UTC</b> (01:00 Istanbul). No signup: type your answer in chat — fastest or closest wins. The bigger the crowd, the longer we stream!</p>
+  <p class="sub">Live chat trivia on YouTube at <b>01:00 UTC</b> (04:00 Istanbul). No signup: type your answer in chat — fastest or closest wins. The bigger the crowd, the longer we stream!</p>
 
   <div class="grid">
     <div>
@@ -162,7 +162,7 @@
   var AWK = [['wins','👽','Alien','wins'],['bullseye','🎯','Sniper','bullseyes'],
     ['guesses','🔮','Oracle','guesses'],['best_round','💀','Slayer','points'],['fastest','🤠','Gunslinger','s'],
     ['champ_boss','⚔️','Warlord','points'],['champ_number','♟️','Strategist','points'],
-    ['champ_word','🏹','Hunter','points'],['champ_fact','🎓','Professor','points']];
+    ['champ_word','🏹','Hunter','points'],['champ_fact','🎓','Professor','points'],['streak','🔥','Regular','day streak']];
   var $ = function(id){ return document.getElementById(id); };
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
@@ -190,7 +190,7 @@
     $('board').innerHTML = list.length ? list.map(function(r, i){
       return '<li><span class="rk">' + (i + 1) + '</span><span class="nm">' + esc(ad(r.user)) +
         '<span class="wn">' + fmt(r.wins) + ' rounds won</span></span><span class="pt">' + fmt(r.points) + '</span></li>';
-    }).join('') : '<li class="bos">No points yet this period. Be the first — live at 20:00 UTC!</li>';
+    }).join('') : '<li class="bos">No points yet this period. Be the first — live at 01:00 UTC!</li>';
     var t = data.totals || {};
     $('t-oyuncu').textContent = fmt(t.players); $('t-tur').textContent = fmt(t.rounds);
     $('t-puan').textContent = fmt(t.points); $('t-tam').textContent = fmt(t.exacts);
