@@ -298,7 +298,7 @@
     </div>
 
     <aside class="schedule" aria-label="Yayın programı">
-      <div class="schedule-top"><span class="live-dot"></span> CANLI YAYINA KALAN</div>
+      <div class="schedule-top"><span class="live-dot"></span><span id="sayim-etiket">CANLI YAYINA KALAN</span></div>
       <div class="schedule-clock" id="sayim" aria-live="off">19:00</div>
       <div class="schedule-cap">HER AKŞAM 19:00 · YOUTUBE</div>
       <div class="schedule-chips">
@@ -445,6 +445,7 @@
     $('son').innerHTML = lr && lr.winner && lr.winner.charAt(0) !== '~'
       ? 'Son turu <b>' + esc(ad(lr.winner)) + '</b> kazandı (+' + fmt(lr.points) + ' puan)' : '';
     try { $('upd').textContent = 'Güncellendi: ' + new Date(data.updated_at).toLocaleString('tr-TR'); } catch (e) {}
+    sayimCiz();
   }
   function al(url, h){
     return fetch(url, { headers: h || {}, cache: 'no-store' }).then(function(r){
@@ -576,22 +577,37 @@
       hour:'2-digit', minute:'2-digit', second:'2-digit' });
   } catch (e) { saatFmt = null; }
   function sayimCiz(){
-    var el = $('sayim'); if (!el) return;
+    var el = $('sayim'), et = $('sayim-etiket'); if (!el) return;
     var p = function(n){ return (n < 10 ? '0' : '') + n; };
     try {
-      if (!saatFmt) throw new Error('tz');
-      var o = {}, parts = saatFmt.formatToParts(new Date());
-      for (var i = 0; i < parts.length; i++){
-        if (parts[i].type !== 'literal') o[parts[i].type] = parseInt(parts[i].value, 10);
+      var fark = null, canli = false, lv = data && data.live;
+      if (lv && lv.active){
+        var bas = Number(lv.updated_ts || data.updated_ts || 0) * 1000;
+        var gecen = Math.max(0, (Date.now() - bas) / 1000);
+        var hiz = Number(lv.hiz) || 1;
+        fark = Math.max(0, Number(lv.remaining || 0) - gecen * hiz);
+        canli = true;
+        if (et) et.textContent = fark > 0 ? 'YAYIN BİTİŞİNE KALAN' : 'YAYIN SÜRESİ DOLDU';
+      } else {
+        if (et) et.textContent = 'CANLI YAYINA KALAN';
+        if (!saatFmt) throw new Error('tz');
+        var o = {}, parts = saatFmt.formatToParts(new Date());
+        for (var i = 0; i < parts.length; i++){
+          if (parts[i].type !== 'literal') o[parts[i].type] = parseInt(parts[i].value, 10);
+        }
+        var h = o.hour === 24 ? 0 : o.hour;
+        if (isNaN(h) || isNaN(o.minute) || isNaN(o.second)) throw new Error('parse');
+        var simdi = h * 3600 + o.minute * 60 + o.second;
+        fark = 19 * 3600 - simdi; if (fark < 0) fark += 86400;
       }
-      var h = o.hour === 24 ? 0 : o.hour;
-      if (isNaN(h) || isNaN(o.minute) || isNaN(o.second)) throw new Error('parse');
-      var simdi = h * 3600 + o.minute * 60 + o.second;
-      var fark = 19 * 3600 - simdi; if (fark < 0) fark += 86400;
+      fark = Math.max(0, Math.ceil(fark));
       var hh = Math.floor(fark / 3600), mm = Math.floor((fark % 3600) / 60), ss = fark % 60;
       el.innerHTML = '<span>' + p(hh) + '</span><span class="clock-c">:</span><span>' + p(mm) +
         '</span><span class="clock-c">:</span><span>' + p(ss) + '</span>';
-    } catch (err) { el.textContent = '19:00'; }
+    } catch (err) {
+      el.textContent = '19:00';
+      if (et) et.textContent = 'CANLI YAYINA KALAN';
+    }
   }
   sayimCiz(); setInterval(sayimCiz, 1000);
 
