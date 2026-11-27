@@ -164,9 +164,14 @@
   .tc.acc{color:var(--acc); border-color:rgba(39,224,192,.4); background:rgba(39,224,192,.08)}
   .tc.gold{color:var(--gold); border-color:rgba(255,212,0,.4); background:rgba(255,212,0,.08)}
   .tc.dim{color:var(--dim)}
+  .tc.bonus{color:#ff9fd0; border-color:rgba(255,92,154,.45); background:rgba(255,92,154,.1)}
   .tpts{flex:none; font:800 15px 'JetBrains Mono',monospace; color:var(--acc); white-space:nowrap;
     text-shadow:0 0 16px rgba(39,224,192,.2)}
 
+  .oneri{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:12px}
+  .oneri-a{padding:7px 12px; border-radius:999px; border:1px solid rgba(39,224,192,.45); color:var(--acc);
+    background:rgba(39,224,192,.08); font-weight:700; text-decoration:none}
+  .oneri-a:hover{background:rgba(39,224,192,.18)}
   .bos{color:var(--dim); padding:16px; text-align:center; border:1px dashed var(--line); border-radius:12px;
     background:rgba(255,255,255,.02); font-size:13.5px}
   .upd{margin-top:26px; padding-top:14px; border-top:1px solid var(--line); color:var(--dim);
@@ -216,7 +221,8 @@
   <main>
     <form class="ara" role="search" action="oyuncu.html" method="get" aria-label="Oyuncu ara">
       <label class="sr-only" for="ad">Oyuncu adı</label>
-      <input class="arain" id="ad" name="ad" type="search" placeholder="Oyuncu adı yaz…" autocomplete="off" spellcheck="false" enterkeyhint="search">
+      <input class="arain" id="ad" name="ad" type="search" placeholder="Oyuncu adı yaz…" autocomplete="off" spellcheck="false" enterkeyhint="search" list="oyuncu-listesi">
+      <datalist id="oyuncu-listesi"></datalist>
       <button class="arabtn" type="submit">Profil bul</button>
     </form>
 
@@ -351,7 +357,7 @@
     var h = { 'Accept': 'application/vnd.github.raw' };
     if (etag) h['If-None-Match'] = etag;
     al(API, h).catch(function(){ return al(RAW + '?t=' + Date.now()); })
-      .then(function(d){ if (d) DATA = d; if (!DATA) throw new Error('bos'); render(); })
+      .then(function(d){ if (d) DATA = d; if (!DATA) throw new Error('bos'); render(); oneriListesi(); })
       .catch(function(){
         durum('hata', '<div class="dt">Profil yüklenemedi</div>' +
           '<div class="dd">Veri kaynağına ulaşılamadı. İnternet bağlantını kontrol edip yeniden dene.</div>' +
@@ -365,6 +371,23 @@
       if (norm(list[i].user) === n) return list[i];
     }
     return null;
+  }
+
+  /* sahip 28.11: kismi arama ('bayram' -> bayram_gs_1905; 'onuryar' -> onuryar-h6p) */
+  function benzerler(q, n){
+    var k = norm(q).replace(/[^0-9a-zçğıöşü]/g, ''), list = (DATA && DATA.players) || [], out = [];
+    if (k.length < 2) return out;
+    for (var i = 0; i < list.length && out.length < (n || 8); i++){
+      var u = norm(list[i].user), uk = u.replace(/[^0-9a-zçğıöşü]/g, '');
+      if (uk.indexOf(k) >= 0) out.push(list[i]);
+    }
+    return out;
+  }
+  function oneriListesi(){
+    var dl = $('oyuncu-listesi'); if (!dl || !DATA || dl.childElementCount) return;
+    dl.innerHTML = ((DATA.players) || []).slice(0, 400).map(function(x){
+      return '<option value="' + esc(adGoster(x.user)) + '"></option>';
+    }).join('');
   }
 
   function genelSira(p){
@@ -497,7 +520,15 @@
         if (pa !== pb) return pa - pb;
         return String(a.key).localeCompare(String(b.key));
       });
-      rozetHtml = '<div class="rozetler">' + aw.map(function(a){
+      // ayni unvan her donem icin ayri kart olmasin: tek kart + donem etiketleri (en kisa donemin degeri)
+      var KISA = { daily:'Gün', weekly:'Hafta', monthly:'Ay', season:'Sezon', all:'Tüm' };
+      var grup = [], gk = {};
+      aw.forEach(function(a){
+        var k = String(a.key == null ? '' : a.key).toLowerCase();
+        if (!gk[k]) { gk[k] = { key: a.key, value: a.value, donem: [] }; grup.push(gk[k]); }
+        gk[k].donem.push(a.period);
+      });
+      rozetHtml = '<div class="rozetler">' + grup.map(function(a){
         var b = BADGE[String(a.key == null ? '' : a.key).toLowerCase()] || {};
         var adi = b.n || etik(a.key);
         var unit = b.u || '';
@@ -506,7 +537,7 @@
           : '<div class="rnoimg" aria-hidden="true">🏅</div>';
         return '<div class="rozet">' + img +
           '<div class="rb"><div class="rn">' + esc(adi) + '</div>' +
-          '<div class="rp">' + esc(donemAd(a.period)) + '</div>' +
+          '<div class="rp">' + a.donem.map(function(d){ return esc(KISA[d] || donemAd(d)); }).join(' · ') + '</div>' +
           '<div class="rv">' + fmt(a.value) + ' ' + esc(unit) + '</div></div></div>';
       }).join('') + '</div>';
     }
@@ -524,7 +555,11 @@
         var m = modeInfo(r.mode);
         var tc = '';
         if (r.exact === true) tc += '<span class="tc acc">Tam isabet</span>';
-        if (r.won === true) tc += '<span class="tc gold">Kazandı</span>';
+        var SONUC = { kazandi:['gold','Kazandı'], bonus:['bonus','🎁 Bonus'], boss_zafer:['gold','⚔️ Boss yenildi'],
+                      boss_kayip:['dim','Boss kazandı'], puan:['dim','Puan'] };
+        var sn = r.sonuc && SONUC[r.sonuc];
+        if (sn) tc += '<span class="tc ' + sn[0] + '">' + sn[1] + '</span>';
+        else if (r.won === true) tc += '<span class="tc gold">Kazandı</span>';
         else if (r.won === false) tc += '<span class="tc dim">Kaybetti</span>';
         if (r.speed != null && isFinite(Number(r.speed))) tc += '<span class="tc">' + fmt1(r.speed) + ' sn</span>';
         var z = tarih(r.ts, { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
@@ -561,8 +596,13 @@
     if (!DATA) return;
     var p = bul(raw);
     if (!p) {
+      var bz = benzerler(raw, 8);
       durum('yok', '<div class="dt">“' + esc(adGoster(raw)) + '” bulunamadı</div>' +
-        '<div class="dd">Bu adla henüz puan kaydı yok. Adı sohbette kullandığın gibi yazdığından emin ol; @ ve k: önekleri otomatik temizlenir.</div>');
+        (bz.length
+          ? '<div class="dd">Bunu mu aradın?</div><div class="oneri">' + bz.map(function(x){
+              return '<a class="oneri-a" href="oyuncu.html?ad=' + encodeURIComponent(adGoster(x.user)) + '">' + esc(adGoster(x.user)) + '</a>';
+            }).join('') + '</div>'
+          : '<div class="dd">Bu adla henüz puan kaydı yok. Adı sohbette kullandığın gibi yazdığından emin ol; @ ve k: önekleri otomatik temizlenir.</div>'));
       return;
     }
     profil(p);
