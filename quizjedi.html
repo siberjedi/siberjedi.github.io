@@ -135,12 +135,14 @@
   .tab:hover{color:var(--txt); border-color:rgba(39,224,192,.45)}
   .tab.on{color:#0b0b0f; background:linear-gradient(135deg,var(--acc),#6ff0d8); border-color:var(--acc);
     box-shadow:0 6px 18px -8px rgba(39,224,192,.8), inset 0 1px 0 rgba(255,255,255,.5)}
-  ol.board{list-style:none; margin:0; padding:0; display:grid; gap:4px}
+  ol.board{list-style:none; margin:0; padding:0; display:grid; gap:0}
   ol.board li{display:grid; grid-template-columns:28px minmax(0,1fr) auto; align-items:center; gap:8px;
-    padding:5px 10px; min-height:44px; border-radius:9px; background:rgba(255,255,255,.035);
+    margin:0 0 3px; padding:4px 10px; min-height:42px; border-radius:9px; background:rgba(255,255,255,.035);
     border:1px solid rgba(255,255,255,.055); overflow:hidden}
-  ol.board li.top{grid-template-columns:38px minmax(0,1fr) auto; gap:9px; padding:8px 11px; min-height:56px}
-  ol.board li.top-1{grid-template-columns:42px minmax(0,1fr) auto; min-height:62px;
+  ol.board li:last-child{margin-bottom:0}
+  ol.board li.top{grid-template-columns:38px minmax(0,1fr) auto; gap:9px; padding:7px 11px; min-height:52px}
+  ol.board li.top-3{margin-bottom:0}
+  ol.board li.top-1{grid-template-columns:42px minmax(0,1fr) auto; min-height:58px;
     background:linear-gradient(90deg, rgba(255,212,0,.20), rgba(255,212,0,.03));
     border-color:rgba(255,212,0,.50); box-shadow:inset 0 1px 0 rgba(255,212,0,.22), 0 12px 26px -18px rgba(255,212,0,.55)}
   ol.board li.top-2{background:linear-gradient(90deg, rgba(214,211,204,.16), rgba(214,211,204,.025));
@@ -197,18 +199,30 @@
     transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease}
   @media(max-width:760px){ .aw{flex-basis:calc((100% - 12px) / 2)} }
   @media(max-width:480px){ .aw{flex-basis:100%} }
+  .awards .aw:nth-child(1){--aw1:#27e0c0; --aw2:#0b6f60}
+  .awards .aw:nth-child(2){--aw1:#a37bff; --aw2:#4a2b96}
+  .awards .aw:nth-child(3){--aw1:#ffd400; --aw2:#8a6a00}
+  .awards .aw:nth-child(4){--aw1:#ff5fa8; --aw2:#8f1b52}
+  .awards .aw:nth-child(5){--aw1:#4f9bff; --aw2:#1c4c99}
+  .awards .aw:nth-child(6){--aw1:#ff9a4d; --aw2:#934a12}
+  .awards .aw:nth-child(7){--aw1:#7ef0a0; --aw2:#1f7a44}
+  .awards .aw:nth-child(8){--aw1:#ff6b6b; --aw2:#8f2020}
+  .awards .aw:nth-child(9){--aw1:#5ff0ff; --aw2:#146b78}
+  .awards .aw:nth-child(10){--aw1:#c9a2ff; --aw2:#5b3596}
   .aw::before{content:""; position:absolute; top:0; left:0; right:0; height:3px;
-    background:linear-gradient(90deg,var(--acc),var(--acc2)); opacity:.95}
-  .awards .aw:nth-child(3n+2)::before{background:linear-gradient(90deg,var(--acc2),#4f8bff)}
-  .awards .aw:nth-child(3n)::before{background:linear-gradient(90deg,var(--gold),var(--bronze))}
+    background:linear-gradient(90deg,var(--aw1,#27e0c0),var(--aw2,#8b5cff)); opacity:.95}
   .aw:hover{transform:translateY(-4px); border-color:rgba(139,92,255,.55);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 26px 44px -22px rgba(139,92,255,.5)}
   .aw.on{border-color:var(--acc);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.10), 0 0 0 1px rgba(39,224,192,.38), 0 0 28px rgba(39,224,192,.20)}
-  .aw .aiwrap{flex:none; height:180px; border-radius:9px; overflow:hidden; border:1px solid rgba(255,255,255,.08);
-    background:radial-gradient(120% 120% at 50% 0%, rgba(139,92,255,.28), rgba(0,0,0,.5) 72%);
+  .aw .aiwrap{flex:none; height:180px; border-radius:9px; overflow:hidden;
+    border:1px solid color-mix(in srgb, var(--aw1,#27e0c0) 62%, rgba(255,255,255,.10));
+    background:
+      radial-gradient(120% 120% at 50% 0%, color-mix(in srgb, var(--aw1,#27e0c0) 24%, transparent), rgba(0,0,0,.55) 72%),
+      linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.35));
     display:grid; place-items:center}
-  .aw .ai{display:block; width:100%; height:100%; object-fit:cover; object-position:center; padding:0}
+  .aw .ai{display:block; width:100%; height:100%; object-fit:contain; object-position:center; padding:7px;
+    filter:drop-shadow(0 6px 12px rgba(0,0,0,.55)) drop-shadow(0 0 8px color-mix(in srgb, var(--aw1,#27e0c0) 35%, transparent))}
   .aw .al{font-size:11px; letter-spacing:1.2px; text-transform:uppercase; color:#e4e2ec; font-weight:800; margin:8px 0 3px; line-height:1.25}
   .aw .au{font-weight:900; font-size:18px; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
   .aw.on .au{font-size:19px; color:var(--txt); text-shadow:0 0 20px rgba(39,224,192,.28)}
