@@ -176,9 +176,8 @@
   .stats{display:grid; grid-template-columns:1fr 1fr 1.3fr; gap:8px; margin-top:12px}
   @media(max-width:480px){ .stats{grid-template-columns:1fr 1fr 1.3fr} }
   .st{border-radius:11px; padding:10px 8px; text-align:center}
-  .st b{display:block; font:800 clamp(22px,4vw,30px) 'JetBrains Mono',monospace; color:#fff; line-height:1;
-    letter-spacing:-.5px; text-shadow:0 0 22px rgba(39,224,192,.20)}
-  #t-puan{font-size:clamp(18px,2vw,22px); letter-spacing:-1.2px}
+  .st b{display:block; font:800 clamp(20px,2.4vw,26px) 'JetBrains Mono',monospace; color:#fff; line-height:1;
+    letter-spacing:-.5px; white-space:nowrap; text-shadow:0 0 22px rgba(39,224,192,.20)}
   .st span{display:block; margin-top:4px; font-size:10px; color:#bcbac8; letter-spacing:1.1px; font-weight:700}
   .son{margin-top:10px; color:var(--dim); font-size:13px}
   .son b{color:var(--txt)}
@@ -187,8 +186,8 @@
   /* odul kategorileri */
   .awhead{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:24px 0 8px}
   .awhead h2{margin:0}
-  .awbar{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:0 0 8px}
-  .awards{display:flex; align-items:stretch; gap:12px; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory;
+  .awbar{display:flex; align-items:center; gap:8px; flex-wrap:wrap; max-width:900px; margin:0 auto 8px}
+  .awards{display:flex; align-items:stretch; gap:12px; max-width:900px; margin:0 auto; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory;
     scroll-behavior:smooth; padding:6px 2px 8px; scrollbar-width:thin; scrollbar-color:#3a3a48 transparent;
     min-width:0; -webkit-overflow-scrolling:touch}
   .awards::-webkit-scrollbar{height:8px}
@@ -216,15 +215,15 @@
     box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 26px 44px -22px rgba(139,92,255,.5)}
   .aw.on{border-color:var(--acc);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.10), 0 0 0 1px rgba(39,224,192,.38), 0 0 28px rgba(39,224,192,.20)}
-  .aw .aiwrap{position:relative; flex:none; height:300px; border-radius:9px; overflow:hidden;
+  .aw .aiwrap{position:relative; flex:none; width:min(calc(100% - 32px),250px); height:300px; margin:0 auto; border-radius:9px; overflow:hidden;
     border:1px solid color-mix(in srgb, var(--aw1,#27e0c0) 62%, rgba(255,255,255,.10));
     background:
       radial-gradient(120% 120% at 50% 0%, color-mix(in srgb, var(--aw1,#27e0c0) 24%, transparent), rgba(0,0,0,.55) 72%),
       linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.35));
     display:grid; place-items:center}
-  .aw .ai{position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:contain; object-position:center; padding:7px;
+  .aw .ai{position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:contain; object-position:center; padding:0;
     filter:drop-shadow(0 6px 12px rgba(0,0,0,.55)) drop-shadow(0 0 8px color-mix(in srgb, var(--aw1,#27e0c0) 35%, transparent))}
-  .aw .al{font-size:15px; letter-spacing:1.4px; text-transform:uppercase; color:var(--aw1,#27e0c0); font-weight:900; margin:0 0 8px; line-height:1.2; text-align:center;
+  .aw .al{font-family:'Archivo Black',Archivo,sans-serif; font-size:18px; letter-spacing:.8px; text-transform:uppercase; color:var(--aw1,#27e0c0); font-weight:400; margin:0 0 8px; line-height:1.2; text-align:center;
     text-shadow:0 0 5px rgba(255,255,255,.30), 0 0 12px color-mix(in srgb, var(--aw1,#27e0c0) 78%, transparent), 0 0 24px color-mix(in srgb, var(--aw1,#27e0c0) 48%, transparent)}
   .aw .au{font-weight:900; font-size:20px; line-height:1.2; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; margin-top:8px; text-align:center}
   .aw.on .au{font-size:21px; color:var(--txt); text-shadow:0 0 20px rgba(39,224,192,.28)}
@@ -402,6 +401,13 @@
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function fmt(n){ return Number(n || 0).toLocaleString('tr-TR'); }
+  function fmtKisa(n){
+    var v = Number(n || 0), a = Math.abs(v), s = fmt(v);
+    if (s.length <= 6) return s;
+    var bolge = a >= 1e9 ? 1e9 : a >= 1e6 ? 1e6 : a >= 1e3 ? 1e3 : 1;
+    var ek = bolge === 1e9 ? 'Mr' : bolge === 1e6 ? 'M' : 'K';
+    return (v / bolge).toLocaleString('tr-TR', { maximumFractionDigits:1 }) + ek;
+  }
   function ad(u){ return String(u || '').replace(/^(@|k:)/, ''); }
   function odulCiz(){
     var a = (data && data.awards && data.awards[awPeriod]) || {};
@@ -432,8 +438,9 @@
         '<span class="wn">' + fmt(r.wins) + ' kazanılan tur</span></span><span class="pt">' + fmt(r.points) + '</span></li>';
     }).join('') : '<li class="bos">Bu dönemde henüz puan yok. İlk sen ol: her akşam 19:00!</li>';
     var t = data.totals || {};
-    $('t-oyuncu').textContent = fmt(t.players); $('t-tur').textContent = fmt(t.rounds);
-    $('t-puan').textContent = fmt(t.points);
+    $('t-oyuncu').textContent = fmtKisa(t.players); $('t-oyuncu').title = fmt(t.players) + ' oyuncu';
+    $('t-tur').textContent = fmtKisa(t.rounds); $('t-tur').title = fmt(t.rounds) + ' tur';
+    $('t-puan').textContent = fmtKisa(t.points); $('t-puan').title = fmt(t.points) + ' puan';
     var lr = data.last_round;
     $('son').innerHTML = lr && lr.winner && lr.winner.charAt(0) !== '~'
       ? 'Son turu <b>' + esc(ad(lr.winner)) + '</b> kazandı (+' + fmt(lr.points) + ' puan)' : '';
