@@ -103,6 +103,12 @@
   .player{position:relative; width:100%; aspect-ratio:9/16; max-height:636px; border-radius:15px; overflow:hidden;
     border:0; background:#000}
   .player iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  .player .afis{position:absolute; inset:0; display:block}
+  .player .afis[hidden]{display:none}
+  .player .afis img{width:100%; height:100%; object-fit:cover; display:block}
+  .player .afis-not{position:absolute; left:50%; bottom:14px; transform:translateX(-50%); white-space:nowrap;
+    padding:7px 14px; border-radius:999px; background:rgba(10,8,24,.82); border:1px solid #343441;
+    color:#fff; font-weight:700; font-size:13px}
   @media(min-width:901px){
     .player-frame{display:flex; flex:1 1 auto; min-height:0}
     .player{flex:1 1 auto; width:100%; height:100%; min-height:0; aspect-ratio:auto; max-height:none}
@@ -296,13 +302,13 @@
         <span class="tag-title">CANLI BİLGİ YARIŞMASI</span>
       </div>
       <h1>Sohbete yaz,<br><span class="g">bilgini kanıtla!</span></h1>
-      <p class="sub">Her akşam <b>19:00</b>'da YouTube'da canlı bilgi yarışması. Kayıt yok: cevabını sohbete yaz, en hızlı ya da en yakın olan kazanır. Kalabalık oldukça yayın uzar!</p>
+      <p class="sub">Her akşam <b>19:00–23:00</b> arası YouTube'da canlı bilgi yarışması. Kayıt yok: cevabını sohbete yaz, en hızlı ya da en yakın olan kazanır. Kalabalık oldukça yayın uzar!</p>
     </div>
 
     <aside class="schedule" aria-label="Yayın programı">
       <div class="schedule-top"><span class="live-dot"></span><span id="sayim-etiket">CANLI YAYINA KALAN</span></div>
       <div class="schedule-clock" id="sayim" aria-live="off">19:00</div>
-      <div class="schedule-cap">HER AKŞAM 19:00 · YOUTUBE</div>
+      <div class="schedule-cap">HER AKŞAM 19:00–23:00 · YOUTUBE</div>
       <div class="schedule-chips">
         <span>Sayı</span><span>Kelime</span><span>Bayrak</span><span>Emoji</span><span>Boss</span>
       </div>
@@ -314,8 +320,13 @@
     <div>
       <div class="player-frame">
         <div class="player">
-          <iframe id="yt" title="QuizJedi canlı yayın" loading="lazy"
-            src="https://www.youtube.com/embed/live_stream?channel=UCiPvPf31_XbSrtTaEIoqoMg&amp;autoplay=0"
+          <a class="afis" id="afis" href="https://www.youtube.com/@QuizJedi/live" target="_blank" rel="noopener"
+             aria-label="QuizJedi canlı yayını her akşam 19:00'da YouTube'da">
+            <img src="img/quizjedi-afis.jpg" alt="QuizJedi canlı bilgi yarışması her akşam 19:00" loading="lazy">
+            <span class="afis-not">Yayın şu an kapalı · Her akşam 19:00–23:00</span>
+          </a>
+          <iframe id="yt" title="QuizJedi canlı yayın" loading="lazy" hidden
+            data-src="https://www.youtube.com/embed/live_stream?channel=UCiPvPf31_XbSrtTaEIoqoMg&amp;autoplay=0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       </div>
@@ -384,6 +395,10 @@
     <div class="mode">
       <div class="mode-ico">⚔️</div>
       <div class="mode-body"><b>Boss savaşı</b><span>Takım olun, doğru cevaplarla vurun: kazanırsanız herkes ×5 puan!</span></div>
+    </div>
+    <div class="mode">
+      <div class="mode-ico">🎁</div>
+      <div class="mode-body"><b>Bonus tur</b><span>Beğeni, abone ya da izleyici hedefi geçilince gelir: bilen herkes puan alır, gösterge doldukça ×2 ×3 ×4!</span></div>
     </div>
   </div>
   </main>
@@ -458,10 +473,19 @@
       return r.json();
     });
   }
+  /* yayin kapaliyken YouTube penceresi yerine afis (bos "Bu video kullanilamiyor" gorunmesin) */
+  function oynatici(){
+    var yt = $('yt'), af = $('afis'); if (!yt || !af) return;
+    var lv = data && data.live;
+    var taze = lv && (Date.now() / 1000 - Number(lv.updated_ts || data.updated_ts || 0)) < 900;
+    var acik = !!(lv && lv.active && taze);
+    if (acik && !yt.getAttribute('src')) yt.setAttribute('src', yt.getAttribute('data-src'));
+    yt.hidden = !acik; af.hidden = acik;
+  }
   function yukle(){
     var h = { 'Accept': 'application/vnd.github.raw' }; if (etag) h['If-None-Match'] = etag;
     al(API, h).catch(function(){ return al(RAW + '?t=' + Date.now()); })   /* API sinirina takilirsa ham dosya */
-      .then(function(d){ if (d) { data = d; } ciz(); })
+      .then(function(d){ if (d) { data = d; } ciz(); oynatici(); })
       .catch(function(){ if (!data) $('board').innerHTML = '<li class="bos">Sıralama şu an yüklenemedi.</li>'; });
   }
   function sekme(id, cb){
