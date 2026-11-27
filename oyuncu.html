@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oyuncu profili · QuizJedi</title>
+<meta name="description" content="QuizJedi oyuncu profili: toplam puan, sıralamalar, mod ve kategori dağılımı, rozetler ve son turlar.">
+<meta name="theme-color" content="#101014">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Archivo+Black&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#101014; --card:#18181f; --line:#2c2c38;
+    --txt:#f2f0ea; --dim:#a3a1b0; --acc:#27e0c0; --acc2:#8b5cff;
+    --gold:#ffd400; --silver:#d6d3cc; --bronze:#e08a4f; --yt:#ff0033;
+  }
+  *{box-sizing:border-box}
+  html,body{overflow-x:hidden}
+  body{margin:0; min-height:100vh; color:var(--txt); background-color:var(--bg);
+    background-image:
+      radial-gradient(900px 520px at 8% -12%, rgba(139,92,255,.30), transparent 62%),
+      radial-gradient(820px 560px at 102% -4%, rgba(39,224,192,.17), transparent 58%),
+      radial-gradient(760px 520px at 50% 112%, rgba(139,92,255,.14), transparent 62%),
+      linear-gradient(rgba(255,255,255,.024) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.024) 1px, transparent 1px);
+    background-size:auto, auto, auto, 34px 34px, 34px 34px;
+    background-attachment:fixed;
+    font-family:Archivo,'Segoe UI',system-ui,-apple-system,'Noto Sans',sans-serif; overflow-x:hidden}
+  .wrap{width:100%; max-width:980px; margin:0 auto; padding:18px 16px 56px}
+  .top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:18px;
+    padding-bottom:12px; border-bottom:2px solid var(--line)}
+  .brand{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--txt);
+    font-family:'Archivo Black',Archivo,sans-serif; font-size:23px; letter-spacing:.5px}
+  .brand .dot{width:12px; height:12px; border-radius:50%; background:var(--yt); box-shadow:0 0 12px var(--yt)}
+  .brand b{background:linear-gradient(90deg,var(--acc),var(--acc2)); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:400}
+  .toplinks{display:flex; gap:8px; flex-wrap:wrap}
+  .home{display:inline-flex; align-items:center; gap:7px; text-decoration:none; color:var(--txt); background:var(--card);
+    border:1px solid #3a3a48; border-radius:9px; padding:10px 16px; font:700 15px Archivo,sans-serif; white-space:nowrap;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06); transition:border-color .18s ease, transform .18s ease}
+  .home:hover{border-color:var(--acc); transform:translateY(-1px)}
+
+  .ara{display:flex; gap:8px; align-items:stretch; margin-bottom:18px}
+  .arain{flex:1 1 auto; min-width:0; background:#14141b; color:var(--txt); border:1px solid #3a3a48; border-radius:11px;
+    padding:12px 14px; font:600 15px Archivo,sans-serif}
+  .arain::placeholder{color:#7f7d8c}
+  .arain:focus{border-color:var(--acc); box-shadow:0 0 0 3px rgba(39,224,192,.18); outline:none}
+  .arabtn{flex:none; cursor:pointer; border-radius:11px; border:1px solid var(--acc);
+    background:linear-gradient(135deg,var(--acc),#6ff0d8); color:#07110f; font:800 14px Archivo,sans-serif; padding:12px 18px;
+    transition:filter .16s ease, transform .16s ease}
+  .arabtn:hover{filter:brightness(1.06); transform:translateY(-1px)}
+
+  .durum{margin:34px auto; max-width:640px; text-align:center; color:var(--dim); font-size:15px; line-height:1.6;
+    border:1px solid var(--line); border-radius:16px; padding:34px 22px;
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,0) 50%),var(--card)}
+  .durum .dt{font-family:'Archivo Black',Archivo,sans-serif; color:var(--txt); font-size:clamp(19px,4vw,24px);
+    margin-bottom:8px; letter-spacing:.3px; overflow-wrap:anywhere}
+  .durum .dd{max-width:460px; margin:0 auto 16px}
+  .durum .spin{width:34px; height:34px; margin:0 auto 12px; border-radius:50%;
+    border:3px solid rgba(255,255,255,.14); border-top-color:var(--acc); animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .durum.hata{border-color:rgba(255,0,51,.35); background:linear-gradient(180deg,rgba(255,0,51,.06),rgba(255,255,255,0) 55%),var(--card)}
+  .durum .arabtn{margin-top:4px}
+
+  .phero{display:flex; align-items:center; gap:16px; flex-wrap:wrap; padding:22px; border-radius:20px;
+    border:1px solid rgba(255,255,255,.11); position:relative; overflow:hidden;
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgba(139,92,255,.28), transparent 60%),
+      linear-gradient(180deg,#1c1c26,#141419);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 30px 60px -34px rgba(0,0,0,.95)}
+  .phero::after{content:""; position:absolute; right:-70px; bottom:-110px; width:240px; height:240px;
+    background:radial-gradient(circle, rgba(39,224,192,.22), transparent 66%); pointer-events:none}
+  .avatar-wrap{position:relative; flex:none; width:84px; height:84px; border-radius:22px}
+  .avatar-wrap .pava{width:100%; height:100%}
+  .pava{flex:none; width:84px; height:84px; border-radius:22px; display:grid; place-items:center;
+    font-family:'Archivo Black',Archivo,sans-serif; font-size:38px; color:#07110f; line-height:1;
+    background:linear-gradient(135deg,var(--acc),var(--acc2));
+    box-shadow:0 14px 30px -12px rgba(39,224,192,.7), inset 0 1px 0 rgba(255,255,255,.5)}
+  .pava.pimg{position:absolute; inset:0; object-fit:cover; border-radius:inherit;
+    border:2px solid rgba(255,255,255,.18); background:#14141b}
+  .pinfo{flex:1 1 260px; min-width:0; position:relative; z-index:1}
+  .pinfo h1{font-family:'Archivo Black',Archivo,sans-serif; font-size:clamp(26px,6.5vw,50px); line-height:1.02;
+    margin:0 0 10px; overflow-wrap:anywhere}
+  .chips{display:flex; flex-wrap:wrap; gap:6px}
+  .cip{display:inline-flex; align-items:center; gap:5px; padding:5px 9px; border-radius:999px;
+    font:700 11.5px Archivo,sans-serif; color:#cfcdd6; background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1)}
+  .cip b{font-family:'JetBrains Mono',monospace; color:var(--txt)}
+  .cip.sir{color:#07110f; background:linear-gradient(135deg,var(--gold),#ffe469); border-color:var(--gold); font-weight:800}
+  .cip.sir b{color:#07110f}
+  .cip.dim{color:var(--dim)}
+  .pscore{flex:none; margin-left:auto; text-align:right; position:relative; z-index:1;
+    padding-left:14px; border-left:1px dashed rgba(255,255,255,.14)}
+  .pscore span{display:block; font:800 10.5px 'JetBrains Mono',monospace; letter-spacing:1.4px; color:var(--dim)}
+  .pscore b{display:block; font-family:'JetBrains Mono',monospace; font-weight:800; font-size:clamp(28px,6vw,42px);
+    line-height:1.1; color:var(--gold); text-shadow:0 0 24px rgba(255,212,0,.22)}
+
+  h2.sec-title{font-family:'Archivo Black',Archivo,sans-serif; font-size:19px; margin:26px 0 12px; letter-spacing:.2px}
+  .panel h2.sec-title{margin-top:0; font-size:17px}
+
+  .kutular{display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr)); gap:10px}
+  .kutu{border:1px solid #343441; border-radius:13px; padding:14px 12px; text-align:center; min-width:0;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 50%),var(--card);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+  .kutu b{display:block; font:800 clamp(20px,2.6vw,26px) 'JetBrains Mono',monospace; color:#fff; line-height:1.1;
+    letter-spacing:-.5px; overflow-wrap:anywhere; text-shadow:0 0 22px rgba(39,224,192,.18)}
+  .kutu span{display:block; margin-top:5px; font-size:10.5px; color:#bcbac8; letter-spacing:.8px; font-weight:700; text-transform:uppercase}
+
+  .donemler{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px}
+  .donem{border-radius:13px; padding:14px; border:1px solid #343441; min-width:0;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 50%),var(--card);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+  .donem .dl{font:800 10.5px 'JetBrains Mono',monospace; letter-spacing:1.2px; text-transform:uppercase; color:var(--dim)}
+  .donem .rk{font-family:'Archivo Black',Archivo,sans-serif; font-size:clamp(26px,5vw,34px); line-height:1.1;
+    margin:4px 0 2px; color:var(--acc); text-shadow:0 0 20px rgba(39,224,192,.25); overflow-wrap:anywhere}
+  .donem.all .rk{color:var(--gold); text-shadow:0 0 20px rgba(255,212,0,.25)}
+  .donem .ds{font-size:12px; color:#bcbac8; line-height:1.4}
+  .donem.yok{opacity:.7}
+  .donem.yok .rk{color:var(--dim); text-shadow:none}
+
+  .iki{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; margin-top:6px}
+  .panel{border:1px solid #343441; border-radius:14px; padding:16px; min-width:0;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 50%),var(--card);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+
+  .rowlist{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+  .row{display:flex; align-items:center; gap:10px; min-width:0; padding:9px 10px; border-radius:10px;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.055)}
+  .ric{flex:none; width:34px; height:34px; display:grid; place-items:center; font-size:16px; border-radius:9px;
+    background:linear-gradient(160deg,rgba(39,224,192,.16),rgba(139,92,255,.16)); border:1px solid rgba(255,255,255,.09)}
+  .rmain{flex:1; min-width:0}
+  .rtop{display:flex; align-items:baseline; justify-content:space-between; gap:8px; min-width:0}
+  .rname{font-weight:800; font-size:13.5px; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .rval{flex:none; font:800 12px 'JetBrains Mono',monospace; color:var(--gold); white-space:nowrap}
+  .rbar{height:5px; border-radius:999px; background:rgba(255,255,255,.08); margin:6px 0 4px; overflow:hidden}
+  .rbar i{display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,var(--acc),var(--acc2)); min-width:2px}
+  .rsub{font-size:11px; color:var(--dim); line-height:1.4}
+
+  .rozetler{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px}
+  .rozet{display:flex; align-items:center; gap:11px; min-width:0; padding:11px; border-radius:13px;
+    border:1px solid #343441;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0) 55%),var(--card);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+  .rozet img{flex:none; width:58px; height:58px; object-fit:contain;
+    filter:drop-shadow(0 4px 8px rgba(0,0,0,.5)) drop-shadow(0 0 6px rgba(39,224,192,.22))}
+  .rnoimg{flex:none; width:58px; height:58px; display:grid; place-items:center; font-size:26px; border-radius:10px; background:rgba(255,255,255,.05)}
+  .rb{min-width:0}
+  .rn{font-weight:800; font-size:13.5px; line-height:1.2; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .rp{font:800 9.5px 'JetBrains Mono',monospace; letter-spacing:.8px; text-transform:uppercase; color:var(--acc); margin:2px 0}
+  .rv{font-size:11.5px; color:var(--dim)}
+
+  .turlar{list-style:none; margin:0; padding:0; display:grid; gap:8px}
+  .tur{display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:11px; min-width:0;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.055)}
+  .tno{flex:none; font:800 11px 'JetBrains Mono',monospace; color:var(--acc); background:rgba(39,224,192,.08);
+    border:1px solid rgba(39,224,192,.28); border-radius:8px; padding:5px 7px; white-space:nowrap}
+  .tmain{flex:1; min-width:0}
+  .ttop{display:flex; flex-wrap:wrap; gap:6px; align-items:baseline; min-width:0}
+  .tmode{font-weight:800; font-size:13px; white-space:nowrap}
+  .tcat{font-size:11.5px; color:var(--dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0}
+  .tmeta{display:flex; flex-wrap:wrap; gap:5px; margin-top:4px}
+  .tc{font:700 10.5px Archivo,sans-serif; color:#bcbac8; background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.09); border-radius:999px; padding:2px 7px; white-space:nowrap}
+  .tc.acc{color:var(--acc); border-color:rgba(39,224,192,.4); background:rgba(39,224,192,.08)}
+  .tc.gold{color:var(--gold); border-color:rgba(255,212,0,.4); background:rgba(255,212,0,.08)}
+  .tc.dim{color:var(--dim)}
+  .tpts{flex:none; font:800 15px 'JetBrains Mono',monospace; color:var(--acc); white-space:nowrap;
+    text-shadow:0 0 16px rgba(39,224,192,.2)}
+
+  .bos{color:var(--dim); padding:16px; text-align:center; border:1px dashed var(--line); border-radius:12px;
+    background:rgba(255,255,255,.02); font-size:13.5px}
+  .upd{margin-top:26px; padding-top:14px; border-top:1px solid var(--line); color:var(--dim);
+    font-size:12px; text-align:center; line-height:1.6}
+
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap; border:0}
+  a{color:var(--acc)}
+  :focus-visible{outline:2px solid var(--acc); outline-offset:2px}
+
+  @media(max-width:700px){ .iki{grid-template-columns:1fr} }
+  @media(max-width:520px){
+    .pscore{margin-left:0; flex:1 1 100%; text-align:left; border-left:0;
+      border-top:1px dashed rgba(255,255,255,.14); padding:12px 0 0; display:flex; align-items:baseline; gap:10px}
+    .avatar-wrap{width:64px; height:64px; border-radius:18px}
+    .pava{width:64px; height:64px; border-radius:18px; font-size:29px}
+  }
+  @media(max-width:480px){
+    .wrap{padding:14px 12px 46px}
+    .top{flex-wrap:wrap; gap:8px}
+    .top .brand{flex:1 1 100%}
+    .toplinks{flex:1 1 100%}
+    .home{flex:1 1 calc(50% - 4px); justify-content:center; padding:9px 8px; font-size:14px; gap:4px}
+    .arabtn{padding:12px 14px}
+  }
+  @media(max-width:360px){
+    .home{flex-basis:100%}
+    .kutu b{font-size:20px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important;
+      transition-duration:.001ms !important; scroll-behavior:auto !important}
+    .durum .spin{animation:none; border-top-color:var(--acc)}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="quizjedi.html"><span class="dot"></span><span>QUIZ<b>JEDI</b></span></a>
+    <div class="toplinks">
+      <a class="home" href="quizjedi.html">🏆 Liderlik tablosu</a>
+      <a class="home" href="index.html">← siberjedi.com</a>
+    </div>
+  </div>
+
+  <main>
+    <form class="ara" role="search" action="oyuncu.html" method="get" aria-label="Oyuncu ara">
+      <label class="sr-only" for="ad">Oyuncu adı</label>
+      <input class="arain" id="ad" name="ad" type="search" placeholder="Oyuncu adı yaz…" autocomplete="off" spellcheck="false" enterkeyhint="search">
+      <button class="arabtn" type="submit">Profil bul</button>
+    </form>
+
+    <div id="durum" class="durum"></div>
+    <div id="profil" hidden></div>
+  </main>
+
+  <footer class="upd">QuizJedi bir <a href="index.html">SiberJedi</a> yapımıdır · Puanlar YouTube sohbetindeki adınla tutulur.</footer>
+</div>
+
+<noscript>
+  <div class="wrap"><div class="durum"><div class="dt">JavaScript gerekli</div>
+  <div class="dd">Oyuncu profilini görmek için tarayıcında JavaScript'i etkinleştir.</div></div></div>
+</noscript>
+
+<script>
+(function(){
+  var RAW = 'https://raw.githubusercontent.com/siberjedi/siberjedi.github.io/stats/players.json';
+  var API = 'https://api.github.com/repos/siberjedi/siberjedi.github.io/contents/players.json?ref=stats';
+  var DATA = null, etag = null;
+  var DONEM = { daily:'Bugün', weekly:'Bu hafta', monthly:'Bu ay', season:'Bu sezon', all:'Tüm zamanlar' };
+  var MODE = {
+    number:{ l:'Sayı', i:'🔢' }, sayi:{ l:'Sayı', i:'🔢' },
+    word:{ l:'Kelime', i:'🔤' }, kelime:{ l:'Kelime', i:'🔤' },
+    flag:{ l:'Bayrak', i:'🏳️' }, bayrak:{ l:'Bayrak', i:'🏳️' },
+    emoji:{ l:'Emoji', i:'😀' },
+    shape:{ l:'Şekil', i:'🔷' }, sekil:{ l:'Şekil', i:'🔷' },
+    boss:{ l:'Boss', i:'⚔️' },
+    fact:{ l:'Bilgi', i:'💡' }, bilgi:{ l:'Bilgi', i:'💡' },
+    mixed:{ l:'Karışık', i:'🎲' }, karisik:{ l:'Karışık', i:'🎲' }
+  };
+  var BADGE = {
+    wins:{ img:'unvan_wins.webp', n:'Uzaylı', u:'galibiyet' },
+    bullseye:{ img:'unvan_bullseye.webp', n:'Keskin Nişancı', u:'tam isabet' },
+    guesses:{ img:'unvan_guesses.webp', n:'Kâhin', u:'tahmin' },
+    best_round:{ img:'unvan_best_round.webp', n:'Seri Katil', u:'puan' },
+    fastest:{ img:'unvan_fastest.webp', n:'Silahşör', u:'sn' },
+    champ_boss:{ img:'unvan_champ_boss.webp', n:'Savaş Lordu', u:'puan' },
+    champ_number:{ img:'unvan_champ_number.webp', n:'Stratejist', u:'puan' },
+    champ_word:{ img:'unvan_champ_word.webp', n:'Avcı', u:'puan' },
+    champ_fact:{ img:'unvan_champ_fact.webp', n:'Profesör', u:'puan' },
+    streak:{ img:'unvan_streak.webp', n:'Müdavim', u:'gün seri' }
+  };
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function fmt(n){ return Number(n || 0).toLocaleString('tr-TR'); }
+  function fmt1(n){ var v = Number(n); if (!isFinite(v)) return '–';
+    return v.toLocaleString('tr-TR', { maximumFractionDigits:1 }); }
+  function norm(s){
+    var t = String(s == null ? '' : s).trim().toLocaleLowerCase('tr-TR');
+    t = t.replace(/^@+/, '').replace(/^k:/, '').replace(/^@+/, '');
+    return t.trim();
+  }
+  function adGoster(u){
+    return String(u == null ? '' : u).replace(/^@+/, '').replace(/^k:/i, '').replace(/^@+/, '').trim();
+  }
+  function etik(k){
+    var s = String(k == null ? '' : k);
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : 'Kategori';
+  }
+  function donemAd(k){ return DONEM[k] || etik(k); }
+  function modeInfo(k){
+    var key = String(k == null ? '' : k).toLowerCase();
+    return MODE[key] || { l: etik(k), i: '🎯' };
+  }
+  function tsMs(t){
+    var n = Number(t);
+    if (!n || !isFinite(n)) return null;
+    return n > 1e11 ? n : n * 1000;
+  }
+  function tarih(t, opts){
+    var ms = tsMs(t); if (!ms) return '';
+    var d = new Date(ms); if (isNaN(d)) return '';
+    try { return d.toLocaleString('tr-TR', opts || { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }); }
+    catch (e) { return d.toLocaleString(); }
+  }
+  function kisaTarih(t){
+    if (t == null || t === '') return '';
+    var d;
+    if (typeof t === 'number' || /^\d+$/.test(String(t))) {
+      var ms = tsMs(t); d = ms ? new Date(ms) : null;
+    } else { d = new Date(t); }
+    if (!d || isNaN(d)) return String(t);
+    try { return d.toLocaleDateString('tr-TR', { year:'numeric', month:'short' }); }
+    catch (e) { return d.toLocaleDateString(); }
+  }
+  function ulkeBol(s){
+    var t = String(s == null ? '' : s).trim();
+    if (/^[A-Za-z]{2}$/.test(t)) {
+      var fl = t.toUpperCase().split('').map(function(ch){
+        return String.fromCodePoint(0x1F1E6 + ch.charCodeAt(0) - 65);
+      }).join('');
+      return { flag: fl, text: t.toUpperCase() };
+    }
+    return { flag: '🌍', text: t };
+  }
+  function ilkHarf(u){
+    var s = String(u == null ? '' : u).trim();
+    return s ? s.charAt(0).toLocaleUpperCase('tr-TR') : '?';
+  }
+  function parametre(ad){
+    try { return new URLSearchParams(location.search).get(ad); }
+    catch (e) {
+      var m = location.search.match(new RegExp('[?&]' + ad + '=([^&]*)'));
+      return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : null;
+    }
+  }
+  function durum(kind, html){
+    var d = $('durum');
+    if (!d) return;
+    d.className = 'durum' + (kind ? ' ' + kind : '');
+    d.innerHTML = html;
+    d.style.display = '';
+    var pr = $('profil'); if (pr) pr.hidden = true;
+    var b = d.querySelector('[data-retry]');
+    if (b) b.addEventListener('click', yukle);
+  }
+
+  function al(url, h){
+    return fetch(url, { headers: h || {}, cache: 'no-store' }).then(function(r){
+      if (r.status === 304) return null;
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var e = r.headers.get('ETag'); if (e && h) etag = e;
+      return r.json();
+    });
+  }
+
+  function yukle(){
+    durum('yukleniyor', '<div class="spin" aria-hidden="true"></div><span>Profil yükleniyor…</span>');
+    var h = { 'Accept': 'application/vnd.github.raw' };
+    if (etag) h['If-None-Match'] = etag;
+    al(API, h).catch(function(){ return al(RAW + '?t=' + Date.now()); })
+      .then(function(d){ if (d) DATA = d; if (!DATA) throw new Error('bos'); render(); })
+      .catch(function(){
+        durum('hata', '<div class="dt">Profil yüklenemedi</div>' +
+          '<div class="dd">Veri kaynağına ulaşılamadı. İnternet bağlantını kontrol edip yeniden dene.</div>' +
+          '<button class="arabtn" type="button" data-retry>Yeniden dene</button>');
+      });
+  }
+
+  function bul(q){
+    var n = norm(q), list = (DATA && DATA.players) || [];
+    for (var i = 0; i < list.length; i++){
+      if (norm(list[i].user) === n) return list[i];
+    }
+    return null;
+  }
+
+  function genelSira(p){
+    var pe = p.periods && p.periods.all;
+    if (pe && Number(pe.rank) > 0) return Number(pe.rank);
+    var list = ((DATA && DATA.players) || []).slice().sort(function(a, b){
+      var pa = (a.totals && a.totals.points) || 0;
+      var pb = (b.totals && b.totals.points) || 0;
+      return pb - pa;
+    });
+    var idx = list.indexOf(p);
+    return idx >= 0 ? idx + 1 : null;
+  }
+
+  function guncellemeZamani(){
+    var u = DATA && DATA.updated_at;
+    if (u) {
+      var d = new Date(u);
+      if (!isNaN(d)) return d.toLocaleString('tr-TR');
+    }
+    if (DATA && DATA.updated_ts) return tarih(DATA.updated_ts);
+    return '';
+  }
+  function profil(p){
+    var u = adGoster(p.user) || 'Oyuncu';
+    var t = p.totals || {};
+    var allP = (p.periods && p.periods.all) || {};
+    var sira = genelSira(p);
+    var puan = (t.points != null ? t.points : allP.points);
+
+    var chips = '';
+    if (p.country) {
+      var ul = ulkeBol(p.country);
+      chips += '<span class="cip"><span aria-hidden="true">' + esc(ul.flag) + '</span> ' + esc(ul.text) + '</span>';
+    }
+    if (sira) chips += '<span class="cip sir">Genel sıra <b>#' + fmt(sira) + '</b></span>';
+    if (p.streak != null && Number(p.streak) > 0) chips += '<span class="cip">🔥 ' + fmt(p.streak) + ' günlük seri</span>';
+    if (p.best_streak != null && Number(p.best_streak) > 0) chips += '<span class="cip dim">En iyi seri ' + fmt(p.best_streak) + ' gün</span>';
+    if (p.first_seen) chips += '<span class="cip dim">İlk katılım ' + esc(kisaTarih(p.first_seen)) + '</span>';
+
+    var avatar = '<div class="avatar-wrap"><div class="pava" aria-hidden="true">' + esc(ilkHarf(u)) + '</div>' +
+      (p.avatar_url ? '<img class="pava pimg" src="' + esc(p.avatar_url) + '" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.hidden=true">' : '') +
+      '</div>';
+    var hero = '<section class="phero" aria-labelledby="p-ad">' +
+      avatar +
+      '<div class="pinfo"><h1 id="p-ad">' + esc(u) + '</h1><div class="chips">' + chips + '</div></div>' +
+      '<div class="pscore"><span>TOPLAM PUAN</span><b>' + fmt(puan) + '</b></div>' +
+      '</section>';
+
+    var OZ = [
+      ['Puan', fmt(puan)],
+      ['Kazanılan tur', fmt(t.wins)],
+      ['Tam isabet', fmt(t.exacts)],
+      ['Katılım turu', fmt(t.rounds)],
+      ['Tahmin', fmt(t.guesses)],
+      ['En iyi tur', (t.best_round != null ? fmt(t.best_round) : '–')],
+      ['En hızlı cevap', (t.fastest != null && isFinite(Number(t.fastest)) ? fmt1(t.fastest) + ' sn' : '–')],
+      ['Günlük seri', (p.streak != null ? fmt(p.streak) + ' gün' : '–')]
+    ];
+    var kartlar = '<section aria-labelledby="h-ozet"><h2 class="sr-only" id="h-ozet">Özet istatistikler</h2>' +
+      '<div class="kutular">' + OZ.map(function(o){
+        return '<div class="kutu"><b>' + o[1] + '</b><span>' + esc(o[0]) + '</span></div>';
+      }).join('') + '</div></section>';
+
+    var DIZ = ['daily', 'weekly', 'monthly', 'season', 'all'];
+    var dcards = DIZ.map(function(k){
+      var pe = p.periods && p.periods[k];
+      var lab = donemAd(k);
+      if (!pe) {
+        return '<div class="donem yok"><div class="dl">' + esc(lab) + '</div>' +
+          '<div class="rk">–</div><div class="ds">Sıralamada yok</div></div>';
+      }
+      var rk = (pe.rank != null && Number(pe.rank) > 0) ? '#' + fmt(pe.rank) : '–';
+      return '<div class="donem' + (k === 'all' ? ' all' : '') + '"><div class="dl">' + esc(lab) + '</div>' +
+        '<div class="rk">' + rk + '</div>' +
+        '<div class="ds">' + fmt(pe.points) + ' puan · ' + fmt(pe.wins) + ' galibiyet</div></div>';
+    }).join('');
+    var donemler = '<section aria-labelledby="h-donem"><h2 id="h-donem" class="sec-title">Dönem sıralamaları</h2>' +
+      '<div class="donemler">' + dcards + '</div></section>';
+    var modeKeys = Object.keys(p.modes || {});
+    var modesHtml;
+    if (!modeKeys.length) {
+      modesHtml = '<div class="bos">Mod dağılımı henüz yok.</div>';
+    } else {
+      modeKeys.sort(function(a, b){ return (Number(p.modes[b].points) || 0) - (Number(p.modes[a].points) || 0); });
+      var mmax = 1;
+      modeKeys.forEach(function(k){ mmax = Math.max(mmax, Number(p.modes[k].points) || 0); });
+      modesHtml = '<ul class="rowlist">' + modeKeys.map(function(k){
+        var m = p.modes[k] || {}, info = modeInfo(k);
+        var w = Math.max(2, Math.round((Number(m.points) || 0) / mmax * 100));
+        return '<li class="row"><div class="ric" aria-hidden="true">' + info.i + '</div>' +
+          '<div class="rmain"><div class="rtop"><span class="rname">' + esc(info.l) + '</span>' +
+          '<span class="rval">' + fmt(m.points) + ' puan</span></div>' +
+          '<div class="rbar" aria-hidden="true"><i style="width:' + w + '%"></i></div>' +
+          '<div class="rsub">' + fmt(m.wins) + ' galibiyet · ' + fmt(m.rounds) + ' tur' +
+          (m.exacts != null ? ' · ' + fmt(m.exacts) + ' tam isabet' : '') + '</div></div></li>';
+      }).join('') + '</ul>';
+    }
+    var modes = '<section class="panel" aria-labelledby="h-mod"><h2 id="h-mod" class="sec-title">Mod dağılımı</h2>' + modesHtml + '</section>';
+
+    var cats = (p.categories || []).slice().sort(function(a, b){
+      return (Number(b.points) || 0) - (Number(a.points) || 0);
+    });
+    var catsHtml;
+    if (!cats.length) {
+      catsHtml = '<div class="bos">Kategori dağılımı henüz yok.</div>';
+    } else {
+      var cmax = 1;
+      cats.forEach(function(c){ cmax = Math.max(cmax, Number(c.points) || 0); });
+      catsHtml = '<ul class="rowlist">' + cats.map(function(c){
+        var w = Math.max(2, Math.round((Number(c.points) || 0) / cmax * 100));
+        return '<li class="row"><div class="ric" aria-hidden="true">🏷️</div>' +
+          '<div class="rmain"><div class="rtop"><span class="rname">' + esc(etik(c.category)) + '</span>' +
+          '<span class="rval">' + fmt(c.points) + ' puan</span></div>' +
+          '<div class="rbar" aria-hidden="true"><i style="width:' + w + '%"></i></div>' +
+          '<div class="rsub">' + fmt(c.wins) + ' galibiyet · ' + fmt(c.exacts) + ' tam isabet</div></div></li>';
+      }).join('') + '</ul>';
+    }
+    var catsSec = '<section class="panel" aria-labelledby="h-kat"><h2 id="h-kat" class="sec-title">Kategori dağılımı</h2>' + catsHtml + '</section>';
+    var iki = '<div class="iki">' + modes + catsSec + '</div>';
+    var aw = (p.awards && p.awards.slice ? p.awards.slice() : []);
+    var rozetHtml;
+    if (!aw.length) {
+      rozetHtml = '<div class="bos">Henüz rozet kazanılmadı. Her akşam 19:00\'da şansını dene!</div>';
+    } else {
+      var po = { daily:0, weekly:1, monthly:2, season:3, all:4 };
+      aw.sort(function(a, b){
+        var pa = po[a.period] != null ? po[a.period] : 9;
+        var pb = po[b.period] != null ? po[b.period] : 9;
+        if (pa !== pb) return pa - pb;
+        return String(a.key).localeCompare(String(b.key));
+      });
+      rozetHtml = '<div class="rozetler">' + aw.map(function(a){
+        var b = BADGE[String(a.key == null ? '' : a.key).toLowerCase()] || {};
+        var adi = b.n || etik(a.key);
+        var unit = b.u || '';
+        var img = b.img
+          ? '<img src="img/quizjedi-oduller/' + esc(b.img) + '" alt="' + esc(adi) + ' rozeti" loading="lazy" decoding="async" onerror="this.style.opacity=0">'
+          : '<div class="rnoimg" aria-hidden="true">🏅</div>';
+        return '<div class="rozet">' + img +
+          '<div class="rb"><div class="rn">' + esc(adi) + '</div>' +
+          '<div class="rp">' + esc(donemAd(a.period)) + '</div>' +
+          '<div class="rv">' + fmt(a.value) + ' ' + esc(unit) + '</div></div></div>';
+      }).join('') + '</div>';
+    }
+    var rozetler = '<section aria-labelledby="h-rozet"><h2 id="h-rozet" class="sec-title">Kazanılan rozetler</h2>' + rozetHtml + '</section>';
+
+    var rec = (p.recent && p.recent.slice ? p.recent.slice() : []);
+    var hasTs = rec.some(function(r){ return Number(r.ts) > 0; });
+    if (hasTs) rec.sort(function(a, b){ return (Number(b.ts) || 0) - (Number(a.ts) || 0); });
+    rec = rec.slice(0, 8);
+    var recHtml;
+    if (!rec.length) {
+      recHtml = '<div class="bos">Henüz tur kaydı yok.</div>';
+    } else {
+      recHtml = '<ol class="turlar">' + rec.map(function(r){
+        var m = modeInfo(r.mode);
+        var tc = '';
+        if (r.exact === true) tc += '<span class="tc acc">Tam isabet</span>';
+        if (r.won === true) tc += '<span class="tc gold">Kazandı</span>';
+        else if (r.won === false) tc += '<span class="tc dim">Kaybetti</span>';
+        if (r.speed != null && isFinite(Number(r.speed))) tc += '<span class="tc">' + fmt1(r.speed) + ' sn</span>';
+        var z = tarih(r.ts, { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
+        if (z) tc += '<span class="tc dim">' + esc(z) + '</span>';
+        return '<li class="tur"><div class="tno">' + (r.round_no != null ? 'Tur ' + fmt(r.round_no) : 'Tur') + '</div>' +
+          '<div class="tmain"><div class="ttop"><span class="tmode"><span aria-hidden="true">' + m.i + '</span> ' + esc(m.l) + '</span>' +
+          (r.category ? '<span class="tcat">' + esc(etik(r.category)) + '</span>' : '') + '</div>' +
+          '<div class="tmeta">' + tc + '</div></div>' +
+          '<div class="tpts">+' + fmt(r.points) + '</div></li>';
+      }).join('') + '</ol>';
+    }
+    var son = '<section aria-labelledby="h-son"><h2 id="h-son" class="sec-title">Son 8 tur</h2>' + recHtml + '</section>';
+    var upd = guncellemeZamani();
+    var toplam = DATA && DATA.total_players;
+    var info = '<div class="upd">' +
+      (upd ? 'Güncellendi: ' + esc(upd) : '') +
+      (toplam ? (upd ? ' · ' : '') + fmt(toplam) + ' oyuncu' : '') +
+      '</div>';
+
+    var pr = $('profil');
+    pr.innerHTML = hero + kartlar + donemler + iki + rozetler + son + info;
+    pr.hidden = false;
+    var d = $('durum'); if (d) d.style.display = 'none';
+    document.title = u + ' · QuizJedi profil';
+  }
+
+  function render(){
+    var raw = parametre('ad');
+    if (raw == null || !String(raw).trim()) {
+      durum('bos', '<div class="dt">Bir oyuncu adı ara</div>' +
+        '<div class="dd">Yukarıdaki kutuya sohbette kullandığın adı yaz. Liderlik tablosundaki adlara tıklayarak da profillere ulaşabilirsin.</div>');
+      return;
+    }
+    if (!DATA) return;
+    var p = bul(raw);
+    if (!p) {
+      durum('yok', '<div class="dt">“' + esc(adGoster(raw)) + '” bulunamadı</div>' +
+        '<div class="dd">Bu adla henüz puan kaydı yok. Adı sohbette kullandığın gibi yazdığından emin ol; @ ve k: önekleri otomatik temizlenir.</div>');
+      return;
+    }
+    profil(p);
+  }
+
+  function basla(){
+    var raw = parametre('ad');
+    var inp = $('ad');
+    if (inp && raw != null) inp.value = raw;
+    if (raw == null || !String(raw).trim()) {
+      durum('bos', '<div class="dt">Bir oyuncu adı ara</div>' +
+        '<div class="dd">Yukarıdaki kutuya sohbette kullandığın adı yaz. Liderlik tablosundaki adlara tıklayarak da profillere ulaşabilirsin.</div>');
+      return;
+    }
+    yukle();
+  }
+
+  basla();
+})();
+</script>
+</body>
+</html>
