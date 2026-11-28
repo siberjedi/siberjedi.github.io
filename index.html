@@ -212,6 +212,27 @@
     50% { box-shadow: 0 0 18px rgba(0,255,136,0.45), 0 0 40px rgba(0,255,136,0.15); }
   }
 
+  /* QuizJedi menu vurgusu (Planla! yerine) */
+  .nav-quiz {
+    display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .8rem; border-radius: 2px;
+    border: 1px solid #27e0c0; background: rgba(39,224,192,0.08); color: #27e0c0 !important;
+    box-shadow: 0 0 12px rgba(39,224,192,0.3), 0 0 30px rgba(139,92,255,0.12);
+    animation: quizPulse 2.2s ease-in-out infinite; position: relative; overflow: hidden;
+  }
+  .nav-quiz::after {
+    content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+    animation: quizParilti 3.2s ease-in-out infinite;
+  }
+  .nav-quiz:hover { background: #27e0c0; color: var(--bg) !important; text-shadow: none !important; box-shadow: 0 0 22px #27e0c0, 0 0 40px rgba(139,92,255,.35); }
+  .nav-badge-quiz { background: linear-gradient(90deg,#27e0c0,#8b5cff); color: #050510; }
+  @keyframes quizPulse {
+    0%,100% { box-shadow: 0 0 12px rgba(39,224,192,0.3), 0 0 30px rgba(139,92,255,0.12); }
+    50% { box-shadow: 0 0 20px rgba(39,224,192,0.55), 0 0 44px rgba(139,92,255,0.3); }
+  }
+  @keyframes quizParilti { 0%, 60% { left: -60%; } 100% { left: 130%; } }
+  @media (prefers-reduced-motion: reduce) { .nav-quiz, .nav-quiz::after { animation: none; } }
+
   /* HERO */
   #hero {
     position: relative;
@@ -744,7 +765,7 @@
     .nav-toggle{display:block}
     .nav-links { display: none; position:absolute; top:100%; left:0; right:0; flex-direction:column; background:rgba(2,4,8,0.96); border-top:1px solid var(--border); padding:1rem 1.5rem; gap:1rem; }
     .nav-links.open { display: flex; }
-    .nav-links .nav-planla{justify-content:center}
+    .nav-links .nav-planla, .nav-links .nav-quiz{justify-content:center}
     section { padding: 4rem 1.5rem; }
     .about-grid { grid-template-columns: 1fr; }
     .games-grid { grid-template-columns: 1fr; }
@@ -892,9 +913,8 @@
     <li><a href="#oyunlar">Oyunlar</a></li>
     <li><a href="#indirmeler">İndirmeler</a></li>
     <li><a href="#projeler">Projeler</a></li>
-    <li><a href="quizjedi.html" title="Her akşam 19:00 canlı bilgi yarışması">🎯 QuizJedi</a></li>
+    <li><a href="quizjedi.html" class="nav-quiz" title="Her akşam 19:00 canlı bilgi yarışması">🎯 QuizJedi <span class="nav-badge nav-badge-quiz">19:00</span></a></li>
     <li class="nav-canli-li" id="nav-canli" hidden><a href="arena.html" class="nav-canli" title="Chat Clash şu an yayında">🔴 CANLI</a></li>
-    <li><a href="planla.html" class="nav-planla">Planla! <span class="nav-badge">YENİ</span></a></li>
     <li><a href="#sosyal">Sosyal</a></li>
     <li><a href="#iletisim">İletişim</a></li>
   </ul>
