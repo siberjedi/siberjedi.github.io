@@ -285,6 +285,18 @@
     .live-dot{animation:none}
     .aw:hover,.mode:hover,.yt-btn:hover,.home:hover{transform:none}
   }
+  /* oyuncu ara (sahip 28.11: listede olmayan kendini bulsun) */
+  .ara{display:flex; gap:8px; align-items:stretch; margin:4px 0 14px}
+  .arain{flex:1 1 auto; min-width:0; background:#14141b; color:var(--txt); border:1px solid #3a3a48; border-radius:11px;
+    padding:13px 14px; font:600 16px Archivo,sans-serif}
+  .arain::placeholder{color:#8f8d9c}
+  .arain:focus{border-color:var(--acc); box-shadow:0 0 0 3px rgba(39,224,192,.18); outline:none}
+  .arabtn{flex:none; cursor:pointer; border-radius:11px; border:1px solid var(--acc);
+    background:linear-gradient(135deg,var(--acc),#6ff0d8); color:#07110f; font:800 15px Archivo,sans-serif; padding:13px 16px;
+    transition:filter .16s ease, transform .16s ease}
+  .arabtn:hover{filter:brightness(1.06); transform:translateY(-1px)}
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+  @media (max-width:520px){ .ara{flex-direction:column} .arain{font-size:17px; padding:15px 14px} .arabtn{font-size:16px; padding:15px} }
 </style>
 </head>
 <body>
@@ -339,6 +351,11 @@
           <h2 class="board-title">Liderlik tablosu</h2>
           <span class="live-score"><span class="live-dot"></span>CANLI SKOR</span>
         </div>
+        <form class="ara" role="search" action="oyuncu.html" method="get" aria-label="Oyuncu ara">
+          <label class="sr-only" for="ad">Oyuncu adı</label>
+          <input class="arain" id="ad" name="ad" type="search" placeholder="🔍 Adını yaz…" autocomplete="off" spellcheck="false" enterkeyhint="search" required>
+          <button class="arabtn" type="submit">Listede yok musun? Bul</button>
+        </form>
         <div class="tabs" id="tabs">
           <button class="tab on" data-p="daily">Bugün</button>
           <button class="tab" data-p="weekly">Bu hafta</button>
