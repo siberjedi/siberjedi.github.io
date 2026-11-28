@@ -62,5 +62,6 @@
   </url>
   <url><loc>https://siberjedi.com/quizjedi-global.html</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
   <url><loc>https://siberjedi.com/oyuncu.html</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://siberjedi.com/oyuncu-global.html</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>
 
